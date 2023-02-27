@@ -263,6 +263,22 @@ io.on("connection", socket => {
       }
     }
   });
+
+  // OUR NETWORK STUFF --------------------------------------------------------------------------------------------------------
+  
+  // Listening for the data request from the spaceship for task 4
+  // Emmiting it back to the clients
+  socket.on('dataRequest', (data) =>
+  {
+    io.sockets.emit('dataRequest');
+  });
+
+  // Listening for the launch sequence from mission control for task 4
+   // Emmiting it back to the clients
+  socket.on('launchSequence', (data) => 
+  {
+    io.sockets.emit('launchSequence', {sequence: data.sequence});
+  });
 });
 
 //let's create a research namespace.
