@@ -55,7 +55,7 @@ var upButton = function(weightBar, screenHeight)
         // Adding to weight bar
         weightBar.setAttribute('geometry', {height: currentHeight + 0.05});
 
-        // Leveling out position of weight bars
+        // Leveling out position of weight bar
         weightBar.setAttribute('position', {
             x: weightBar.getAttribute('position')['x'],
             y: weightBar.getAttribute('position')['y'] + 0.025,
@@ -82,7 +82,7 @@ var downButton = function(weightBar)
         // Subtracting to weight bar
         weightBar.setAttribute('geometry', {height: currentHeight - 0.05});
 
-        // Leveling out position of weight bars
+        // Leveling out position of weight bar
         weightBar.setAttribute('position', {
             x: weightBar.getAttribute('position')['x'],
             y: weightBar.getAttribute('position')['y'] - 0.025,
@@ -136,6 +136,10 @@ AFRAME.registerComponent('weight_bar',
         const CONTEXT_AF = this;
 
         const element = CONTEXT_AF.el;
+
+        // Get a random ideal weight percent (between 20% and 100%)
+        // Formula for generating a random number between a min and max from https://www.w3schools.com/js/js_random.asp
+        CONTEXT_AF.data.idealAmount = Math.floor(Math.random() * (100 - 20) ) + 20;
 
         // Getting screen
         var screen = document.querySelector('#weightScreen');
