@@ -26,6 +26,7 @@
     <!-- OUR COMPONENTS --------------------------------------------------------------------------------------------------------->
     <script src="components/computers_on.js"></script>
     <script src="components/generate_launch_sequence.js"></script>
+    <script src="components/generate_fuel.js"></script>
 
     </head>
     <body>
@@ -320,6 +321,35 @@
           });
         });
       </script>
+
+      <!-- TASK 5: Flight crew must fill up gas tank to an amount only visible to mission control -->
+
+      <!-- Fuel tank background -->
+      <a-entity geometry="primitive:plane; height:1.3" 
+                position="0 2.8 -6.85" 
+                material="color:#FFFFFF">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:0.5; height:0.5" 
+                position="0 3.6 -6.85" 
+                material="color:#FFFFFF">
+      </a-entity>
+
+      <!-- Fuel tank -->
+      <a-entity id="fuelTank"
+                geometry="width:0.75; height:1; primitive:plane" 
+                position="0 2.8 -6.8" 
+                material="color:#d9d9d9"
+                generate_fuel>
+      </a-entity>
+
+      <!-- Fuel bar -->
+      <a-entity id="fuelBar"
+                geometry="width:0.75; height:0; primitive:plane" 
+                position="0 2.3 -6.8" 
+                material="color:#00FF00"
+                generate_fuel>
+      </a-entity>
+
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
 
