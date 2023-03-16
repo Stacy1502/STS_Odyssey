@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>STS: Odyssey</title>
+    <title>STS: Odyssey - Spaceship</title>
 
     <!-- REQUIRED --------------------------------------------------------------------------------------------------------------->
     <!-- webrtc shim from https://webrtc.github.io/adapter/adapter-latest.js -->
@@ -27,6 +27,7 @@
     <script src="components/weight_bar.js"></script>
     <script src="components/system_ready.js"></script>
     <script src="components/enter_launch_sequence.js"></script>
+    <script src="components/fuel_button.js"></script>
 
     </head>
     <body>
@@ -502,16 +503,15 @@
         </a-entity>
       </a-entity>
 
-
       <script>
-        let socket = io();
+        let task4Socket = io();
 
-        socket.on('connect', (userData) => 
+        task4Socket.on('connect', (userData) => 
         {
             // Listening for the data request button click and emit it when it is
             document.querySelector('#dataRequest').addEventListener('click', function()
             {
-              socket.emit('dataRequest');
+              task4Socket.emit('dataRequest');
 
               // Hiding the data request instructions
               document.querySelector('#dataRequestInstructions').setAttribute('visible', false);
@@ -523,10 +523,90 @@
 
             // Listening for the launch sequence
             // Storing the the sequence to compare to the launch sequence the flight crew enters
-            socket.on('launchSequence', (data) => 
+            task4Socket.on('launchSequence', (data) => 
             {
-              console.log(data.sequence);
               document.querySelector('#code').setAttribute('enter_launch_sequence', {sequence: data.sequence});
+            });
+        });
+      </script>
+
+      <!-- TASK 5: Flight crew must fill up gas tank to an amount only visible to mission control -->
+
+      <!-- Base -->
+      <a-entity geometry="depth:2; height:2.5; width:0.15" 
+                position="0 2 7" 
+                rotation="0 90 0"
+                material="color:#000000">
+      </a-entity>
+
+      <!-- Fuel tank background -->
+      <a-entity geometry="primitive:plane; height:1.3" 
+                position="0 1.8 6.9" 
+                rotation="0 180 0"
+                material="color:#FFFFFF">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:0.5; height:0.5" 
+                position="0 2.6 6.9" 
+                rotation="0 180 0"
+                material="color:#FFFFFF">
+      </a-entity>
+
+      <!-- Fuel tank -->
+      <a-entity id="fuelTank"
+                geometry="width:0.75; height:1; primitive:plane" 
+                position="0 1.8 6.89" 
+                rotation="0 180 0"
+                material="color:#d9d9d9">
+      </a-entity>
+
+      <!-- Fuel bar -->
+      <a-entity id="fuelBar"
+                geometry="width:0.75; height:0; primitive:plane" 
+                position="0 1.3 6.88" 
+                rotation="0 180 0"
+                material="color:#FFDD00">
+      </a-entity>
+
+      <!-- Button -->
+      <a-entity id="fuelButton"
+                fuel_button
+                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #000000" 
+                position="-1.6 2 7"
+                rotation="-90 0 0">
+      </a-entity>
+
+      <script>
+        let task5Socket = io();
+
+        task5Socket.on('connect', (userData) => 
+        {
+            // Emitting the fuel bar height every 30 milliseconds
+            setInterval(function() 
+            {
+              task5Socket.emit('fuelBarHeight', {height: document.querySelector('#fuelBar').getAttribute('geometry')['height']});
+
+            }, 30);
+
+            // Listening for when the fuel bar has reached the ideal height
+            task5Socket.on('idealFuelReached', (data) =>
+            {
+              fuelBar = document.querySelector('#fuelBar');
+
+              // Updating that the ideal height has been reached in the component that deals with the fuel bar
+              document.querySelector('#fuelButton').setAttribute('fuel_button', {isIdeal: true});
+
+              // Updating color of fuel bar to indicate ideal amount is reached
+              fuelBar.setAttribute('material', {color: '#00FF00'});
+
+              // Updating the fuel bar height to be exactly the ideal amount
+              fuelBar.setAttribute('geometry', {height: data.idealAmount});
+
+              // Updating fuel bar position to level it out
+              fuelBar.setAttribute('position', {
+                x: fuelBar.getAttribute('position')['x'],
+                y: 1.3 + (data.idealAmount / 2),
+                z: fuelBar.getAttribute('position')['z']
+              });
             });
         });
       </script>

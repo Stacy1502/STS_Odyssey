@@ -274,10 +274,24 @@ io.on("connection", socket => {
   });
 
   // Listening for the launch sequence from mission control for task 4
-   // Emmiting it back to the clients
+  // Emmiting it back to the clients
   socket.on('launchSequence', (data) => 
   {
     io.sockets.emit('launchSequence', {sequence: data.sequence});
+  });
+
+  // Listening for fuel bar height from spaceship for task 5
+  // Emmiting it back to the clients
+  socket.on('fuelBarHeight', (data) =>
+  {
+    io.sockets.emit('fuelBarHeight', {height: data.height});
+  });
+
+  // Listening for when the fuel bar has reached the ideal height from mission control for task 5
+  // Emmiting it back to the clients
+  socket.on('idealFuelReached', (data) => 
+  {
+    io.sockets.emit('idealFuelReached', {idealAmount: data.idealAmount});
   });
 });
 

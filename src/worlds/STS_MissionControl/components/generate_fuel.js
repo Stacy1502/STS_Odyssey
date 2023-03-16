@@ -9,8 +9,8 @@ AFRAME.registerComponent('generate_fuel',
 {
     schema: 
     {
-        // Launch sequence
-        fuelPercent : {type: 'int', default:50},
+        // Ideal fuel percent
+        idealFuel : {type: 'int', default:50},
     },
 
     init : function() 
@@ -21,7 +21,7 @@ AFRAME.registerComponent('generate_fuel',
 
         // Get a random fuel percent (between 20% and 100%)
         // Formula for generating a random numnber between a min and max from https://www.w3schools.com/js/js_random.asp
-        CONTEXT_AF.data.fuelPercent = Math.floor(Math.random() * (100 - 20) ) + 20;
+        CONTEXT_AF.data.idealFuel = Math.floor(Math.random() * (100 - 20) ) + 20;
 
         // Creating bar object to show where the fuel percent is to the users in mission control
 
@@ -31,7 +31,7 @@ AFRAME.registerComponent('generate_fuel',
 
         // Calculating the position of the bar on the screen depending on the fuel percent
         // Position is between -(tankHeight / 2) and (tankHeight / 2)
-        var decimal =  CONTEXT_AF.data.fuelPercent / 100;
+        var decimal =  CONTEXT_AF.data.idealFuel / 100;
 
         var percentOfScreen = decimal * tankHeight;
 
@@ -43,7 +43,7 @@ AFRAME.registerComponent('generate_fuel',
         bar.setAttribute('position', {
             x: 0,
             y: barPos,
-            z: 0.01
+            z: 0.03
         });
 
         bar.setAttribute('geometry', {
