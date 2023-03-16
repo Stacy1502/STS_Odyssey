@@ -25,6 +25,7 @@
 
     <!-- OUR COMPONENTS --------------------------------------------------------------------------------------------------------->
     <script src="components/computers_on.js"></script>
+    <script src="components/generate_launch_sequence.js"></script>
 
     </head>
     <body>
@@ -226,6 +227,99 @@
                 position="0 1 -5">
       </a-entity>
 
+      <!-- TASK 4: The flight crew presses a button to request data, the mission control must read off a set of numbers for the crew to type in -->
+
+      <a-entity id="launchSequenceScreen" visible="false" generate_launch_sequence>
+        <!-- Instructions -->
+        <a-entity text="value:Onboard Launch Sequence:; 
+                        align:center; color:#000000; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="4.5 3.5 -6.85">
+        </a-entity>
+
+        <!-- Code background -->
+        <a-entity geometry="primitive:plane; height:0.7; width:0.4" 
+                  position="3.25 2.7 -6.85" 
+                  material="color:#ffffff">
+        </a-entity>
+        <a-entity geometry="primitive:plane; height:0.7; width:0.4" 
+                  position="3.75 2.7 -6.85" 
+                  material="color:#ffffff">
+        </a-entity>
+        <a-entity geometry="primitive:plane; height:0.7; width:0.4" 
+                  position="4.25 2.7 -6.85" 
+                  material="color:#ffffff">
+        </a-entity>
+        <a-entity geometry="primitive:plane; height:0.7; width:0.4" 
+                  position="4.75 2.7 -6.85" 
+                  material="color:#ffffff">
+        </a-entity>
+        <a-entity geometry="primitive:plane; height:0.7; width:0.4" 
+                  position="5.25 2.7 -6.85" 
+                  material="color:#ffffff">
+        </a-entity>
+        <a-entity geometry="primitive:plane; height:0.7; width:0.4" 
+                  position="5.75 2.7 -6.85" 
+                  material="color:#ffffff">
+        </a-entity>
+
+        <!-- Code -->
+        <a-entity id="launchSequence">
+          <a-entity text="value:;
+                        align:center; color:#000000; lineHeight:0.05;" 
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="3.25 2.7 -6.84">
+          </a-entity>
+          <a-entity text="value:;
+                        align:center; color:#000000; lineHeight:0.05;" 
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="3.75 2.7 -6.84">
+          </a-entity>
+          <a-entity text="value:;
+                        align:center; color:#000000; lineHeight:0.05;" 
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="4.25 2.7 -6.84">
+          </a-entity>
+          <a-entity text="value:;
+                        align:center; color:#000000; lineHeight:0.05;" 
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="4.75 2.7 -6.84">
+          </a-entity>
+          <a-entity text="value:;
+                        align:center; color:#000000; lineHeight:0.05;" 
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="5.25 2.7 -6.84">
+          </a-entity>
+          <a-entity text="value:;
+                        align:center; color:#000000; lineHeight:0.05;" 
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="5.75 2.7 -6.84">
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <script>
+        let socket = io();
+
+        socket.on('connect', (userData) => 
+        {
+          // Listening for the data request for task 4
+          // When received, display the launch sequence to the users in mission control and emit it
+          socket.on('dataRequest', (data) => 
+          {
+            document.querySelector('#launchSequenceScreen').setAttribute('visible', true);
+
+            socket.emit('launchSequence', {sequence: document.querySelector('#launchSequenceScreen').getAttribute('generate_launch_sequence')['sequence']});
+          });
+        });
+      </script>
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
 

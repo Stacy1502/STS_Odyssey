@@ -25,6 +25,8 @@
 
     <!-- OUR COMPONENTS --------------------------------------------------------------------------------------------------------->
     <script src="components/weight_bar.js"></script>
+    <script src="components/system_ready.js"></script>
+    <script src="components/enter_launch_sequence.js"></script>
 
     </head>
     <body>
@@ -225,6 +227,309 @@
                 rotation="0 0 -90">
       </a-entity>
 
+      <!-- TASK 3: Engaging seatbelts and turning on system -->
+
+      <!-- Player 1 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="3 0.25 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player1Button"
+                circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #000000" 
+                position="3 0.5 -5">
+      </a-entity>
+
+      <!-- Player 2 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="-3 0.25 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player2Button"
+                circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #000000" 
+                position="-3 0.5 -5">
+      </a-entity>
+
+      <!-- Screen -->
+      <a-entity system_ready
+                geometry="depth:0.25; width:2" 
+                rotation="-30 0 0" 
+                material="color:#000000"
+                position="0 1.5 -7">
+      </a-entity>
+      <a-entity id="player1Ready"
+                geometry="primitive:plane; height:0.75; width:0.75" 
+                rotation="-30 0 0" 
+                position="0.46 1.56 -6.85"
+                material="color:#FF0000">
+      </a-entity>
+      <a-entity id="player2Ready"
+                geometry="primitive:plane; height:0.75; width:0.75" 
+                rotation="-30 0 0" 
+                position="-0.46 1.56 -6.85"
+                material="color:#FF0000">
+      </a-entity>
+
+      <!-- TASK 4: The flight crew presses a button to request data, the mission control must read off a set of numbers for the crew to type in -->
+
+      <!-- Button to request data -->
+      <a-entity geometry="depth:0.75; width:0.75; height:1" 
+                position="7 0.5 -1" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="dataRequest"
+                circles-button="button_color: #9db9fb; diameter: 0.75; button_color_hover: #75a3ff; pedastal_color: #000000" 
+                position="7 1 -1">
+      </a-entity>
+
+      <!-- Base -->
+      <a-entity geometry="depth:3; height:2; width:0.15" 
+                position="8 2 1" 
+                material="color:#000000">
+      </a-entity>
+
+      <!-- Screen -->
+      <a-entity geometry="primitive:plane; height:1.5; width:2.5" 
+                rotation="0 -90 0" 
+                position="7.9 2 1" 
+                material="color:#e6e6e6">
+      </a-entity>
+      <a-entity text="value: ___   ___   ___   ___   ___   ___;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.3 1">
+      </a-entity>
+
+      <!-- Instructions -->
+      <a-entity id="dataRequestInstructions"
+                text="value: Press the button to request \n the code from mission control; 
+                      align:center; color:#000000; lineHeight:60" 
+                rotation="0 -90 0" 
+                scale="3 3 3" 
+                position="7.8 1.76 1">
+      </a-entity>
+
+      <!-- Number pad -->
+      <a-entity id="numberPad" visible="false">
+        <!-- The child elements have to be in order from 0 to 9 (with the backspace last) or the user clicks on the number pad won't work correctly -->
+        <a-entity id="pad">
+          <!-- 0 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.9 0.1" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 1 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.9 0.45" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 2 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.9 0.8" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 3 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.9 1.15" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 4 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.9 1.5" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 5 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.55 0.1" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 6 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.55 0.45" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 7 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.55 0.8" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 8 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.55 1.15" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- 9 -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.55 1.5" 
+                    material="color:#9db9fb">
+          </a-entity>
+          <!-- Backspace -->
+          <a-entity class="interactive"
+                    geometry="primitive:plane; height:0.3; width:0.3" 
+                    rotation="0 -90 0" 
+                    position="7.8 1.745 1.9" 
+                    material="color:#75a3ff">
+          </a-entity>
+        </a-entity>
+        <a-entity id="numbers">
+          <a-entity text="value:0;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.9 0.1">
+          </a-entity>
+          <a-entity text="value:1;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.9 0.45">
+          </a-entity>
+          <a-entity text="value:2;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.9 0.8">
+          </a-entity>
+          <a-entity text="value:3;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.9 1.15">
+          </a-entity>
+          <a-entity text="value:4;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.9 1.5">
+          </a-entity>
+          <a-entity text="value:5;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.55 0.1">
+          </a-entity>
+          <a-entity text="value:6;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.55 0.45">
+          </a-entity>
+          <a-entity text="value:7;
+                         align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.55 0.8">
+          </a-entity>
+          <a-entity text="value:8;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.55 1.15">
+          </a-entity>
+          <a-entity text="value:9;
+                          align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.78 1.55 1.5">
+          </a-entity>
+          <a-entity text="value:X;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                    rotation="0 -90 0" 
+                    scale="3 3 3" 
+                    position="7.8 1.745 1.9">
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- Text for code -->
+      <!-- The order of the children matter and need to be from left to right or the display of the sequence will not display correctly -->
+      <a-entity id="code" enter_launch_sequence>
+        <a-entity text="value:;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.4 0.07">
+        </a-entity>
+        <a-entity text="value:;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.4 0.445">
+        </a-entity>
+        <a-entity text="value:;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.4 0.805">
+        </a-entity>
+        <a-entity text="value:;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.4 1.176">
+        </a-entity>
+        <a-entity text="value:;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.4 1.542">
+        </a-entity>
+        <a-entity text="value:;
+                      align:center; color:#000000; lineHeight:0.05;" 
+                rotation="0 -90 0" 
+                scale="4 4 4" 
+                position="7.8 2.4 1.91">
+        </a-entity>
+      </a-entity>
+
+
+      <script>
+        let socket = io();
+
+        socket.on('connect', (userData) => 
+        {
+            // Listening for the data request button click and emit it when it is
+            document.querySelector('#dataRequest').addEventListener('click', function()
+            {
+              socket.emit('dataRequest');
+
+              // Hiding the data request instructions
+              document.querySelector('#dataRequestInstructions').setAttribute('visible', false);
+
+              // Make number pad visible
+              document.querySelector('#numberPad').setAttribute('visible', true);
+
+            });
+
+            // Listening for the launch sequence
+            // Storing the the sequence to compare to the launch sequence the flight crew enters
+            socket.on('launchSequence', (data) => 
+            {
+              console.log(data.sequence);
+              document.querySelector('#code').setAttribute('enter_launch_sequence', {sequence: data.sequence});
+            });
+        });
+      </script>
 
     </a-scene>
 
