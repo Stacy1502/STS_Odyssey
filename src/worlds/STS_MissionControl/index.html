@@ -27,6 +27,7 @@
     <script src="components/computers_on.js"></script>
     <script src="components/generate_launch_sequence.js"></script>
     <script src="components/generate_fuel.js"></script>
+    <script src="components/initiate_launch.js"></script>
 
     </head>
     <body>
@@ -419,6 +420,63 @@
           });
         });
       </script>
+
+      <!-- TASK 6: Initiating countdown to launch -->
+
+      <!-- Player 1 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="-3 0.25 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player1LaunchButton"
+                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #000000" 
+                position="-3 0.5 -5">
+      </a-entity>
+
+      <!-- Player 2 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="3 0.25 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player2LaunchButton"
+                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #000000" 
+                position="3 0.5 -5">
+      </a-entity>
+
+      <!-- Launch Countdown Screen Text -->
+      <a-entity id="launchInstructions"
+                text="value:Initiate Launch\n\nPress launch buttons together to\nbegin the countdown; 
+                      align:center; color:#000000; lineHeight:60"
+                rotation="0 0 0" 
+                scale="4 4 4" 
+                position="-4.5 3.25 -6.85">
+      </a-entity>
+
+      <a-entity id="player1Initiate"
+                text="value:Player 1 Ready; 
+                      align:center; color:#6e6e6e; lineHeight:60"
+                rotation="0 0 0" 
+                scale="4 4 4" 
+                position="-5.3 2.4 -6.85">
+      </a-entity>
+
+      <a-entity id="player2Initiate"
+                text="value:Player 2 Ready; 
+                      align:center; color:#6e6e6e; lineHeight:60"
+                rotation="0 0 0" 
+                scale="4 4 4" 
+                position="-3.7 2.4 -6.85">
+      </a-entity>
+
+      <a-entity id="countdown"
+                visible="false"
+                text="value:5; 
+                      align:center; color:#000000; lineHeight:60"
+                rotation="0 0 0" 
+                scale="20 20 20" 
+                position="-4.5 3 -6.85"
+                initiate_launch>
+      </a-entity>
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
