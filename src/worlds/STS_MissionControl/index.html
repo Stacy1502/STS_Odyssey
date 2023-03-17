@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>STS: Odyssey</title>
+    <title>STS: Odyssey - Mission Control</title>
 
     <!-- REQUIRED --------------------------------------------------------------------------------------------------------------->
     <!-- webrtc shim from https://webrtc.github.io/adapter/adapter-latest.js -->
@@ -26,6 +26,8 @@
     <!-- OUR COMPONENTS --------------------------------------------------------------------------------------------------------->
     <script src="components/computers_on.js"></script>
     <script src="components/generate_launch_sequence.js"></script>
+    <script src="components/generate_fuel.js"></script>
+    <script src="components/initiate_launch.js"></script>
 
     </head>
     <body>
@@ -306,20 +308,176 @@
       </a-entity>
 
       <script>
-        let socket = io();
+        let task4Socket = io();
 
-        socket.on('connect', (userData) => 
+        task4Socket.on('connect', (userData) => 
         {
-          // Listening for the data request for task 4
+          // Listening for the data request
           // When received, display the launch sequence to the users in mission control and emit it
-          socket.on('dataRequest', (data) => 
+          task4Socket.on('dataRequest', (data) => 
           {
             document.querySelector('#launchSequenceScreen').setAttribute('visible', true);
 
-            socket.emit('launchSequence', {sequence: document.querySelector('#launchSequenceScreen').getAttribute('generate_launch_sequence')['sequence']});
+            task4Socket.emit('launchSequence', {sequence: document.querySelector('#launchSequenceScreen').getAttribute('generate_launch_sequence')['sequence']});
           });
         });
       </script>
+
+      <!-- TASK 5: Flight crew must fill up gas tank to an amount only visible to mission control -->
+
+      <!-- Fuel tank background -->
+      <a-entity geometry="primitive:plane; height:1.3" 
+                position="0 2.8 -6.85" 
+                material="color:#FFFFFF">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:0.5; height:0.5" 
+                position="0 3.6 -6.85" 
+                material="color:#FFFFFF">
+      </a-entity>
+
+      <!-- Fuel tank -->
+      <a-entity id="fuelTank"
+                geometry="width:0.75; height:1; primitive:plane" 
+                position="0 2.8 -6.84" 
+                material="color:#d9d9d9"
+                generate_fuel>
+      </a-entity>
+
+      <!-- Fuel bar -->
+      <a-entity id="fuelBar"
+                geometry="width:0.75; height:0; primitive:plane" 
+                position="0 2.3 -6.83" 
+                material="color:#FFDD00">
+      </a-entity>
+
+      <script>
+        let task5Socket = io();
+
+        var idealFuelReached = false;
+
+        task5Socket.on('connect', (userData) => 
+        {
+          // Listening for fuel bar height 
+          // When recieved, update the fuel bar height in mission control and check if the ideal fuel amount is reached (+-2%)
+          task5Socket.on('fuelBarHeight', (data) => 
+          {
+            // Getting fuel bar
+            var fuelBar = document.querySelector('#fuelBar');
+
+            // Updating fuel bar height
+            fuelBar.setAttribute('geometry', {height: data.height});
+
+            // Updating fuel bar position to level it out
+            fuelBar.setAttribute('position', {
+              x: fuelBar.getAttribute('position')['x'],
+              y: 2.3 + (data.height / 2),
+              z: fuelBar.getAttribute('position')['z']
+            });
+
+            // Getting fuel tank
+            var fuelTank = document.querySelector('#fuelTank');
+            var tankHeight = fuelTank.getAttribute('geometry')['height'];
+
+            // Getting ideal amount of fuel
+            var idealAmount = fuelTank.getAttribute('generate_fuel')['idealFuel'];
+
+            // Getting percent height the weight bar is at
+            var currentPercent = (data.height / tankHeight) * 100;
+
+            // Comparing it against the ideal amount of fuel (+-2%)
+            // If it is at the ideal amount, emit it
+            if (currentPercent < idealAmount + 2)
+            {
+                if (currentPercent > idealAmount - 2)
+                {
+                  idealFuelReached = true;
+
+                    // If the fuel bar is still at the ideal amount after a second, task is complete 
+                    // (making sure it is not an accident that the ideal amount was reached)
+                    setTimeout(function() 
+                    {
+                      if (idealFuelReached === true)
+                      {
+                        // Updating color of fuel bar to indicate ideal amount is reached
+                        document.querySelector('#fuelBar').setAttribute('material', {color: '#00FF00'});
+
+                        idealFuelHeight = (idealAmount / 100) * tankHeight;
+
+                        task5Socket.emit('idealFuelReached', {idealAmount: idealFuelHeight});
+                      }
+
+                    }, 1000);
+                }
+                else
+                {
+                  idealFuelReached = false;
+                }
+            }
+            else
+            {
+              idealFuelReached = false;
+            }
+          });
+        });
+      </script>
+
+      <!-- TASK 6: Initiating countdown to launch -->
+
+      <!-- Player 1 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="-3 0.25 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player1LaunchButton"
+                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #000000" 
+                position="-3 0.5 -5">
+      </a-entity>
+
+      <!-- Player 2 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="3 0.25 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player2LaunchButton"
+                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #000000" 
+                position="3 0.5 -5">
+      </a-entity>
+
+      <!-- Launch Countdown Screen Text -->
+      <a-entity id="launchInstructions"
+                text="value:Initiate Launch\n\nPress launch buttons together to\nbegin the countdown; 
+                      align:center; color:#000000; lineHeight:60"
+                rotation="0 0 0" 
+                scale="4 4 4" 
+                position="-4.5 3.25 -6.85">
+      </a-entity>
+
+      <a-entity id="player1Initiate"
+                text="value:Player 1 Ready; 
+                      align:center; color:#6e6e6e; lineHeight:60"
+                rotation="0 0 0" 
+                scale="4 4 4" 
+                position="-5.3 2.4 -6.85">
+      </a-entity>
+
+      <a-entity id="player2Initiate"
+                text="value:Player 2 Ready; 
+                      align:center; color:#6e6e6e; lineHeight:60"
+                rotation="0 0 0" 
+                scale="4 4 4" 
+                position="-3.7 2.4 -6.85">
+      </a-entity>
+
+      <a-entity id="countdown"
+                visible="false"
+                text="value:5; 
+                      align:center; color:#000000; lineHeight:60"
+                rotation="0 0 0" 
+                scale="20 20 20" 
+                position="-4.5 3 -6.85"
+                initiate_launch>
+      </a-entity>
+
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
 

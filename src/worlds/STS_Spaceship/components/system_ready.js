@@ -92,8 +92,6 @@ AFRAME.registerComponent('system_ready',
                 clearTimeout(player2Timer);
 
                 clearInterval(checkReady);
-
-                console.log('ready');
             }
 
         }, 50);
