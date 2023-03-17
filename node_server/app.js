@@ -37,6 +37,25 @@ const User          = require('./models/user');
 const bodyParser    = require('body-parser');
 const dbURL         = 'mongodb://' + env.DATABASE_HOST + ':' +  env.DATABASE_PORT + '/circles';
 
+// FOR SOCKET.iO ------------------------------------------------------------------------------------------------------------
+
+var player1Ready = false;
+var player2Ready = false;
+var player3Ready = false;
+var player4Ready = false;
+
+// Checking if all players are ready to start the game
+// If they are, emit it
+var checkIfReady = function()
+{
+  if (player1Ready === true && player2Ready === true && player3Ready === true && player4Ready === true)
+  {
+    io.sockets.emit('allPlayersReady');
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------------
+
 // Set process name
 process.title = "node-circlesxr";
 
@@ -265,7 +284,75 @@ io.on("connection", socket => {
   });
 
   // OUR NETWORK STUFF --------------------------------------------------------------------------------------------------------
-  
+
+  // Listening for if player 1 is ready or not to start the game
+  socket.on('player1Ready', (data) => 
+  {
+    io.sockets.emit('player1Ready', {ready: data.ready});
+
+    if (data.ready === true)
+    {
+      player1Ready = true;
+
+      checkIfReady();
+    }
+    else
+    {
+      player1Ready = false;
+    }
+  });
+
+  // Listening for if player 2 is ready or not to start the game
+  socket.on('player2Ready', (data) => 
+  {
+    io.sockets.emit('player2Ready', {ready: data.ready});
+
+    if (data.ready === true)
+    {
+      player2Ready = true;
+
+      checkIfReady();
+    }
+    else
+    {
+      player2Ready = false;
+    }
+  });
+
+  // Listening for if player 3 is ready or not to start the game
+  socket.on('player3Ready', (data) => 
+  {
+    io.sockets.emit('player3Ready', {ready: data.ready});
+
+    if (data.ready === true)
+    {
+      player3Ready = true;
+
+      checkIfReady();
+    }
+    else
+    {
+      player3Ready = false;
+    }
+  });
+
+  // Listening for if player 4 is ready or not to start the game
+  socket.on('player4Ready', (data) => 
+  {
+    io.sockets.emit('player4Ready', {ready: data.ready});
+
+    if (data.ready === true)
+    {
+      player4Ready = true;
+
+      checkIfReady();
+    }
+    else
+    {
+      player4Ready = false;
+    }
+  });
+
   // Listening for the data request from the spaceship for task 4
   // Emmiting it back to the clients
   socket.on('dataRequest', (data) =>

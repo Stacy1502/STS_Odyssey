@@ -28,6 +28,7 @@
     <script src="components/system_ready.js"></script>
     <script src="components/enter_launch_sequence.js"></script>
     <script src="components/fuel_button.js"></script>
+    <script src="components/players_ready.js"></script>
 
     </head>
     <body>
@@ -183,6 +184,136 @@
                 geometry='primitive:sphere; radius:50; segments-height:24; segments-width:24;'
                 material='shader:flat; src:#skyMap; side:back;'>
       </a-entity>
+
+      <!-- Starting game -->
+
+      <!-- Player 3 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="-3 0.25 0" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player3Ready"
+                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
+                position="-3 0.5 0">
+      </a-entity>
+
+      <!-- Player 4 button -->
+      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+                position="3 0.25 0" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="player4Ready"
+                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
+                position="3 0.5 0">
+      </a-entity>
+
+      <a-entity players_ready id="startingGameManager" visible="true">
+
+        <!-- Instructions -->
+        <a-entity text="value:Each player press a ready\nbuttons to start the experience; 
+                        align:center; color:#FFFFFF; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="0 3 -6.85">
+        </a-entity>
+
+        <a-entity text="value:Mission Control; 
+                        align:center; color:#FFFFFF; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="-4.5 3.5 -6.85">
+        </a-entity>
+
+        <a-entity text="value:Spaceship; 
+                        align:center; color:#FFFFFF; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="4.5 3.5 -6.85">
+        </a-entity>
+
+        <!-- Player Ready Texts -->
+        <a-entity id="player1ReadyText"
+                  text="value:Player 1 Ready; 
+                        align:center; color:#4a4a4a; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="-4.5 3 -6.85">
+        </a-entity>
+
+        <a-entity id="player2ReadyText"
+                  text="value:Player 2 Ready; 
+                        align:center; color:#4a4a4a; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="-4.5 2.5 -6.85">
+        </a-entity>
+
+        <a-entity id="player3ReadyText"
+                  text="value:Player 3 Ready; 
+                        align:center; color:#4a4a4a; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="4.5 3 -6.85">
+        </a-entity>
+
+        <a-entity id="player4ReadyText"
+                  text="value:Player 4 Ready; 
+                        align:center; color:#4a4a4a; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="4 4 4" 
+                  position="4.5 2.5 -6.85">
+        </a-entity>
+
+      </a-entity>
+
+      <script>
+        let startingSocket = io();
+
+        startingSocket.on('connect', (userData) => 
+        {
+          var startingManager = document.querySelector('#startingGameManager');
+
+          // Emitting if players 3 and 4 are ready or not every 100 milliseconds
+          ready = setInterval(function() 
+          {
+            startingSocket.emit('player3Ready', {ready: startingManager.getAttribute('players_ready')['player3']});
+            startingSocket.emit('player4Ready', {ready: startingManager.getAttribute('players_ready')['player4']});
+
+          }, 100);
+
+          // Listening for is players 1 and 2 are ready and updating their player ready texts accordingly
+          startingSocket.on('player1Ready', (data) => 
+          {
+            if (data.ready === true)
+            {
+              document.querySelector('#player1ReadyText').setAttribute('text', {color: '#00FF00'});
+            }
+            else
+            {
+              document.querySelector('#player1ReadyText').setAttribute('text', {color: '#4a4a4a'});
+            }
+          });
+
+          startingSocket.on('player2Ready', (data) => 
+          {
+            if (data.ready === true)
+            {
+              document.querySelector('#player2ReadyText').setAttribute('text', {color: '#00FF00'});
+            }
+            else
+            {
+              document.querySelector('#player2ReadyText').setAttribute('text', {color: '#4a4a4a'});
+            }
+          });
+
+          // Listening for if all players are ready to start the game
+          // If they are, begin the first task
+          startingSocket.on('allPlayersReady', (data) => 
+          {
+            startingManager.setAttribute('visible', false);
+          });
+        });
+      </script>
 
       <!-- TASK 2: Check cargo weight and determine if it’s too heavy -->
 
