@@ -57,7 +57,7 @@ AFRAME.registerComponent('initiate_launch',
                     // Turning player 1 screen back to gray
                     ready1.setAttribute('text', {color: '#6e6e6e'});
 
-                }, 2000);
+                }, 500);
             }
         });
 

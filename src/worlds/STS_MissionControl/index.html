@@ -92,6 +92,8 @@
         
         <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
         <img id='skyMap' src='assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
+        <a-asset-item id="terminal_model" src="assets/models/terminal.glb" response-type="arraybuffer"></a-asset-item>    
+        <a-asset-item id="chair_model" src="assets/models/chair.glb" response-type="arraybuffer"></a-asset-item>
 
         <!-- REQUIRED ----------------------------------------------------------------------------------------------------------->
         <template id="user-template">
@@ -173,6 +175,33 @@
                 position="" 
                 rotation="-90 0 0">
       </a-entity>
+      
+      <!-- Walls and Roof -->
+      <a-entity geometry="primitive:plane; width:20; height:20" 
+                material="color:#000000" 
+                position="-10 0 0" 
+                rotation="0 90 0">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:20; height:20" 
+          material="color:#000000" 
+          position="10 0 0" 
+          rotation="0 -90 0">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:20; height:20" 
+          material="color:#000000" 
+          position="0 0 10" 
+          rotation="0 -180 0">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:20; height:20" 
+          material="color:#000000" 
+          position="0 0 -10" 
+          rotation="0 0 180">
+      </a-entity>
+      <a-entity geometry="primitive:plane; width:20; height:20" 
+          material="color:#000000" 
+          position="0 10 0" 
+          rotation="90 0 0">
+      </a-entity>
 
       <!-- Sky and lights -->
       <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
@@ -185,26 +214,60 @@
                 material='shader:flat; src:#skyMap; side:back;'>
       </a-entity>
 
+      <!-- Terminals and Chairs -->
+      <a-entity id="terminal" position="-6 0 -4" rotation="0 0 0" scale="1 0.75 0.75" gltf-model="#terminal_model">
+        <a-entity id="chairL" position="-1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+        <a-entity id="chairR" position="1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+      </a-entity>
+      <a-entity id="terminal" position="6 0 -4" rotation="0 0 0" scale="1 0.75 0.75" gltf-model="#terminal_model">
+          <a-entity id="chairL" position="-1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+          <a-entity id="chairR" position="1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+      </a-entity>
+      <a-entity id="terminal" position="-6 0 0" rotation="0 0 0" scale="1 0.75 0.75" gltf-model="#terminal_model">
+          <a-entity id="chairL" position="-1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+          <a-entity id="chairR" position="1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+      </a-entity>
+      <a-entity id="terminal" position="6 0 0" rotation="0 0 0" scale="1 0.75 0.75" gltf-model="#terminal_model">
+          <a-entity id="chairL" position="-1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+          <a-entity id="chairR" position="1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+      </a-entity>
+      <a-entity id="terminal" position="-6 0 4" rotation="0 0 0" scale="1 0.75 0.75" gltf-model="#terminal_model">
+          <a-entity id="chairL" position="-1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+          <a-entity id="chairR" position="1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+      </a-entity>
+      <a-entity id="terminal" position="6 0 4" rotation="0 0 0" scale="1 0.75 0.75" gltf-model="#terminal_model">
+          <a-entity id="chairL" position="-1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+          <a-entity id="chairR" position="1 0 3" rotation="0 180 0" scale="0.5 0.5 0.5" gltf-model="#chair_model"></a-entity>
+      </a-entity>
+
       <!-- Starting game -->
 
       <!-- Player 1 button -->
-      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="-3 0.25 0" 
-                material="color:#000000">
+      <a-entity text="value:Player 1\nReady; 
+                        align:center; color:#000000; lineHeight:60"
+                rotation="-30 0 0" 
+                scale="2 2 2" 
+                position="-4.28 2.122 0.656">
       </a-entity>
       <a-entity id="player1Ready"
-                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
-                position="-3 0.5 0">
+                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #bababa" 
+                position="-4.3 1.8 1.2"
+                rotation="15 0 0"
+                scale="0.75 0.75 0.75">
       </a-entity>
 
       <!-- Player 2 button -->
-      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="3 0.25 0" 
-                material="color:#000000">
+      <a-entity text="value:Player 2\nReady; 
+                        align:center; color:#000000; lineHeight:60"
+                rotation="-30 0 0" 
+                scale="2 2 2" 
+                position="4.28 2.122 0.656">
       </a-entity>
       <a-entity id="player2Ready"
-                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
-                position="3 0.5 0">
+                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #bababa" 
+                position="4.3 1.8 1.2"
+                rotation="15 0 0"
+                scale="0.75 0.75 0.75">
       </a-entity>
 
       <a-entity players_ready id="startingGameManager" visible="true">
@@ -325,15 +388,15 @@
       <!-- Base -->
       <a-entity geometry="depth:0.18; height:2.5; width:4" 
                 position="-4.5 3 -7" 
-                material="color:#212121">
+                material="color:#bababa">
       </a-entity>
       <a-entity geometry="depth:0.18; height:2.5; width:4" 
                 position="0 3 -7" 
-                material="color:#212121">
+                material="color:#bababa">
       </a-entity>
       <a-entity geometry="depth:0.18; height:2.5; width:4" 
                 position="4.5 3 -7" 
-                material="color:#212121">
+                material="color:#bababa">
       </a-entity>
 
       <!-- Screen -->
@@ -354,12 +417,18 @@
       </a-entity>
 
       <!-- Button -->
+      <a-entity text="value: Turn on\nComputers; 
+                      align: center; color: #000000; lineHeight: 60" 
+                rotation="0.01 0 0" 
+                scale="2 2 2" 
+                position="0 0.9 -4.6">
+      </a-entity>
       <a-entity geometry="depth:0.75; width:0.75" 
                 position="0 0.5 -5" 
-                material="color:#000000">
+                material="color:#bababa">
       </a-entity>
       <a-entity computers_on
-                circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #000000" 
+                circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #bababa" 
                 position="0 1 -5">
       </a-entity>
 
@@ -562,23 +631,31 @@
       <!-- TASK 6: Initiating countdown to launch -->
 
       <!-- Player 1 button -->
-      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="-3 0.25 -5" 
-                material="color:#000000">
+      <a-entity text="value:Initiate Launch; 
+                        align:center; color:#000000; lineHeight:60"
+                rotation="-30 0 0" 
+                scale="2 2 2" 
+                position="-4.28 2.122 -3.342">
       </a-entity>
       <a-entity id="player1LaunchButton"
-                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #000000" 
-                position="-3 0.5 -5">
+                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #bababa" 
+                position="-4.3 1.8 -2.8"
+                rotation="15 0 0"
+                scale="0.75 0.75 0.75">
       </a-entity>
 
       <!-- Player 2 button -->
-      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="3 0.25 -5" 
-                material="color:#000000">
+      <a-entity text="value:Initiate Launch; 
+                        align:center; color:#000000; lineHeight:60"
+                rotation="-30 0 0" 
+                scale="2 2 2" 
+                position="4.28 2.122 -3.342">
       </a-entity>
       <a-entity id="player2LaunchButton"
-                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #000000" 
-                position="3 0.5 -5">
+                circles-button="button_color: #9da8fb; diameter: 0.75; button_color_hover: #757eff; pedastal_color: #bababa" 
+                position="4.3 1.8 -2.8"
+                rotation="15 0 0"
+                scale="0.75 0.75 0.75">
       </a-entity>
 
       <a-entity id="task6" visible="false">
