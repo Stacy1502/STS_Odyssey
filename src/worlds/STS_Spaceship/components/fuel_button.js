@@ -7,18 +7,20 @@
 // Functions ---------------------------------------------------------------------------------------------------------------
 
 // Increasing the fuel bar by 0.01
-var increaseBar = function(fuelBar, tankHeight)
+var increaseBar = function(fuelBar, fuelTank)
 {
+    var tankHeight = fuelTank.getAttribute('geometry')['height'];
+
     // Getting current height of fuel bar
     var currentHeight = fuelBar.getAttribute('geometry')['height'];
 
     // Making sure the fuel bar does not go over the screen
-    if (currentHeight < tankHeight)
+    if (currentHeight + 0.01 < tankHeight)
     {
         // Adding to fuel bar
         fuelBar.setAttribute('geometry', {height: currentHeight + 0.01});
 
-        // Leveling out position of fuel bars
+        // Leveling out position of fuel bar
         fuelBar.setAttribute('position', {
             x: fuelBar.getAttribute('position')['x'],
             y: fuelBar.getAttribute('position')['y'] + 0.005,
@@ -28,19 +30,28 @@ var increaseBar = function(fuelBar, tankHeight)
     else
     {
         fuelBar.setAttribute('geometry', {height: tankHeight});
+
+        // Leveling out position of fuel bar
+        fuelBar.setAttribute('position', {
+            x: fuelBar.getAttribute('position')['x'],
+            y: fuelTank.getAttribute('position')['y'],
+            z: fuelBar.getAttribute('position')['z'],
+        });
     }
 }
 
 // --------------------------------------------------------
 
 // Decreasing the fuel bar by 0.01
-var decreaseBar = function(fuelBar)
+var decreaseBar = function(fuelBar, fuelTank)
 {
+    var tankHeight = fuelTank.getAttribute('geometry')['height'];
+
     // Getting current height of fuel bar
     var currentHeight = fuelBar.getAttribute('geometry')['height'];
 
     // Making sure the fuel bar does not go into negatives
-    if (currentHeight > 0)
+    if (currentHeight - 0.01 > 0)
     {
         // Subtracting to fuel bar
         fuelBar.setAttribute('geometry', {height: currentHeight - 0.01});
@@ -55,6 +66,13 @@ var decreaseBar = function(fuelBar)
     else
     {
         fuelBar.setAttribute('geometry', {height: 0});
+
+        // Leveling out position of fuel bars
+        fuelBar.setAttribute('position', {
+            x: fuelBar.getAttribute('position')['x'],
+            y: fuelTank.getAttribute('position')['y'] - tankHeight / 2,
+            z: fuelBar.getAttribute('position')['z'],
+        });
     }
 }
 
@@ -82,19 +100,17 @@ AFRAME.registerComponent('fuel_button',
 
         // Getting fuel tank
         var fuelTank = document.querySelector('#fuelTank');
-        var tankHeight = fuelTank.getAttribute('geometry')['height'];
 
         // Listening for button press
         element.addEventListener('mousedown', function()
         {
-
             // If task has not been completed
             if (CONTEXT_AF.data.isIdeal === false)
             {
                 // When button is held, increase fuel bar every 30 milliseconds
                 mouseHold = setInterval(function() 
                 {
-                    increaseBar(fuelBar, tankHeight);
+                    increaseBar(fuelBar, fuelTank);
 
                     buttonHold = true;
 
@@ -121,7 +137,7 @@ AFRAME.registerComponent('fuel_button',
             // Decrease the weight bar every 30 milliseconds
             if (buttonHold === false && CONTEXT_AF.data.isIdeal === false)
             {
-                decreaseBar(fuelBar);
+                decreaseBar(fuelBar, fuelTank);
             }
         }, 30);
     }

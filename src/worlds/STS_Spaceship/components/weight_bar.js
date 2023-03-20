@@ -6,18 +6,21 @@
 
 // Functions ---------------------------------------------------------------------------------------------------------------
 
-// Calculates and creates bar object to indicate the ideal amount of weight
-// Takes the ideal amount of weight as a percent, and the screen height and width
-// Returns the bar object
-var placeBar = function(idealAmount, screenHeight, screenWidth)
+// Calculates and creates bar object to indicate the ideal amount
+// Takes the ideal amount as a percent and the screen
+var placeIdealBar = function(idealAmount, screen)
 {
-    // Calculating the position of the bar on the screen depending on the ideal amount of weight
+    // Getting screen height and width
+    var screenHeight = screen.getAttribute('geometry')['height'];
+    var screenWidth = screen.getAttribute('geometry')['width'];
+
+    // Calculating the position of the bar on the screen depending on the ideal amount
     // Position is between -(screenHeight / 2) and (screenHeight / 2)
     var decimal = idealAmount / 100;
 
-    var percentOfScreen = decimal * screenHeight;
+    var percentOfScreen = decimal * screenWidth;
 
-    var barPos = -(screenHeight / 2) + percentOfScreen;
+    var barPos = -(screenWidth / 2) + percentOfScreen;
     
     // Creating bar object
     var bar = document.createElement('a-entity');
@@ -38,77 +41,95 @@ var placeBar = function(idealAmount, screenHeight, screenWidth)
         color: '#000000'
     });
 
-    return bar;
+    screen.appendChild(bar);
 }
 
 // --------------------------------------------------------
 
-// Increasing the weight bar
-var upButton = function(weightBar, screenHeight)
+// Increasing the bar
+var upButton = function(bar, screen)
 {
-    // Getting current height of weight bar
-    var currentHeight = weightBar.getAttribute('geometry')['height'];
+    var screenHeight = screen.getAttribute('geometry')['height'];
 
-    // Making sure the weight bar does not go over the screen
-    if (currentHeight < screenHeight)
+    // Getting current height of bar
+    var currentHeight = bar.getAttribute('geometry')['height'];
+
+    // Making sure the bar does not go over the screen
+    if ((currentHeight + 0.05) < screenHeight)
     {
-        // Adding to weight bar
-        weightBar.setAttribute('geometry', {height: currentHeight + 0.05});
+        // Adding to bar
+        bar.setAttribute('geometry', {height: currentHeight + 0.05});
 
-        // Leveling out position of weight bar
-        weightBar.setAttribute('position', {
-            x: weightBar.getAttribute('position')['x'],
-            y: weightBar.getAttribute('position')['y'] + 0.025,
-            z: weightBar.getAttribute('position')['z'],
+        // Leveling out position of bar
+        bar.setAttribute('position', {
+            x: bar.getAttribute('position')['x'],
+            y: bar.getAttribute('position')['y'] + 0.025,
+            z: bar.getAttribute('position')['z'],
         });
     }
     else
     {
-        weightBar.setAttribute('geometry', {height: screenHeight});
+        bar.setAttribute('geometry', {height: screenHeight});
+
+        // Leveling out position of bar
+        bar.setAttribute('position', {
+            x: bar.getAttribute('position')['x'],
+            y: screen.getAttribute('position')['y'],
+            z: bar.getAttribute('position')['z'],
+        });
     }
 }
 
 // --------------------------------------------------------
 
-// Decreasing the weight bar
-var downButton = function(weightBar)
+// Decreasing the bar
+var downButton = function(bar, screen)
 {
-    // Getting current height of weight bar
-    var currentHeight = weightBar.getAttribute('geometry')['height'];
+    var screenHeight = screen.getAttribute('geometry')['height'];
 
-    // Making sure the weight bar does not go into negatives
-    if (currentHeight > 0)
+    // Getting current height of bar
+    var currentHeight = bar.getAttribute('geometry')['height'];
+
+    // Making sure the bar does not go into negatives
+    if (currentHeight - 0.05 > 0)
     {
-        // Subtracting to weight bar
-        weightBar.setAttribute('geometry', {height: currentHeight - 0.05});
+        // Subtracting from bar
+        bar.setAttribute('geometry', {height: currentHeight - 0.05});
 
-        // Leveling out position of weight bar
-        weightBar.setAttribute('position', {
-            x: weightBar.getAttribute('position')['x'],
-            y: weightBar.getAttribute('position')['y'] - 0.025,
-            z: weightBar.getAttribute('position')['z'],
+        // Leveling out position of bar
+        bar.setAttribute('position', {
+            x: bar.getAttribute('position')['x'],
+            y: bar.getAttribute('position')['y'] - 0.025,
+            z: bar.getAttribute('position')['z'],
         });
     }
     else
     {
-        weightBar.setAttribute('geometry', {height: 0});
+        bar.setAttribute('geometry', {height: 0});
+
+        // Leveling out position of bar
+        bar.setAttribute('position', {
+            x: bar.getAttribute('position')['x'],
+            y: screen.getAttribute('position')['y'] - screenHeight / 2,
+            z: bar.getAttribute('position')['z'],
+        });
     }
 }
 
 // --------------------------------------------------------
 
-// Checking if the weight bar has reached the ideal amount (+-2%)
-var checkWeight = function(idealAmount, weightBar, screenHeight)
+// Checking if all bars have reached their ideal amount (+-2%)
+var checkWeight = function(idealAmount, bar, screen)
 {
-    // Getting percent height the weight bar is at
-    var currentPercent = (weightBar.getAttribute('geometry')['height'] / screenHeight) * 100;
+    // Getting percent height the bars are at
+    var percentHeight = (bar.getAttribute('geometry')['height'] / screen.getAttribute('geometry')['height']) * 100;
 
-    // Comparing it against the ideal amount
-    if (currentPercent < idealAmount + 2)
+    // Comparing the percents against the appropriate ideal amounts
+    if (percentHeight < idealAmount + 2)
     {
-        if (currentPercent > idealAmount - 2)
+        if (percentHeight > idealAmount - 2)
         {
-            return true;
+            return true
         }
     }
 
@@ -121,14 +142,8 @@ AFRAME.registerComponent('weight_bar',
 {
     schema: 
     {
-        // If the cargo weight is good
+        // If the weight bar is at the ideal value
         isGood : {type: 'boolean', default:false},
-
-        // The ideal amount of weight
-        idealAmount: {type: 'int', default: 50},
-
-        // Type of button it is (either up or down)
-        buttonType : {type: 'string', default:''},
     },
 
     init : function() 
@@ -139,55 +154,54 @@ AFRAME.registerComponent('weight_bar',
 
         // Get a random ideal weight percent (between 20% and 100%)
         // Formula for generating a random number between a min and max from https://www.w3schools.com/js/js_random.asp
-        CONTEXT_AF.data.idealAmount = Math.floor(Math.random() * (100 - 20) ) + 20;
+        var idealAmount = Math.floor(Math.random() * (80 - 20) ) + 20;
 
         // Getting screen
         var screen = document.querySelector('#weightScreen');
-        
-        var screenHeight = screen.getAttribute('geometry')['height'];
-        var screenWidth = screen.getAttribute('geometry')['width'];
 
-        // Creating a visual bar of the ideal weight amount and displaying it to the user
-        // If the visual bar is already an object, do not duplicate it
-        if (screen.children.length === 0)
-        {
-            var bar = placeBar(CONTEXT_AF.data.idealAmount, screenHeight, screenWidth);
+        console.log(screen);
 
-            screen.appendChild(bar);
-        }
-
-        // Getting weight indication bar
+        // Getting indication bar
         var weightBar = document.querySelector('#weightBar');
 
-        // Listening for up or down button click
-        element.addEventListener('click', function()
+        // Getting top button
+        var top = document.querySelector('#weightUp');
+
+        // Getting bottom button
+        var bottom = document.querySelector('#weightDown');
+
+        // Creating a visual bar of the ideal position, velocity, and altitude amount and displaying it to the user
+        placeIdealBar(idealAmount, screen);
+
+        // Listening for top or bottom button
+        top.addEventListener('click', function() 
         {
             // If task has not been completed
             if (CONTEXT_AF.data.isGood === false)
             {
-                // If the up button was clicked, increase weight bar
-                if(CONTEXT_AF.data.buttonType === 'up')
-                {
-                    upButton(weightBar, screenHeight);
-                }
-                // If down button was clicked, decrease weight bar
-                else if (CONTEXT_AF.data.buttonType === 'down')
-                {
-                    downButton(weightBar);
-                }
+                upButton(weightBar, screen);
 
-                // Checking if the weight bar has reached the ideal amount
-                // If it is, record that the task is complete on all objects with this component
-                if(checkWeight(CONTEXT_AF.data.idealAmount, weightBar, screenHeight) === true)
+                // Checking if weight bars has reached the ideal amount
+                // If it have, record that the task is complete
+                if(checkWeight(idealAmount, weightBar, screen) === true)
                 {
-                    // Each will have the 'weightButton' class
-                    var componentObjects = document.querySelectorAll('.weightButton');
-                    var numObjects = componentObjects.length;
+                    CONTEXT_AF.data.isGood = true;
+                }
+            }
+        });
 
-                    for (let i = 0; i < numObjects; i++)
-                    {
-                        componentObjects[i].setAttribute('weight_bar', {isGood: true});
-                    }
+        bottom.addEventListener('click', function() 
+        {
+            // If task has not been completed
+            if (CONTEXT_AF.data.isGood === false)
+            {
+                downButton(weightBar, screen);
+
+                // Checking if weight bars has reached the ideal amount
+                // If it have, record that the task is complete
+                if(checkWeight(idealAmount, weightBar, screen) === true)
+                {
+                    CONTEXT_AF.data.isGood = true;
                 }
             }
         });

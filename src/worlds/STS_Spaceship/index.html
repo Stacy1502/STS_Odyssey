@@ -29,6 +29,7 @@
     <script src="components/enter_launch_sequence.js"></script>
     <script src="components/fuel_button.js"></script>
     <script src="components/players_ready.js"></script>
+    <script src="components/levers.js"></script>
 
     </head>
     <body>
@@ -319,12 +320,6 @@
 
       <!-- TV -->
 
-      <!-- Base -->
-      <a-entity geometry="depth:2; height:2; width:0.15" 
-                position="-8 2 0" 
-                material="color:#000000">
-      </a-entity>
-
       <!-- Screen -->
       <a-entity id="weightScreen"
                 geometry="primitive:plane; height:1.5; width:1.5" 
@@ -344,19 +339,24 @@
       <!-- Buttons -->
 
       <!-- Up -->
-      <a-entity class="weightButton"
-                weight_bar="buttonType:up"
+      <a-entity id="weightUp"
                 circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #000000" 
                 position="-8 2.5 -1.7"
                 rotation="0 0 -90">
       </a-entity>
 
       <!-- Down -->
-      <a-entity class="weightButton"
-                weight_bar="buttonType:down"
+      <a-entity id="weightDown"
                 circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #000000" 
                 position="-8 1.5 -1.7"
                 rotation="0 0 -90">
+      </a-entity>
+
+      <!-- Base -->
+      <a-entity geometry="depth:2; height:2; width:0.15" 
+                position="-8 2 0" 
+                material="color:#000000"
+                weight_bar>
       </a-entity>
 
       <!-- TASK 3: Engaging seatbelts and turning on system -->
@@ -741,6 +741,114 @@
             });
         });
       </script>
+
+      <!-- TASK 7: Place a row of levers into the right order of up/down -->
+
+      <!-- Screen -->
+      <a-entity geometry="depth:0.18; height:2.5; width:4" 
+              position="4.5 3 -7" 
+              material="color:#000000">
+      </a-entity>
+      
+      <!-- Lever display on screen -->
+      <!-- Position -->
+      <a-entity id="positionScreen"
+                geometry="primitive:plane; height:0.25; width:3" 
+                position="4.5 3.5 -6.85"
+                material="color: #FFFFFF">
+      </a-entity>
+      <a-entity text="value:Position; 
+                      align:left; color:#FFFFFF; lineHeight:60"
+                rotation="0 0 0" 
+                scale="3 3 3" 
+                position="4.47 3.7 -6.85">
+      </a-entity>
+      <a-entity id="positionBar"
+                  geometry="primitive:plane; height:0.25; width:0" 
+                  material="color: #FFDD00" 
+                  position="3 3.5 -6.845">
+      </a-entity>
+
+      <!-- Velocity -->
+      <a-entity id="velocityScreen"
+                geometry="primitive:plane; height:0.25; width:3" 
+                material="color: #FFFFFF" 
+                position="4.5 2.95 -6.85">
+      </a-entity>
+      <a-entity text="value:Velocity; 
+                      align:left; color:#FFFFFF; lineHeight:60"
+                rotation="0 0 0" 
+                scale="3 3 3" 
+                position="4.47 3.15 -6.85">
+      </a-entity>
+      <a-entity id="velocityBar"
+                  geometry="primitive:plane; height:0.25; width:0" 
+                  material="color: #FFDD00" 
+                  position="3 2.95 -6.845">
+      </a-entity>
+
+      <!-- Altitude -->
+      <a-entity id="altitudeScreen"
+                geometry="height:0.25; width:3; primitive:plane" 
+                material="color: #FFFFFF" 
+                position="4.5 2.4 -6.85">
+      </a-entity>
+      <a-entity text="value:Altitude; 
+                      align:left; color:#FFFFFF; lineHeight:60"
+                rotation="0 0 0" 
+                scale="3 3 3" 
+                position="4.47 2.6 -6.85">
+      </a-entity>
+      <a-entity id="altitudeBar"
+                  geometry="primitive:plane; height:0.25; width:0" 
+                  material="color: #FFDD00" 
+                  position="3 2.4 -6.845">
+      </a-entity>
+
+      <!-- Buttons -->
+
+      <!-- Top -->
+      <a-entity id="topLeft"
+                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #bababa" 
+                position="-0.2 0.4 -2.9"
+                scale="0.75 0.75 0.75">
+      </a-entity>
+      <a-entity id="topRight"
+                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #bababa" 
+                position="0.2 0.4 -2.9"
+                scale="0.75 0.75 0.75">
+      </a-entity>
+
+      <!-- Middle -->
+      <a-entity id="middleLeft"
+                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #bababa" 
+                position="-0.2 0.4 -2.475"
+                scale="0.75 0.75 0.75">
+      </a-entity>
+      <a-entity id="middleRight"
+                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #bababa" 
+                position="0.2 0.4 -2.475"
+                scale="0.75 0.75 0.75">
+      </a-entity>
+
+      <!-- Bottom -->
+      <a-entity id="bottomLeft"
+                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #bababa" 
+                position="-0.2 0.4 -2.05"
+                scale="0.75 0.75 0.75">
+      </a-entity>
+      <a-entity id="bottomRight"
+                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #bababa" 
+                position="0.2 0.4 -2.05"
+                scale="0.75 0.75 0.75">
+      </a-entity>
+
+      <!-- Base -->
+      <a-entity geometry="depth: 1.5; height: 0.5" 
+                position="0 0.25 -2.5" 
+                material="color: #bababa"
+                levers>
+      </a-entity>
 
     </a-scene>
 
