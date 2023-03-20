@@ -29,6 +29,7 @@
     <script src="components/generate_fuel.js"></script>
     <script src="components/initiate_launch.js"></script>
     <script src="components/players_ready.js"></script>
+    <script src="components/spot_the_difference.js"></script>
 
     </head>
     <body>
@@ -94,6 +95,16 @@
         <img id='skyMap' src='assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
         <a-asset-item id="terminal_model" src="assets/models/terminal.glb" response-type="arraybuffer"></a-asset-item>    
         <a-asset-item id="chair_model" src="assets/models/chair.glb" response-type="arraybuffer"></a-asset-item>
+
+        <img id="correct1" src="assets/textures/correct1.png">
+        <img id="correct2" src="assets/textures/correct2.jpeg">
+        <img id="correct3" src="assets/textures/correct3.jpg">
+        <img id="correct4" src="assets/textures/correct4.jpg">
+        <img id="correct5" src="assets/textures/correct5.jpg">
+        <img id="correct6" src="assets/textures/correct6.jpg">
+        <img id="correct7" src="assets/textures/correct7.jpg">
+        <img id="correct8" src="assets/textures/correct8.jpg">
+        <img id="wrong" src="assets/textures/wrong.jpg">
 
         <!-- REQUIRED ----------------------------------------------------------------------------------------------------------->
         <template id="user-template">
@@ -696,6 +707,61 @@
         </a-entity>
 
       </a-entity>
+
+      <!-- Task 8: Checking if all mission controls are in sync with the vehicle -->
+    
+      <!-- Images -->
+      <a-entity id="images" visible="true">
+
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="3.4 3.57 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="4.5 3.57 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="5.6 3.57 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="3.4 2.97 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="4.5 2.97 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="5.6 2.97 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="3.4 2.37 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="4.5 2.37 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity class="interactive"
+                  geometry="width: 0.5; height: 0.5; primitive: plane" 
+                  position="5.6 2.37 -6.82" 
+                  material="color: #FFFFFF">
+        </a-entity>
+
+      </a-entity>
+
+      <a-entity spot_the_difference></a-entity>
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->

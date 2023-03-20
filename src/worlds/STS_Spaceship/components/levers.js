@@ -167,7 +167,7 @@ AFRAME.registerComponent('levers',
     schema: 
     {
         // If all the levers are at the ideal values
-        gooooooo : {type: 'boolean', default:false},
+        isGood : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -213,7 +213,7 @@ AFRAME.registerComponent('levers',
         topLeft.addEventListener('click', function() 
         {
             // If task has not been completed
-            if (CONTEXT_AF.data.gooooooo === false)
+            if (CONTEXT_AF.data.isGood === false)
             {
                 leftButton(positionBar, positionScreen);
                 leftButton(velocityBar, velocityScreen);
@@ -222,7 +222,7 @@ AFRAME.registerComponent('levers',
                 // If they have, record that the task is complete
                 if(checkBars(positionBar, positionIdeal, positionScreen, velocityBar, velocityIdeal, velocityScreen, altitudeBar, altitudeIdeal, altitudeScreen) === true)
                 {
-                    CONTEXT_AF.data.gooooooo = true;
+                    CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
                 }
@@ -232,7 +232,7 @@ AFRAME.registerComponent('levers',
         topRight.addEventListener('click', function() 
         {
             // If task has not been completed
-            if (CONTEXT_AF.data.gooooooo === false)
+            if (CONTEXT_AF.data.isGood === false)
             {
                 rightButton(positionBar, positionScreen);
                 rightButton(velocityBar, velocityScreen);
@@ -241,7 +241,7 @@ AFRAME.registerComponent('levers',
                 // If they have, record that the task is complete
                 if(checkBars(positionBar, positionIdeal, positionScreen, velocityBar, velocityIdeal, velocityScreen, altitudeBar, altitudeIdeal, altitudeScreen) === true)
                 {
-                    CONTEXT_AF.data.gooooooo = true;
+                    CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
                 }
@@ -252,7 +252,7 @@ AFRAME.registerComponent('levers',
         middleLeft.addEventListener('click', function() 
         {
             // If task has not been completed
-            if (CONTEXT_AF.data.gooooooo === false)
+            if (CONTEXT_AF.data.isGood === false)
             {
                 leftButton(velocityBar, velocityScreen);
 
@@ -260,7 +260,7 @@ AFRAME.registerComponent('levers',
                 // If they have, record that the task is complete
                 if(checkBars(positionBar, positionIdeal, positionScreen, velocityBar, velocityIdeal, velocityScreen, altitudeBar, altitudeIdeal, altitudeScreen) === true)
                 {
-                    CONTEXT_AF.data.gooooooo = true;
+                    CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
                 }
@@ -270,7 +270,7 @@ AFRAME.registerComponent('levers',
         middleRight.addEventListener('click', function() 
         {
             // If task has not been completed
-            if (CONTEXT_AF.data.gooooooo === false)
+            if (CONTEXT_AF.data.isGood === false)
             {
                 rightButton(velocityBar, velocityScreen);
 
@@ -278,7 +278,7 @@ AFRAME.registerComponent('levers',
                 // If they have, record that the task is complete
                 if(checkBars(positionBar, positionIdeal, positionScreen, velocityBar, velocityIdeal, velocityScreen, altitudeBar, altitudeIdeal, altitudeScreen) === true)
                 {
-                    CONTEXT_AF.data.gooooooo = true;
+                    CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
                 }
@@ -289,7 +289,7 @@ AFRAME.registerComponent('levers',
         bottomLeft.addEventListener('click', function() 
         {
             // If task has not been completed
-            if (CONTEXT_AF.data.gooooooo === false)
+            if (CONTEXT_AF.data.isGood === false)
             {
                 leftButton(altitudeBar, altitudeScreen);
                 leftButton(velocityBar, velocityScreen);
@@ -298,7 +298,7 @@ AFRAME.registerComponent('levers',
                 // If they have, record that the task is complete
                 if(checkBars(positionBar, positionIdeal, positionScreen, velocityBar, velocityIdeal, velocityScreen, altitudeBar, altitudeIdeal, altitudeScreen) === true)
                 {
-                    CONTEXT_AF.data.gooooooo = true;
+                    CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
                 }
@@ -308,7 +308,7 @@ AFRAME.registerComponent('levers',
         bottomRight.addEventListener('click', function() 
         {
             // If task has not been completed
-            if (CONTEXT_AF.data.gooooooo === false)
+            if (CONTEXT_AF.data.isGood === false)
             {
                 rightButton(altitudeBar, altitudeScreen);
                 rightButton(velocityBar, velocityScreen);
@@ -317,7 +317,7 @@ AFRAME.registerComponent('levers',
                 // If they have, record that the task is complete
                 if(checkBars(positionBar, positionIdeal, positionScreen, velocityBar, velocityIdeal, velocityScreen, altitudeBar, altitudeIdeal, altitudeScreen) === true)
                 {
-                    CONTEXT_AF.data.gooooooo = true;
+                    CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
                 }
