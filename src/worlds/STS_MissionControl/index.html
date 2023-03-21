@@ -30,6 +30,7 @@
     <script src="components/initiate_launch.js"></script>
     <script src="components/players_ready.js"></script>
     <script src="components/spot_the_difference.js"></script>
+    <script src="components/sun_alignment.js"></script>
 
     </head>
     <body>
@@ -762,6 +763,122 @@
       </a-entity>
 
       <a-entity spot_the_difference></a-entity>
+
+      <!-- Task 9: Aligning the display towards the sun-->
+
+      <!-- Screen -->
+      <a-entity geometry="primitive: circle; radius: 0.7" 
+                rotation="-90 0 0" 
+                material="" 
+                position="0 0.751 3">
+      </a-entity>
+
+      <a-entity id="alignmentContainer" position="0 0.752 3">
+        <a-entity geometry="primitive: triangle; vertexA: 0 0.25 0; vertexB: -0.1 -0.25 0; vertexC: 0.1 -0.25 0" 
+                  rotation="-90 -90 0" 
+                  material="color: #fbff00" 
+                  position="-0.25 0 0">
+        </a-entity>
+      </a-entity>
+      
+      <!-- Button -->
+      <a-entity id="aligned"
+                circles-button="button_color: #fbff00; diameter: 0.75; button_color_hover: #bdb600; pedastal_color: #FFFFFF" 
+                position="0 0.7 3"
+                scale="0.5 0.5 0.5">
+      </a-entity>
+
+      <!-- Dial -->
+      <a-entity id="dialContainer" position="0 0.753 3">
+        <a-entity geometry="primitive: plane; height: 0.025; width: 0.5" 
+                  rotation="-90 0 0" 
+                  material="color: #000000" 
+                  position="-0.25 0 0">
+        </a-entity>
+      </a-entity>
+
+      <!-- Base -->
+      <a-entity sun_alignment
+                geometry="primitive: box; width: 1.5; height: 0.75; depth: 1.5" 
+                material="color: #000000" 
+                position="0 0.375 3" 
+                rotation="0 0 0">
+      </a-entity>
+
+      <script>
+        let task9Socket = io();
+
+        var canClick = true;
+        var isAligned = false;
+
+        task9Socket.on('connect', (userData) => 
+        {
+          // Listening for dial rotation 
+          // When recieved, update the dial rotation in mission control
+          task9Socket.on('dialRotation', (data) => 
+          {
+            document.querySelector('#dialContainer').setAttribute('rotation', {y: data.rotation});
+          });
+
+          // Getting button that confirms alignment
+          var button = document.querySelector('#aligned');
+
+          // On alignment button click
+          // When button is clicked, check if dial is aligned (+-10 degrees)
+          button.addEventListener('click', function() 
+          {
+              // Only running if task is not complete
+              // Users can only click on an image every second
+              if (canClick === true && isAligned === false)
+              {
+                // Getting alignment indicator
+                  var alignment = document.querySelector('#alignmentContainer').children[0];
+                  var alignmentRotation = document.querySelector('#alignmentContainer').getAttribute('rotation')['y'];
+
+                  console.log(alignmentRotation);
+
+                  // Getting dialContainer
+                  var dial = document.querySelector('#dialContainer');
+
+                  // Converting dial rotation to be between 0 and -359
+                  var rotation = dial.getAttribute('rotation')['y'] % 360;
+
+                  // Checking if the dial rotation is aligned (+-10 degrees)
+                  // If it is, highlight button and alignment green to indicate correct selection, and emit it 
+                  // Otherwise highlight it red to indicate incorrect selection
+                  if (rotation < alignmentRotation + 10)
+                  {
+                      if (rotation > alignmentRotation - 10)
+                      {
+                          isAligned = true;
+
+                          alignment.setAttribute('material', {color: '#00FF00'});
+                          button.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
+
+                          task9Socket.emit('aligned', {alignment: alignmentRotation});
+                      }
+                  }
+
+                  if (isAligned === false)
+                  {
+                      alignment.setAttribute('material', {color: '#FF0000'});
+                      button.setAttribute('circles-button', {button_color: '#FF0000', button_color_hover: '#FF0000'});
+
+                      canClick = false;
+
+                      setTimeout(function() 
+                      {
+                          alignment.setAttribute('material', {color: '#fbff00'});
+                          button.setAttribute('circles-button', {button_color: '#fbff00', button_color_hover: '#bdb600'});
+
+                          canClick = true;
+
+                      }, 1000);
+                  }
+              }
+          });
+        });
+      </script>
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->

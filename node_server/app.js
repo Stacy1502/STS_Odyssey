@@ -380,6 +380,21 @@ io.on("connection", socket => {
   {
     io.sockets.emit('idealFuelReached', {idealAmount: data.idealAmount});
   });
+
+  // Listening for dial rotation from spaceship for task 9
+  // Emmiting it back to the clients
+  socket.on('dialRotation', (data) =>
+  {
+    io.sockets.emit('dialRotation', {rotation: data.rotation});
+  });
+
+  // LIstening for the dial alignment from mission control for task 9
+  // Emmiting it back to the clients
+  socket.on('aligned', (data) => 
+  {
+    io.sockets.emit('aligned', {alignment: data.alignment});
+  });
+
 });
 
 //let's create a research namespace.

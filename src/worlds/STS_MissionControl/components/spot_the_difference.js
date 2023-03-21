@@ -30,8 +30,6 @@ AFRAME.registerComponent('spot_the_difference',
         // Formula for generating a random numnber between a min and max from https://www.w3schools.com/js/js_random.asp
         var wrongImageNum = Math.floor(Math.random() * (numImages - 1) ) + 1;
 
-        console.log(wrongImageNum);
-
         // Displaying images to users in mission control
         var imageId = 'correct'
         var correctImageIdx = 1;

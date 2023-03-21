@@ -30,6 +30,7 @@
     <script src="components/fuel_button.js"></script>
     <script src="components/players_ready.js"></script>
     <script src="components/levers.js"></script>
+    <script src="components/turn_dial.js"></script>
 
     </head>
     <body>
@@ -849,6 +850,87 @@
                 material="color: #bababa"
                 levers>
       </a-entity>
+
+      <!-- Task 9: Aligning the display towards the sun-->
+
+      <!-- Screen -->
+      <a-entity geometry="primitive: circle; radius: 0.7" 
+                rotation="-90 0 0" 
+                material="" 
+                position="-5 0.751 3">
+      </a-entity>
+
+      <!-- Button -->
+      <a-entity id="spin"
+                circles-button="button_color: #fbff00; diameter: 0.75; button_color_hover: #bdb600; pedastal_color: #FFFFFF" 
+                position="-5 0.7 3"
+                scale="0.5 0.5 0.5">
+      </a-entity>
+
+      <a-entity id="alignmentContainer" position="-5 0.752 3" visible="false">
+        <a-entity geometry="primitive: triangle; vertexA: 0 0.25 0; vertexB: -0.1 -0.25 0; vertexC: 0.1 -0.25 0" 
+                  rotation="-90 -90 0" 
+                  material="color: #fbff00" 
+                  position="-0.25 0 0">
+        </a-entity>
+      </a-entity>
+
+      <!-- Dial -->
+      <a-entity id="dialContainer" position="-5 0.753 3">
+        <a-entity geometry="primitive: plane; height: 0.025; width: 0.5" 
+                  rotation="-90 0 0" 
+                  material="color: #000000" 
+                  position="-0.25 0 0"
+                  turn_dial>
+        </a-entity>
+      </a-entity>
+
+      <!-- Base -->
+      <a-entity geometry="primitive: box; width: 1.5; height: 0.75; depth: 1.5" 
+                material="color: #000000" 
+                position="-5 0.375 3" 
+                rotation="0 0 0">
+      </a-entity>
+
+      <script>
+        let task9Socket = io();
+
+        task9Socket.on('connect', (userData) => 
+        {
+            // Emitting the dial rotation every 5 milliseconds
+            setInterval(function() 
+            {
+              task9Socket.emit('dialRotation', {rotation: document.querySelector('#dialContainer').getAttribute('rotation')['y']});
+
+            }, 5);
+
+            // Listening for when the dial is aligned
+            // When it is, show the alignment and highlght it and the button green
+            task9Socket.on('aligned', (data) =>
+            {
+              // Getting alignment indicator
+              var alignmentContainer = document.querySelector('#alignmentContainer');
+              var alignment = alignmentContainer.children[0];
+              
+              // Getting button that confirms alignment
+              var button = document.querySelector('#spin');
+
+              // Rotating alignment to the correct position
+              alignmentContainer.setAttribute('rotation', {y: data.alignment});
+
+              // Displaying alignment
+              alignmentContainer.setAttribute('visible', true);
+
+              // Changing buttons and alignment colour to green to indicate the task is complete
+              alignment.setAttribute('material', {color: '#00FF00'});
+              button.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
+
+              // Changing component turn_dial attribute to show that the task is complete
+              document.querySelector('#dialContainer').children[0].setAttribute('turn_dial', {isAligned: true});
+
+            });
+        });
+      </script>
 
     </a-scene>
 
