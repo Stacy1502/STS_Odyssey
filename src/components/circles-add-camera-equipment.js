@@ -28,11 +28,11 @@ AFRAME.registerComponent('circles-add-camera-equipment', {
         rigElem.setAttribute('movement-controls',{controls:'gamepad,keyboard,checkpoint', constrainToNavMesh:true, speed:0.2});
         rigElem.setAttribute('gamepad-controls', {enabled:false});  //default we want off for now (can make unsuspecting users nauseous ...)
         rigElem.setAttribute('checkpoint-controls',{mode:'teleport'});
-        console.log('Attached camera controls to rig');
+        //console.log('Attached camera controls to rig');
 
         //add pointer if not a standalone HMD (we will use laser controls there instead)
         if (!AFRAME.utils.device.isMobileVR()) {
-          console.log('Adding pointer/cursor controls');
+          //console.log('Adding pointer/cursor controls');
 
           let entity_Pointer = document.createElement('a-entity');
           entity_Pointer.setAttribute('id', 'primary_pointer');
@@ -74,15 +74,15 @@ AFRAME.registerComponent('circles-add-camera-equipment', {
           //we want 'gamepade movement-controls' as an "advanced" feature only triggered when the user clicks down on joystick as a new Vr doing this can make themselves nauseous
           //just don't want joystick movement and snap-turning on at the same time (as we want to have each controller have the same controls)
           const toggleGamepadControlsFunc = (e) => {
-            console.log(e.type);
-            console.log(CONTEXT_AF.el);
+            //console.log(e.type);
+            //console.log(CONTEXT_AF.el);
             if (e.type === 'thumbstickdown') {
-              console.log('turn on gamepad controls');
+              console.log('turn on smooth gamepad controls');
               CONTEXT_AF.el.setAttribute('gamepad-controls', {enabled:true});
               CONTEXT_AF.el.setAttribute('circles-snap-turning', {enabled:false});
             } 
             else if (e.type === 'thumbstickup') {
-              console.log('turn on gamepad controls');
+              console.log('turn off smooth gamepad controls');
               CONTEXT_AF.el.setAttribute('gamepad-controls', {enabled:false});
               CONTEXT_AF.el.setAttribute('circles-snap-turning',{enabled:true});
             }
@@ -181,7 +181,7 @@ AFRAME.registerComponent('circles-add-camera-equipment', {
           console.log('I am a researcher.');
         }
 
-        console.log('Attached camera controls to avatar');
+        //console.log('Attached camera controls to avatar');
         CONTEXT_AF.el.emit(CIRCLES.EVENTS.CAMERA_ATTACHED, {element:CONTEXT_AF.el}, true);
       });
     // }
