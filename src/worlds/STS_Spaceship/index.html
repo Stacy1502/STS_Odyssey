@@ -31,6 +31,7 @@
     <script src="components/players_ready.js"></script>
     <script src="components/levers.js"></script>
     <script src="components/turn_dial.js"></script>
+    <script src="components/break_tank.js"></script>
 
     </head>
     <body>
@@ -931,6 +932,22 @@
             });
         });
       </script>
+
+      <!-- Task 10: Break off the external fuel tank from the ship -->
+      <a-entity text="value: Break off\nexternal fuel\ntank; 
+                      align: center; color: #FFFFFF; lineHeight: 60" 
+                rotation="0.01 0 0" 
+                scale="2 2 2" 
+                position="0 0.8 -4.6">
+      </a-entity>
+      <a-entity geometry="depth:0.75; width:0.75" 
+                position="0 0.5 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity break_tank
+                circles-button="button_color: #9dfba8; diameter: 0.75; button_color_hover: #9aff75; pedastal_color: #000000" 
+                position="0 1 -5">
+      </a-entity>
 
     </a-scene>
 
