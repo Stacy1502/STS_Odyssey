@@ -31,6 +31,7 @@
     <script src="components/players_ready.js"></script>
     <script src="components/spot_the_difference.js"></script>
     <script src="components/sun_alignment.js"></script>
+    <script src="components/align_waves.js"></script>
 
     </head>
     <body>
@@ -106,6 +107,9 @@
         <img id="correct7" src="assets/textures/correct7.jpg">
         <img id="correct8" src="assets/textures/correct8.jpg">
         <img id="wrong" src="assets/textures/wrong.jpg">
+
+        <img id="blueWave" src="assets/textures/blueWave.png">
+        <img id="purpleWave" src="assets/textures/purpleWave.png">
 
         <!-- REQUIRED ----------------------------------------------------------------------------------------------------------->
         <template id="user-template">
@@ -879,6 +883,48 @@
           });
         });
       </script>
+
+      <!-- Task 11: Align a trajectory path on a screen -->
+
+      <!-- Blue button -->
+      <a-entity id="blueAlign"
+                circles-button="button_color: #3d59a4; diameter: 0.75; button_color_hover: #384e8a; pedastal_color: #FFFFFF" 
+                position="-0.25 0.69 -1.5"
+                scale="0.5 0.5 0.5">
+      </a-entity>
+
+      <!-- Purple button -->
+      <a-entity id="purpleAlign"
+                circles-button="button_color: #8568aa; diameter: 0.75; button_color_hover: #6f5b8b; pedastal_color: #FFFFFF" 
+                position="0.25 0.69 -1.5"
+                scale="0.5 0.5 0.5">
+      </a-entity>
+
+      <!-- Blue frame -->
+      <!-- HAS TO BE THE SAME WIDTH AS PURPLE FRAME -->
+      <a-entity id="blueFrame"
+                geometry="width: 2; height: 0.5; primitive: plane"
+                position="0 0.751 -2.2" 
+                rotation="-90 0 0"
+                material="src:#blueWave; color: #bababa; repeat: 2 1; offset: 0 0; transparent: true">
+        </a-entity>
+
+        <!-- Purple frame -->
+        <!-- HAS TO BE THE SAME WIDTH AS BLUE FRAME -->
+        <a-entity id="purpleFrame"
+                  geometry="width: 2; height: 0.5; primitive: plane" 
+                  position="0 0.752 -2.2" 
+                  rotation="-90 0 0"
+                  material="src:#purpleWave; color: #bababa; repeat: 2 1; offset: 0 0; transparent: true">
+        </a-entity>
+
+        <!-- Base -->
+      <a-entity geometry="primitive: box; width: 2; height: 0.75; depth: 1.5" 
+                material="color: #bababa" 
+                position="0 0.375 -2" 
+                rotation="0 0 0"
+                align_waves>
+      </a-entity>
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
