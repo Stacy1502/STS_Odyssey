@@ -11,6 +11,9 @@ AFRAME.registerComponent('computers_on',
     {
         // If the computers are on and task is completed
         isOn : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -27,7 +30,9 @@ AFRAME.registerComponent('computers_on',
         // When button is clicked, turn on computer screen
         element.addEventListener('click', function()
         {
-            if (CONTEXT_AF.data.isOn === false)
+            // If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isOn === false)
             {
                 CONTEXT_AF.data.isOn = true;
 

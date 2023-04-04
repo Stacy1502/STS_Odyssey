@@ -144,6 +144,9 @@ AFRAME.registerComponent('weight_bar',
     {
         // If the weight bar is at the ideal value
         isGood : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -176,8 +179,9 @@ AFRAME.registerComponent('weight_bar',
         // Listening for top or bottom button
         top.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 upButton(weightBar, screen);
 
@@ -192,8 +196,9 @@ AFRAME.registerComponent('weight_bar',
 
         bottom.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 downButton(weightBar, screen);
 

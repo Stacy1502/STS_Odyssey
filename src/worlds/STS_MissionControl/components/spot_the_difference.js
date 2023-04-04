@@ -12,6 +12,9 @@ AFRAME.registerComponent('spot_the_difference',
     {
         // If the odd one out was succesfully selected
         isSelected : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -43,9 +46,10 @@ AFRAME.registerComponent('spot_the_difference',
                 // Putting an event listener on to highlight green when clicked to indicate correct selection
                 imageHolders[i].addEventListener('click', function() 
                 {
-                    // Only running if task is not complete
+                    // If the previous task is complete
+                    // And if task has not been completed
                     // Users can only click on an image every second
-                    if (canClick === true && CONTEXT_AF.data.isSelected === false)
+                    if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isSelected === false && canClick === true)
                     {
                         imageHolders[i].setAttribute('material', {color: '#00FF00'});
 
@@ -64,9 +68,10 @@ AFRAME.registerComponent('spot_the_difference',
                 // Putting an event listener on to highlight red when clicked to indicate incorrect selection
                 imageHolders[i].addEventListener('click', function() 
                 {
-                    // Only running if task is not complete
+                    // If the previous task is complete
+                    // And if task has not been completed
                     // Users can only click on an image every second
-                    if (canClick === true && CONTEXT_AF.data.isSelected === false)
+                    if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isSelected === false && canClick === true)
                     {
                         imageHolders[i].setAttribute('material', {color: '#FF0000'});
 

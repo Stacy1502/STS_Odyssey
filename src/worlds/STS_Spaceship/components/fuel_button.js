@@ -84,6 +84,9 @@ AFRAME.registerComponent('fuel_button',
     {
         // If the ideal fuel percentage has been reached
         isIdeal : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -104,8 +107,9 @@ AFRAME.registerComponent('fuel_button',
         // Listening for button press
         element.addEventListener('mousedown', function()
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isIdeal === false)
+            // If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isIdeal === false)
             {
                 // When button is held, increase fuel bar every 30 milliseconds
                 mouseHold = setInterval(function() 

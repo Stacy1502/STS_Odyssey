@@ -416,6 +416,11 @@
 
             document.querySelector('#task5').setAttribute('visible', true);
             document.querySelector('#task6').setAttribute('visible', true);
+
+            document.querySelector('#task1Component').setAttribute('computers_on', {isPrevComplete: true});
+
+            // UPDATE UI FOR TASK 1 HERE
+
           });
         });
       </script>
@@ -466,7 +471,8 @@
                 position="0 0.5 -5" 
                 material="color:#bababa">
       </a-entity>
-      <a-entity computers_on
+      <a-entity id="task1Component"
+                computers_on
                 circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #bababa" 
                 position="0 1 -5">
       </a-entity>
@@ -789,7 +795,7 @@
 
       </a-entity>
 
-      <a-entity spot_the_difference></a-entity>
+      <a-entity id="task8Component" spot_the_difference></a-entity>
 
       <!-- Task 9: Aligning the display towards the sun-->
 
@@ -854,54 +860,58 @@
           // When button is clicked, check if dial is aligned (+-10 degrees)
           button.addEventListener('click', function() 
           {
-              // Only running if task is not complete
-              // Users can only click on an image every second
-              if (canClick === true && isAligned === false)
+              // Only running if task 8 is complete (checking spot_the_difference component)
+              if (document.querySelector('#task8Component').getAttribute('spot_the_difference')['isSelected'] === true)
               {
-                // Getting alignment indicator
-                  var alignment = document.querySelector('#alignmentContainer').children[0];
-                  var alignmentRotation = document.querySelector('#alignmentContainer').getAttribute('rotation')['y'];
+                // Only running if task is not complete
+                // Users can only click on an image every second
+                if (canClick === true && isAligned === false)
+                {
+                  // Getting alignment indicator
+                    var alignment = document.querySelector('#alignmentContainer').children[0];
+                    var alignmentRotation = document.querySelector('#alignmentContainer').getAttribute('rotation')['y'];
 
-                  console.log(alignmentRotation);
+                    console.log(alignmentRotation);
 
-                  // Getting dialContainer
-                  var dial = document.querySelector('#dialContainer');
+                    // Getting dialContainer
+                    var dial = document.querySelector('#dialContainer');
 
-                  // Converting dial rotation to be between 0 and -359
-                  var rotation = dial.getAttribute('rotation')['y'] % 360;
+                    // Converting dial rotation to be between 0 and -359
+                    var rotation = dial.getAttribute('rotation')['y'] % 360;
 
-                  // Checking if the dial rotation is aligned (+-10 degrees)
-                  // If it is, highlight button and alignment green to indicate correct selection, and emit it 
-                  // Otherwise highlight it red to indicate incorrect selection
-                  if (rotation < alignmentRotation + 10)
-                  {
-                      if (rotation > alignmentRotation - 10)
-                      {
-                          isAligned = true;
+                    // Checking if the dial rotation is aligned (+-10 degrees)
+                    // If it is, highlight button and alignment green to indicate correct selection, and emit it 
+                    // Otherwise highlight it red to indicate incorrect selection
+                    if (rotation < alignmentRotation + 10)
+                    {
+                        if (rotation > alignmentRotation - 10)
+                        {
+                            isAligned = true;
 
-                          alignment.setAttribute('material', {color: '#00FF00'});
-                          button.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
+                            alignment.setAttribute('material', {color: '#00FF00'});
+                            button.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
 
-                          task9Socket.emit('aligned', {alignment: alignmentRotation});
-                      }
-                  }
+                            task9Socket.emit('aligned', {alignment: alignmentRotation});
+                        }
+                    }
 
-                  if (isAligned === false)
-                  {
-                      alignment.setAttribute('material', {color: '#FF0000'});
-                      button.setAttribute('circles-button', {button_color: '#FF0000', button_color_hover: '#FF0000'});
+                    if (isAligned === false)
+                    {
+                        alignment.setAttribute('material', {color: '#FF0000'});
+                        button.setAttribute('circles-button', {button_color: '#FF0000', button_color_hover: '#FF0000'});
 
-                      canClick = false;
+                        canClick = false;
 
-                      setTimeout(function() 
-                      {
-                          alignment.setAttribute('material', {color: '#fbff00'});
-                          button.setAttribute('circles-button', {button_color: '#fbff00', button_color_hover: '#bdb600'});
+                        setTimeout(function() 
+                        {
+                            alignment.setAttribute('material', {color: '#fbff00'});
+                            button.setAttribute('circles-button', {button_color: '#fbff00', button_color_hover: '#bdb600'});
 
-                          canClick = true;
+                            canClick = true;
 
-                      }, 1000);
-                  }
+                        }, 1000);
+                    }
+                }
               }
           });
         });
@@ -942,12 +952,76 @@
         </a-entity>
 
         <!-- Base -->
-      <a-entity geometry="primitive: box; width: 2; height: 0.75; depth: 1.5" 
+      <a-entity id="task11Component"
+                geometry="primitive: box; width: 2; height: 0.75; depth: 1.5" 
                 material="color: #bababa" 
                 position="0 0.375 -2" 
                 rotation="0 0 0"
                 align_waves>
       </a-entity>
+
+      <!-- Controlling execution of tasks -->
+      <script>
+        let taskManager = io();
+
+        taskManager.on('connect', (userData) => 
+        {
+          // Checking if task 1 is complete
+          // If it is, emit it so task 2 can begin in the spaceship
+          task1Check = setInterval(function()
+          {
+              if (document.querySelector('#task1Component').getAttribute('computers_on')['isOn'] === true)
+              {
+                taskManager.emit('task1Complete');
+                clearInterval(task1Check);
+              }
+
+          }, 1000);
+
+          // Listening for task 5 to be complete to begin task 6
+          taskManager.on('task5Complete', (data) => 
+          {
+            document.querySelector('#countdown').setAttribute('initiate_launch', {isPrevComplete: true});
+          });
+
+          // Checking if task 6 is complete
+          // If it is, emit it so task 7 can begin in the spaceship
+          task6Check = setInterval(function()
+          {
+              if (document.querySelector('#countdown').getAttribute('initiate_launch')['launched'] === true)
+              {
+                taskManager.emit('task6Complete');
+                clearInterval(task6Check);
+              }
+
+          }, 1000);
+
+          // Listening for task 7 to be complete to begin task 8
+          taskManager.on('task7Complete', (data) => 
+          {
+            document.querySelector('#task8Component').setAttribute('spot_the_difference', {isPrevComplete: true});
+          });
+
+          // Checking if task 8 is complete
+          // If it is, emit it so task 9 can begin in the spaceship
+          task8Check = setInterval(function()
+          {
+              if (document.querySelector('#task8Component').getAttribute('spot_the_difference')['isSelected'] === true)
+              {
+                taskManager.emit('task8Complete');
+                clearInterval(task8Check);
+              }
+
+          }, 1000);
+
+          // Listening for task 10 to be complete to begin task 11
+          taskManager.on('task10Complete', (data) => 
+          {
+            document.querySelector('#task11Component').setAttribute('align_waves', {isPrevComplete: true});
+          });
+
+        });
+      </script>
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->

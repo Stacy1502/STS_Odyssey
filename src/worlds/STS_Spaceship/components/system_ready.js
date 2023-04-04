@@ -11,6 +11,9 @@ AFRAME.registerComponent('system_ready',
     {
         // If system is ready
         ready : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -37,8 +40,9 @@ AFRAME.registerComponent('system_ready',
         // Player 1
         player1.addEventListener('click', function() 
         {
-            // Only running if task is not complete
-            if (CONTEXT_AF.data.ready === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.ready === false)
             {
                 player1Ready = true;
 
@@ -53,15 +57,16 @@ AFRAME.registerComponent('system_ready',
                     // Turning player 1 screen back to red
                     screen1.setAttribute('material', {color: '#FF0000'});
 
-                }, 500);
+                }, 1000);
             }
         });
 
         // Player 2
         player2.addEventListener('click', function() 
         {
-            // Only running if task is not complete
-            if (CONTEXT_AF.data.ready === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.ready === false)
             {
                 player2Ready = true;
 
@@ -76,7 +81,7 @@ AFRAME.registerComponent('system_ready',
                     // Turning player 2 screen back to red
                     screen2.setAttribute('material', {color: '#FF0000'});
 
-                }, 500);
+                }, 1000);
             }
         });
 

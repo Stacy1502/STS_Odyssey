@@ -168,6 +168,9 @@ AFRAME.registerComponent('levers',
     {
         // If all the levers are at the ideal values
         isGood : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -212,8 +215,9 @@ AFRAME.registerComponent('levers',
         // Listening for left or right button clicks on top row buttons
         topLeft.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 leftButton(positionBar, positionScreen);
                 leftButton(velocityBar, velocityScreen);
@@ -231,8 +235,9 @@ AFRAME.registerComponent('levers',
 
         topRight.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 rightButton(positionBar, positionScreen);
                 rightButton(velocityBar, velocityScreen);
@@ -251,8 +256,9 @@ AFRAME.registerComponent('levers',
         // Listening for left or right button clicks on middle row buttons
         middleLeft.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 leftButton(velocityBar, velocityScreen);
 
@@ -269,8 +275,9 @@ AFRAME.registerComponent('levers',
 
         middleRight.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 rightButton(velocityBar, velocityScreen);
 
@@ -288,8 +295,9 @@ AFRAME.registerComponent('levers',
         // Listening for left or right button clicks on bottom row buttons
         bottomLeft.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 leftButton(altitudeBar, altitudeScreen);
                 leftButton(velocityBar, velocityScreen);
@@ -307,8 +315,9 @@ AFRAME.registerComponent('levers',
 
         bottomRight.addEventListener('click', function() 
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isGood === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isGood === false)
             {
                 rightButton(altitudeBar, altitudeScreen);
                 rightButton(velocityBar, velocityScreen);

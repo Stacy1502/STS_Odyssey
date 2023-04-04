@@ -100,6 +100,9 @@ AFRAME.registerComponent('align_waves',
     {
         // If the waves are aligned and task is completed
         wavesAligned : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -129,8 +132,9 @@ AFRAME.registerComponent('align_waves',
         // Listening for blue button press
         blueButton.addEventListener('mousedown', function()
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.wavesAligned === false && blueHold === false)
+            // If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.wavesAligned === false && blueHold === false)
             {
                 // When button is held, move wave to the left every 30 milliseconds
                 mouseBlueHold = setInterval(function() 
@@ -175,8 +179,9 @@ AFRAME.registerComponent('align_waves',
         // Listening for purple button press
         purpleButton.addEventListener('mousedown', function()
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.wavesAligned === false && purpleHold === false)
+            // If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.wavesAligned === false && purpleHold === false)
             {
                 // When button is held, move wave to the left every 30 milliseconds
                 mousePurpleHold = setInterval(function() 

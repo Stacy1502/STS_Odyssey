@@ -11,6 +11,9 @@ AFRAME.registerComponent('turn_dial',
     {
         // If dial is aligned with the sun
         isAligned : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -32,8 +35,9 @@ AFRAME.registerComponent('turn_dial',
         // Turning button when clicked
         button.addEventListener('click', function() 
         {
-            // Only running if task is not complete
-            if (CONTEXT_AF.data.isAligned === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isAligned === false)
             {
                 currentRotation = dial.getAttribute('rotation')['y'];
 
@@ -46,8 +50,9 @@ AFRAME.registerComponent('turn_dial',
         // Listening for button press
         button.addEventListener('mousedown', function()
         {
-            // If task has not been completed
-            if (CONTEXT_AF.data.isAligned === false && buttonHold === false)
+            //  If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isAligned === false)
             {
                 // When button is held, rotation dial every 30 milliseconds
                 mouseHold = setInterval(function() 

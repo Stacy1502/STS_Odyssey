@@ -375,6 +375,48 @@ io.on("connection", socket => {
     }
   });
 
+  // Listening for if task 1 is complete from mission control
+  // Emmiting it back to the clients
+  socket.on('task1Complete', (data) =>
+  {
+    io.sockets.emit('task1Complete');
+  });
+
+  // Listening for if task 5 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task5Complete', (data) =>
+  {
+    io.sockets.emit('task5Complete');
+  });
+
+  // Listening for if task 6 is complete from mission control
+  // Emmiting it back to the clients
+  socket.on('task6Complete', (data) =>
+  {
+    io.sockets.emit('task6Complete');
+  });
+
+  // Listening for if task 7 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task7Complete', (data) =>
+  {
+    io.sockets.emit('task7Complete');
+  });
+
+  // Listening for if task 8 is complete from mission control
+  // Emmiting it back to the clients
+  socket.on('task8Complete', (data) =>
+  {
+    io.sockets.emit('task8Complete');
+  });
+
+  // Listening for if task 10 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task10Complete', (data) =>
+  {
+    io.sockets.emit('task10Complete');
+  });
+
   // Listening for the data request from the spaceship for task 4
   // Emmiting it back to the clients
   socket.on('dataRequest', (data) =>
@@ -442,10 +484,12 @@ io.on("connection", socket => {
       return; //exit
     }
 
-    if (data.room) {
-      socket.join(data.room); //hacky solution for janus adapter which doesn't set room
-      socket.to(data.room).emit(event, data);
-    }
+    // IDK WHAT THIS DOES BUT IT CONSTANTLY BROKE CODE AND WAS ANNOYING --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //if (data.room) {
+      //socket.join(data.room); //hacky solution for janus adapter which doesn't set room
+      //socket.to(data.room).emit(event, data);
+    //}
   });
 
   //this is a request to ask others for their world state for syncing purposes

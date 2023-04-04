@@ -31,6 +31,7 @@
     <script src="components/players_ready.js"></script>
     <script src="components/levers.js"></script>
     <script src="components/turn_dial.js"></script>
+    <script src="components/break_tank.js"></script>
 
     </head>
     <body>
@@ -354,7 +355,8 @@
       </a-entity>
 
       <!-- Base -->
-      <a-entity geometry="depth:2; height:2; width:0.15" 
+      <a-entity id="task2Component"
+                geometry="depth:2; height:2; width:0.15" 
                 position="-8 2 0" 
                 material="color:#000000"
                 weight_bar>
@@ -383,7 +385,8 @@
       </a-entity>
 
       <!-- Screen -->
-      <a-entity system_ready
+      <a-entity id="task3Component"
+                system_ready
                 geometry="depth:0.25; width:2" 
                 rotation="-30 0 0" 
                 material="color:#000000"
@@ -643,14 +646,19 @@
             // Listening for the data request button click and emit it when it is
             document.querySelector('#dataRequest').addEventListener('click', function()
             {
-              task4Socket.emit('dataRequest');
+              // Only running if task 3 is complete (checking spot_the_difference component)
+              if (document.querySelector('#task3Component').getAttribute('system_ready')['ready'] === true)
+              {
+                document.querySelector('#code').setAttribute('enter_launch_sequence', {isPrevComplete: true});
 
-              // Hiding the data request instructions
-              document.querySelector('#dataRequestInstructions').setAttribute('visible', false);
+                task4Socket.emit('dataRequest');
 
-              // Make number pad visible
-              document.querySelector('#numberPad').setAttribute('visible', true);
+                // Hiding the data request instructions
+                document.querySelector('#dataRequestInstructions').setAttribute('visible', false);
 
+                // Make number pad visible
+                document.querySelector('#numberPad').setAttribute('visible', true);
+                }
             });
 
             // Listening for the launch sequence
@@ -747,8 +755,8 @@
 
       <!-- Screen -->
       <a-entity geometry="depth:0.18; height:2.5; width:4" 
-              position="4.5 3 -7" 
-              material="color:#000000">
+                position="4.5 3 -7" 
+                material="color:#000000">
       </a-entity>
       
       <!-- Lever display on screen -->
@@ -765,9 +773,9 @@
                 position="4.47 3.7 -6.85">
       </a-entity>
       <a-entity id="positionBar"
-                  geometry="primitive:plane; height:0.25; width:0" 
-                  material="color: #FFDD00" 
-                  position="3 3.5 -6.845">
+                geometry="primitive:plane; height:0.25; width:0" 
+                material="color: #FFDD00" 
+                position="3 3.5 -6.845">
       </a-entity>
 
       <!-- Velocity -->
@@ -783,9 +791,9 @@
                 position="4.47 3.15 -6.85">
       </a-entity>
       <a-entity id="velocityBar"
-                  geometry="primitive:plane; height:0.25; width:0" 
-                  material="color: #FFDD00" 
-                  position="3 2.95 -6.845">
+                geometry="primitive:plane; height:0.25; width:0" 
+                material="color: #FFDD00" 
+                position="3 2.95 -6.845">
       </a-entity>
 
       <!-- Altitude -->
@@ -801,9 +809,9 @@
                 position="4.47 2.6 -6.85">
       </a-entity>
       <a-entity id="altitudeBar"
-                  geometry="primitive:plane; height:0.25; width:0" 
-                  material="color: #FFDD00" 
-                  position="3 2.4 -6.845">
+                geometry="primitive:plane; height:0.25; width:0" 
+                material="color: #FFDD00" 
+                position="3 2.4 -6.845">
       </a-entity>
 
       <!-- Buttons -->
@@ -845,7 +853,8 @@
       </a-entity>
 
       <!-- Base -->
-      <a-entity geometry="depth: 1.5; height: 0.5" 
+      <a-entity id="task7Component"
+                geometry="depth: 1.5; height: 0.5" 
                 position="0 0.25 -2.5" 
                 material="color: #bababa"
                 levers>
@@ -877,7 +886,8 @@
 
       <!-- Dial -->
       <a-entity id="dialContainer" position="-5 0.753 3">
-        <a-entity geometry="primitive: plane; height: 0.025; width: 0.5" 
+        <a-entity id="task9Component"
+                  geometry="primitive: plane; height: 0.025; width: 0.5" 
                   rotation="-90 0 0" 
                   material="color: #000000" 
                   position="-0.25 0 0"
@@ -929,6 +939,124 @@
               document.querySelector('#dialContainer').children[0].setAttribute('turn_dial', {isAligned: true});
 
             });
+        });
+      </script>
+
+      <!-- Task 10: Break off the external fuel tank from the ship -->
+      <a-entity text="value: Break off\nexternal fuel\ntank; 
+                      align: center; color: #FFFFFF; lineHeight: 60" 
+                rotation="0.01 0 0" 
+                scale="2 2 2" 
+                position="0 0.8 -4.6">
+      </a-entity>
+      <a-entity geometry="depth:0.75; width:0.75" 
+                position="0 0.5 -5" 
+                material="color:#000000">
+      </a-entity>
+      <a-entity id="task10Component"
+                break_tank
+                circles-button="button_color: #9dfba8; diameter: 0.75; button_color_hover: #9aff75; pedastal_color: #000000" 
+                position="0 1 -5">
+      </a-entity>
+
+      <!-- Controlling execution of tasks -->
+      <script>
+        let taskManager = io();
+
+        taskManager.on('connect', (userData) => 
+        {
+          // Listening for task 1 to be complete to begin task 2
+          taskManager.on('task1Complete', (data) => 
+          {
+            document.querySelector('#task2Component').setAttribute('weight_bar', {isPrevComplete: true});
+          });
+
+          // Checking if task 2 is complete
+          // If it is, begin task 3
+          task2Check = setInterval(function()
+          {
+              if (document.querySelector('#task2Component').getAttribute('weight_bar')['isGood'] === true)
+              {
+                document.querySelector('#task3Component').setAttribute('system_ready', {isPrevComplete: true});
+                clearInterval(task2Check);
+
+                // TASK 4 STARTED FROM task4Socket
+
+                // Checking if task 4 is complete
+                // If it is, begin task 5
+                task4Check = setInterval(function()
+                {
+                    if (document.querySelector('#code').getAttribute('enter_launch_sequence')['isMatch'] === true)
+                    {
+                      document.querySelector('#fuelButton').setAttribute('fuel_button', {isPrevComplete: true});
+                      clearInterval(task4Check);
+
+                      // Checking if task 5 is complete
+                      // If it is, emit it so task 6 can begin in mission control
+                      task5Check = setInterval(function()
+                      {
+                          if (document.querySelector('#fuelButton').getAttribute('fuel_button')['isIdeal'] === true)
+                          {
+                            taskManager.emit('task5Complete');
+                            clearInterval(task5Check);
+                          }
+
+                      }, 1000);
+                    }
+
+                }, 1000);
+
+              }
+
+          }, 1000);
+
+          // Listening for task 6 to be complete to begin task 7
+          taskManager.on('task6Complete', (data) => 
+          {
+            document.querySelector('#task7Component').setAttribute('levers', {isPrevComplete: true});
+          });
+
+          // Checking if task 7 is complete
+          // If it is, emit it so task 8 can begin in mission control
+          task7Check = setInterval(function()
+          {
+              if (document.querySelector('#task7Component').getAttribute('levers')['isGood'] === true)
+              {
+                taskManager.emit('task7Complete');
+                clearInterval(task7Check);
+              }
+
+          }, 1000);
+
+          // Listening for task 8 to be complete to begin task 9
+          taskManager.on('task8Complete', (data) => 
+          {
+            document.querySelector('#task9Component').setAttribute('turn_dial', {isPrevComplete: true});
+          });
+
+          // Checking if task 9 is complete
+          // If it is, begin task 10
+          task9Check = setInterval(function()
+          {
+              if (document.querySelector('#task9Component').getAttribute('turn_dial')['isAligned'] === true)
+              {
+                document.querySelector('#task10Component').setAttribute('break_tank', {isPrevComplete: true});
+              }
+
+          }, 1000);
+
+          // Checking if task 10 is complete
+          // If it is, emit it so task 11 can begin in mission control
+          task10Check = setInterval(function()
+          {
+              if (document.querySelector('#task10Component').getAttribute('break_tank')['isBrokenOff'] === true)
+              {
+                taskManager.emit('task10Complete');
+                clearInterval(task10Check);
+              }
+
+          }, 1000);
+
         });
       </script>
 

@@ -11,6 +11,9 @@ AFRAME.registerComponent('initiate_launch',
     {
         // If launch has been initiated and countdown is complete
         launched : {type: 'boolean', default:false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -41,8 +44,9 @@ AFRAME.registerComponent('initiate_launch',
         // Player 1
         player1.addEventListener('click', function() 
         {
-            // Only running if task is not complete
-            if (CONTEXT_AF.data.launched === false)
+            // If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.launched === false)
             {
                 player1Ready = true;
 
@@ -57,15 +61,16 @@ AFRAME.registerComponent('initiate_launch',
                     // Turning player 1 screen back to gray
                     ready1.setAttribute('text', {color: '#6e6e6e'});
 
-                }, 500);
+                }, 1000);
             }
         });
 
         // Player 2
         player2.addEventListener('click', function() 
         {
-            // Only running if task is not complete
-            if (CONTEXT_AF.data.launched === false)
+            // If the previous task is complete
+            // And if task has not been completed
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.launched === false)
             {
                 player2Ready = true;
 
@@ -80,7 +85,7 @@ AFRAME.registerComponent('initiate_launch',
                     // Turning player 2 screen back to gray
                     ready2.setAttribute('text', {color: '#6e6e6e'});
 
-                }, 500);
+                }, 1000);
             }
         });
 

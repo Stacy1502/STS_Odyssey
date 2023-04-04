@@ -32,6 +32,9 @@ AFRAME.registerComponent('enter_launch_sequence',
 
         // If the launch sequence and the user entered sequence is a match
         isMatch : {type: 'boolean', default: false},
+
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
     },
 
     init : function() 
@@ -60,8 +63,9 @@ AFRAME.registerComponent('enter_launch_sequence',
         {
             numberPad[i].addEventListener('click', function()
             {
-                // If the task is not already complete and correct sequence has not been entered
-                if (CONTEXT_AF.data.isMatch === false && sequencePos < 6)
+                //  If the previous task is complete
+                // And if task is not already complete and correct sequence has not been entered
+                if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isMatch === false && sequencePos < 6)
                 {
                     userSequence[sequencePos] = i;
 
@@ -118,8 +122,9 @@ AFRAME.registerComponent('enter_launch_sequence',
         // Display gets updated for the user
         numberPad[10].addEventListener('click', function() 
         {
-            // If the task is not already complete and correct sequence has not been entered
-            if (CONTEXT_AF.data.isMatch === false && sequencePos < 6)
+            //  If the previous task is complete
+            // And if task is not already complete and correct sequence has not been entered
+            if (CONTEXT_AF.data.isPrevComplete === true && CONTEXT_AF.data.isMatch === false && sequencePos < 6)
             {
                 // Making sure there is a digit to remove
                 if (sequencePos > 0)
