@@ -34,6 +34,20 @@ AFRAME.registerComponent('initiate_launch',
         var ready1 = document.querySelector('#player1Initiate');
         var ready2 = document.querySelector('#player2Initiate');
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the buttons blue
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                player1.setAttribute('circles-button', {button_color: '#9da8fb', button_color_hover: '#757eff'});
+                player2.setAttribute('circles-button', {button_color: '#9da8fb', button_color_hover: '#757eff'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Listening for player 1 and 2 button clicks
         var player1Ready = false;
         var player2Ready = false;
@@ -95,17 +109,20 @@ AFRAME.registerComponent('initiate_launch',
             if (player1Ready === true && player2Ready === true)
             {
                 CONTEXT_AF.data.launched = true;
-    
+
                 // Clearning timers so screens stay green
                 clearTimeout(player1Timer);
                 clearTimeout(player2Timer);
 
                 clearInterval(checkReady);
 
+                player1.setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
+                player2.setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
+
                 // Starting countdown in a second
                 setTimeout(function() 
                 {
-                    var countdownNum = 5;
+                    var countdownNum = 10;
 
                     countdownText.setAttribute('visible', true);
                     instructions.setAttribute('visible', false);
@@ -125,8 +142,6 @@ AFRAME.registerComponent('initiate_launch',
                             countdownText.setAttribute('scale', {x: 10, y: 10, z: 10});
 
                             countdownText.setAttribute('text', {value: 'Launch\nSuccessful!'});
-
-                            CONTEXT_AF.data.launched = true;
                         }
 
                     }, 1000);

@@ -22,6 +22,19 @@ AFRAME.registerComponent('computers_on',
 
         const element = CONTEXT_AF.el;
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the button pink
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                element.setAttribute('circles-button', {button_color: '#fb9dcf', button_color_hover: '#ff75bf'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Getting computer screens
         var computers = document.querySelectorAll('.computer');
         var numComputers = computers.length;
@@ -36,9 +49,11 @@ AFRAME.registerComponent('computers_on',
             {
                 CONTEXT_AF.data.isOn = true;
 
+                element.setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
+
                 for (let i = 0; i < numComputers; i++)
                 {
-                    computers[i].setAttribute('material', {color: '#858dff'});
+                    computers[i].setAttribute('material', {color: '#dadbf1'});
                 }
             }
         });

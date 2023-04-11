@@ -9,7 +9,7 @@
     {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 462,
+      "count": 473,
       "max": [
         2.15487909317017,
         3.27067303657532,
@@ -25,19 +25,19 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 462,
+      "count": 473,
       "type": "VEC3"
     },
     {
       "bufferView": 3,
       "componentType": 5126,
-      "count": 462,
+      "count": 473,
       "type": "VEC4"
     },
     {
       "bufferView": 4,
       "componentType": 5126,
-      "count": 462,
+      "count": 473,
       "type": "VEC2"
     }
   ],
@@ -53,33 +53,33 @@
     },
     {
       "buffer": 0,
-      "byteLength": 5544,
+      "byteLength": 5676,
       "byteOffset": 8304,
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 5544,
-      "byteOffset": 13848,
+      "byteLength": 5676,
+      "byteOffset": 13980,
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 7392,
-      "byteOffset": 19392,
+      "byteLength": 7568,
+      "byteOffset": 19656,
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 3696,
-      "byteOffset": 26784,
+      "byteLength": 3784,
+      "byteOffset": 27224,
       "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 30480,
-      "uri": "Untitled.bin"
+      "byteLength": 31008,
+      "uri": "terminal-TEXTURES.bin"
     }
   ],
   "images": [

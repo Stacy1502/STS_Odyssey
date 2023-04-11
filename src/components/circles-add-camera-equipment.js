@@ -2,7 +2,10 @@
 
 //this will add camera equipment to networked "player1" only
 AFRAME.registerComponent('circles-add-camera-equipment', {
-  schema: {},
+  schema: 
+  {
+    gui : {type: 'boolean', default:false},
+  },
   init: function() {
     const CONTEXT_AF = this;
 
@@ -183,6 +186,25 @@ AFRAME.registerComponent('circles-add-camera-equipment', {
 
         //console.log('Attached camera controls to avatar');
         CONTEXT_AF.el.emit(CIRCLES.EVENTS.CAMERA_ATTACHED, {element:CONTEXT_AF.el}, true);
+
+        // GUI 
+
+        if(CONTEXT_AF.data.gui === true)
+        {
+          let gui = document.createElement('a-entity');
+          gui.setAttribute('id', 'guiOverlay');
+          gui.setAttribute('material', {transparent: true, alphaTest: 0.3, shader:'flat', src:'#task0GUI'});
+          gui.setAttribute('geometry', {primitive: 'plane', height: 0.17, width: 0.365});
+          gui.setAttribute('position', {x:0, y:0, z:-0.1});
+          avatarCam.appendChild(gui);
+
+          let timerText = document.createElement('a-entity');
+          timerText.setAttribute('id', 'timer');
+          timerText.setAttribute('text', {value: '05:00', align:'center', color:'FFFFFF', lineHeight:60, baseline:'bottom'});
+          timerText.setAttribute('position', {x: 0, y:0.059, z:-0.09});
+          timerText.setAttribute('scale', {x:0.1, y:0.08, z:0.1});
+          avatarCam.appendChild(timerText);
+        }
       });
     // }
   }

@@ -113,6 +113,24 @@
           <!-- 3D MODELS -->
           <a-asset-item id="Cockpit" response-type="arraybuffer" src="./assets/models/cockpit/version3.gltf"></a-asset-item>   
 
+        <img id="task0GUI" src="assets/textures/task0GUI.png">
+        <img id="task1GUI" src="assets/textures/task1GUI.png">
+        <img id="task2GUI" src="assets/textures/task2GUI.png">
+        <img id="task3GUI" src="assets/textures/task3GUI.png">
+        <img id="task4GUI" src="assets/textures/task4GUI.png">
+        <img id="task5GUI" src="assets/textures/task5GUI.png">
+        <img id="task6GUI" src="assets/textures/task6GUI.png">
+        <img id="task7GUI" src="assets/textures/task7GUI.png">
+        <img id="task8GUI" src="assets/textures/task8GUI.png">
+        <img id="task9GUI" src="assets/textures/task9GUI.png">
+        <img id="task10GUI" src="assets/textures/task10GUI.png">
+        <img id="task11GUI" src="assets/textures/task11GUI.png">
+
+        <img id="prelaunchSuccessGUI" src="assets/textures/prelaunchSuccess.png">
+        <img id="prelaunchFailGUI" src="assets/textures/prelaunchFail.png">
+        <img id="missionSuccessGUI" src="assets/textures/missionComplete.png">
+        <img id="missionFailGUI" src="assets/textures/missionFail.png">
+
         <!-- REQUIRED ----------------------------------------------------------------------------------------------------------->
         <template id="user-template">
           <a-entity>
@@ -175,7 +193,7 @@
       <!-- Avatar --> 
       <a-entity id="Player1"
                 class="user_cam_rig"
-                circles-add-camera-equipment
+                circles-add-camera-equipment="gui:true"
                 networked="template:#user-template; attachTemplateToLocal:true;"
                 circles-head-model="__MODEL_HEAD__"
                 circles-hair-model="__MODEL_HAIR__"
@@ -336,8 +354,8 @@
           // Emitting if players 3 and 4 are ready or not every 100 milliseconds
           ready = setInterval(function() 
           {
-            startingSocket.emit('player3Ready', {ready: startingManager.getAttribute('players_ready')['player3']});
-            startingSocket.emit('player4Ready', {ready: startingManager.getAttribute('players_ready')['player4']});
+            startingSocket.emit('player3Ready', {ready: startingManager.getAttribute('players_ready')['player3'], room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
+            startingSocket.emit('player4Ready', {ready: startingManager.getAttribute('players_ready')['player4'], room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
 
           }, 100);
 
@@ -370,7 +388,14 @@
           // If they are, begin the first task
           startingSocket.on('allPlayersReady', (data) => 
           {
-            startingManager.setAttribute('visible', false);
+            // So this is only executed once
+            if (startingManager.getAttribute('visible') === true)
+            {
+              startingManager.setAttribute('visible', false);
+
+              // Updating GUI to display current task
+              document.querySelector('#guiOverlay').setAttribute('material', {src:'#task1GUI'});
+            }
           });
         });
       </script>
@@ -700,6 +725,21 @@
 
         task4Socket.on('connect', (userData) => 
         {
+            // Checking if task 3 is complete
+            // If it is, emit it and updated GUI
+            task3Check = setInterval(function()
+            {
+                if (document.querySelector('#task3Component').getAttribute('system_ready')['ready'] === true)
+                {
+                  taskManager.emit('task3Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
+                  clearInterval(task3Check);
+
+                  // Updating GUI to display current task
+                  document.querySelector('#guiOverlay').setAttribute('material', {src:'#task4GUI'});
+                }
+
+            }, 1000);
+
             // Listening for the data request button click and emit it when it is
             document.querySelector('#dataRequest').addEventListener('click', function()
             {
@@ -708,7 +748,7 @@
               {
                 document.querySelector('#code').setAttribute('enter_launch_sequence', {isPrevComplete: true});
 
-                task4Socket.emit('dataRequest');
+                task4Socket.emit('dataRequest', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
 
                 // Hiding the data request instructions
                 document.querySelector('#dataRequestInstructions').setAttribute('visible', false);
@@ -780,7 +820,7 @@
             // Emitting the fuel bar height every 30 milliseconds
             setInterval(function() 
             {
-              task5Socket.emit('fuelBarHeight', {height: document.querySelector('#fuelBar').getAttribute('geometry')['height']});
+              task5Socket.emit('fuelBarHeight', {height: document.querySelector('#fuelBar').getAttribute('geometry')['height'], room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
 
             }, 30);
 
@@ -967,7 +1007,7 @@
             // Emitting the dial rotation every 5 milliseconds
             setInterval(function() 
             {
-              task9Socket.emit('dialRotation', {rotation: document.querySelector('#dialContainer').getAttribute('rotation')['y']});
+              task9Socket.emit('dialRotation', {rotation: document.querySelector('#dialContainer').getAttribute('rotation')['y'], room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
 
             }, 5);
 
@@ -1022,9 +1062,74 @@
 
         taskManager.on('connect', (userData) => 
         {
+          // Listening for the timer value to update it
+          taskManager.on('timerValue', (data) => 
+          {
+            document.querySelector('#timer').setAttribute('text', {value: data.time});
+          });
+
+          // Listening for if the prelaunch tasks were a success and updating GUI accordingly
+          taskManager.on('prelaunchSuccess', (data) => 
+          {
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#prelaunchSuccessGUI'});
+          });
+
+          // Listening for if the prelaunch tasks were failed and updating GUI accordingly
+          taskManager.on('prelaunchFail', (data) => 
+          {
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#prelaunchFailGUI'});
+
+            // Turning off all tasks
+            document.querySelector('#task2Component').setAttribute('weight_bar', {isPrevComplete: false});
+            document.querySelector('#task3Component').setAttribute('system_ready', {isPrevComplete: false});
+            document.querySelector('#code').setAttribute('enter_launch_sequence', {isPrevComplete: false});
+            document.querySelector('#fuelButton').setAttribute('fuel_button', {isPrevComplete: false});
+            ///////// CHANGE BUTTONS COLOURS BACK
+            ///////// TURN TASKS SCREENS OFF
+
+            // Display portal to lobby
+            
+          });
+
+          // Listening for if the postlaunch tasks were a success and updating GUI accordingly
+          taskManager.on('postlaunchSuccess', (data) => 
+          {
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#missionSuccessGUI'});
+
+            // Opening lobby portal in 5 seconds
+            setTimeout(function () 
+                {
+                  // Hiding all tasks
+                  
+
+                  // Display portal to lobby
+                  
+
+                }, 5000);
+          });
+
+          // Listening for if the postlaunch tasks were failed and updating GUI accordingly
+          taskManager.on('postlaunchFail', (data) => 
+          {
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#missionFailGUI'});
+
+            // Turning off all tasks
+            document.querySelector('#task7Component').setAttribute('levers', {isPrevComplete: false});
+            document.querySelector('#task9Component').setAttribute('turn_dial', {isPrevComplete: false});
+            document.querySelector('#task10Component').setAttribute('break_tank', {isPrevComplete: false});
+            ///////// CHANGE BUTTONS COLOURS BACK
+            ///////// TURN TASKS SCREENS OFF
+
+            // Display portal to lobby
+            
+          });
+
           // Listening for task 1 to be complete to begin task 2
           taskManager.on('task1Complete', (data) => 
           {
+            // Updating GUI to display current task
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#task2GUI'});
+
             document.querySelector('#task2Component').setAttribute('weight_bar', {isPrevComplete: true});
           });
 
@@ -1034,6 +1139,11 @@
           {
               if (document.querySelector('#task2Component').getAttribute('weight_bar')['isGood'] === true)
               {
+                // Updating GUI to display current task
+                document.querySelector('#guiOverlay').setAttribute('material', {src:'#task3GUI'});
+
+                taskManager.emit('task2Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
+
                 document.querySelector('#task3Component').setAttribute('system_ready', {isPrevComplete: true});
                 clearInterval(task2Check);
 
@@ -1045,7 +1155,11 @@
                 {
                     if (document.querySelector('#code').getAttribute('enter_launch_sequence')['isMatch'] === true)
                     {
+                      // Updating GUI to display current task
+                      document.querySelector('#guiOverlay').setAttribute('material', {src:'#task5GUI'});
+
                       document.querySelector('#fuelButton').setAttribute('fuel_button', {isPrevComplete: true});
+                      taskManager.emit('task4Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
                       clearInterval(task4Check);
 
                       // Checking if task 5 is complete
@@ -1054,7 +1168,10 @@
                       {
                           if (document.querySelector('#fuelButton').getAttribute('fuel_button')['isIdeal'] === true)
                           {
-                            taskManager.emit('task5Complete');
+                            // Updating GUI to display current task
+                            document.querySelector('#guiOverlay').setAttribute('material', {src:'#task6GUI'});
+
+                            taskManager.emit('task5Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
                             clearInterval(task5Check);
                           }
 
@@ -1070,6 +1187,9 @@
           // Listening for task 6 to be complete to begin task 7
           taskManager.on('task6Complete', (data) => 
           {
+            // Updating GUI to display current task
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#task7GUI'});
+
             document.querySelector('#task7Component').setAttribute('levers', {isPrevComplete: true});
           });
 
@@ -1079,7 +1199,10 @@
           {
               if (document.querySelector('#task7Component').getAttribute('levers')['isGood'] === true)
               {
-                taskManager.emit('task7Complete');
+                // Updating GUI to display current task
+                document.querySelector('#guiOverlay').setAttribute('material', {src:'#task8GUI'});
+
+                taskManager.emit('task7Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
                 clearInterval(task7Check);
               }
 
@@ -1088,6 +1211,9 @@
           // Listening for task 8 to be complete to begin task 9
           taskManager.on('task8Complete', (data) => 
           {
+            // Updating GUI to display current task
+            document.querySelector('#guiOverlay').setAttribute('material', {src:'#task9GUI'});
+
             document.querySelector('#task9Component').setAttribute('turn_dial', {isPrevComplete: true});
           });
 
@@ -1097,7 +1223,14 @@
           {
               if (document.querySelector('#task9Component').getAttribute('turn_dial')['isAligned'] === true)
               {
+                // Updating GUI to display current task
+                document.querySelector('#guiOverlay').setAttribute('material', {src:'#task10GUI'});
+
+                taskManager.emit('task9Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
+
                 document.querySelector('#task10Component').setAttribute('break_tank', {isPrevComplete: true});
+
+                clearInterval(task9Check);
               }
 
           }, 1000);
@@ -1108,7 +1241,10 @@
           {
               if (document.querySelector('#task10Component').getAttribute('break_tank')['isBrokenOff'] === true)
               {
-                taskManager.emit('task10Complete');
+                // Updating GUI to display current task
+                document.querySelector('#guiOverlay').setAttribute('material', {src:'#task11GUI'});
+
+                taskManager.emit('task10Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
                 clearInterval(task10Check);
               }
 

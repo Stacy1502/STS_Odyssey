@@ -127,7 +127,7 @@ AFRAME.registerComponent('fuel_button',
 
                             buttonHold = false;
 
-                        }, 120);
+                        }, 1);
                     });
 
                 }, 30);

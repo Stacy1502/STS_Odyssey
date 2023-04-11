@@ -66,7 +66,7 @@ var checkAlign = function(blueWave, purpleWave, waveSegment)
     // If the sum of the offests is a whole number, they are aligned
 
     var sum = blueOffset + purpleOffset;
-    var modulo = sum % waveSegment;
+    var modulo = sum % 1;
 
     if ((modulo >= 0) && (modulo <= 0 + 0.01))
     {
@@ -82,14 +82,14 @@ var checkAlign = function(blueWave, purpleWave, waveSegment)
 
 // --------------------------------------------------------
 
-// Turning waves and buttons green to indicate task completion
-var turnGreen = function(wave1, wave2, button1, button2)
+// Change waves and buttons colours to indicate task completion
+var turnCorrect = function(wave1, wave2, button1, button2)
 {
     wave1.setAttribute('material', {color: '#00FF00'});
     wave2.setAttribute('material', {color: '#00FF00'});
 
-    button1.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
-    button2.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
+    button1.setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
+    button2.setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
 }
 
 // Component ---------------------------------------------------------------------------------------------------------------
@@ -129,6 +129,20 @@ AFRAME.registerComponent('align_waves',
         var blueHold = false;
         var purpleHold = false;
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the buttons blue
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                blueButton.setAttribute('circles-button', {button_color: '#3d59a4', button_color_hover: '#384e8a'});
+                purpleButton.setAttribute('circles-button', {button_color: '#8568aa', button_color_hover: '#6f5b8b'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Listening for blue button press
         blueButton.addEventListener('mousedown', function()
         {
@@ -158,12 +172,12 @@ AFRAME.registerComponent('align_waves',
                                 if (blueHold === false && purpleHold === false)
                                 {
                                     // If the waves are aligned
-                                    // Turning waves and buttons green
+                                    // Indication task is complete by changing wave and button colour
                                     if (checkAlign(blueWave, purpleWave, waveSegment) === true)
                                     {
                                         CONTEXT_AF.data.wavesAligned = true;
 
-                                        turnGreen(blueWave, purpleWave, blueButton, purpleButton);
+                                        turnCorrect(blueWave, purpleWave, blueButton, purpleButton);
                                     }
                                 }
 
@@ -205,12 +219,12 @@ AFRAME.registerComponent('align_waves',
                                 if (blueHold === false && purpleHold === false)
                                 {
                                     // If the waves are aligned
-                                    // Turning waves and buttons green
+                                    // Indication task is complete by changing wave and button colour
                                     if (checkAlign(blueWave, purpleWave, waveSegment) === true)
                                     {
                                         CONTEXT_AF.data.wavesAligned = true;
 
-                                        turnGreen(blueWave, purpleWave, blueButton, purpleButton);
+                                        turnCorrect(blueWave, purpleWave, blueButton, purpleButton);
                                     }
                                 }
 

@@ -375,11 +375,67 @@ io.on("connection", socket => {
     }
   });
 
+  // Listening for the timer value from mission control
+  // Emmiting it back to the clients
+  socket.on('timerValue', (data) => 
+  {
+    io.sockets.emit('timerValue', {time: data.time});
+  });
+
+  // Listening for if the prelaunch tasks were a success from mission control
+  // Emmiting it back to the clients
+  socket.on('prelaunchSuccess', (data) => 
+  {
+    io.sockets.emit('prelaunchSuccess');
+  });
+
+  // Listening for if the prelaunch tasks were failed from mission control
+  // Emmiting it back to the clients
+  socket.on('prelaunchFail', (data) => 
+  {
+    io.sockets.emit('prelaunchFail');
+  });
+
+  // Listening for if the postlaunch tasks were a success from mission control
+  // Emmiting it back to the clients
+  socket.on('postlaunchSuccess', (data) => 
+  {
+    io.sockets.emit('postlaunchSuccess');
+  });
+
+  // Listening for if the postlaunch tasks were failed from mission control
+  // Emmiting it back to the clients
+  socket.on('postlaunchFail', (data) => 
+  {
+    io.sockets.emit('postlaunchFail');
+  });
+
   // Listening for if task 1 is complete from mission control
   // Emmiting it back to the clients
   socket.on('task1Complete', (data) =>
   {
     io.sockets.emit('task1Complete');
+  });
+
+  // Listening for if task 2 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task2Complete', (data) =>
+  {
+    io.sockets.emit('task2Complete');
+  });
+
+  // Listening for if task 3 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task3Complete', (data) =>
+  {
+    io.sockets.emit('task3Complete');
+  });
+
+  // Listening for if task 4 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task4Complete', (data) =>
+  {
+    io.sockets.emit('task4Complete');
   });
 
   // Listening for if task 5 is complete from the spaceship
@@ -408,6 +464,13 @@ io.on("connection", socket => {
   socket.on('task8Complete', (data) =>
   {
     io.sockets.emit('task8Complete');
+  });
+
+  // Listening for if task 9 is complete from the spaceship
+  // Emmiting it back to the clients
+  socket.on('task9Complete', (data) =>
+  {
+    io.sockets.emit('task9Complete');
   });
 
   // Listening for if task 10 is complete from the spaceship
