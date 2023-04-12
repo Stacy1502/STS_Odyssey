@@ -192,8 +192,19 @@
                 circles-portal="img_src:#missionControlImg; title_text:Mission Control; link_url:/w/STS_MissionControl">
       </a-entity>
 
+      <!-- Portal to Info -->
+      <a-entity id="infoPortal"
+                position="0.685 1.500 3.001"
+                rotation="0 0 0" 
+                scale="1 1 1"
+                circles-portal="img_src: ./assets/domeImg.png; title_text:Discovery Dome; link_url:/w/STS-InfoRoom">
+      </a-entity>
+
       <!-- Sky and lights -->
-      <a-sky animation="property: object3D.rotation.x; to: -360; loop: true; easing: linear; dur: 96000" id="#skydome" src="#sky"></a-sky>
+      <a-sky  id="#skydome" src="#sky"></a-sky>
+
+      <a-entity position="0 2.484 -7.489" scale="11.288 5.000 5.000 "geometry="primitive: plane" material="src: ./assets/STS Odyssey.jpg" id="logo"></a-entity>
+    
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
