@@ -203,8 +203,12 @@
       <!-- Sky and lights -->
       <a-sky  id="#skydome" src="#sky"></a-sky>
 
-      <a-entity position="0 2.484 -7.489" scale="11.288 5.000 5.000 "geometry="primitive: plane" material="src: ./assets/STS Odyssey.jpg" id="logo"></a-entity>
+      <a-entity position="0 2.484 -7.489" scale="11.288 5.000 5.000 "geometry="primitive: plane" material="src: ./assets/STS Odyssey.jpg; roughness: 1" id="logo"></a-entity>
+      <a-entity position="-6.87496 2.484 -0.051" rotation="0 90 0" scale="4.06191 5.1077 5.1077" geometry="primitive: plane" material="src: ./assets/howto.png; roughness: 1" id="howto"></a-entity>
+      <a-entity id="light" light="color: #ffffff; intensity: 8.3; type: point" position="-3.17768 2.67782 0.53658" rotation=""></a-entity>
     
+      <a-entity class="checkpoint interactive" position="-4.076 0 0" checkpoint="" material="color: rgb(57, 187, 130); emissive: rgb(7,137,80); roughness: 0.8" geometry="primitive: cylinder; radius: 0.5; height: 0.04" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5" circles-interactive-object="type: outline" circles-checkpoint=""><a-entity class="object_highlight" geometry="primitive: cylinder; radius: 0.5; height: 0.04" checkpoint="" material="color: rgb(255,255,255); shader: flat; side: back" scale="" shadow="cast: false; receive: false" visible="false"></a-entity></a-entity>
+      <a-entity class="checkpoint interactive" position="0 0 0" checkpoint="" material="color: rgb(57, 187, 130); emissive: rgb(7,137,80); roughness: 0.8" geometry="primitive: cylinder; radius: 0.5; height: 0.04" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5" circles-interactive-object="type: outline" circles-checkpoint=""><a-entity class="object_highlight" geometry="primitive: cylinder; radius: 0.5; height: 0.04" checkpoint="" material="color: rgb(255,255,255); shader: flat; side: back" scale="" shadow="cast: false; receive: false" visible="false"></a-entity></a-entity>
 
     </a-scene>
     <!-- WORLD GENERATION END HERE -------------------------------------------------------------------------------------------->
