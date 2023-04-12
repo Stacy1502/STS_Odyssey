@@ -35,7 +35,7 @@
 
       <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
       <!-- ambient music/sound -->
-      <a-entity circles-sound="type:music; src:./assets/K. Leimer - Very Tired.mp3; autoplay:true; loop:true;"></a-entity>
+      <a-entity circles-sound="type:music; src:./assets/K. Leimer - Very Tired.mp3; autoplay:true; loop:true; volume:0.5;"></a-entity>
       
       <!-- //start the ambient sounds
       const ambientSounds = document.querySelectorAll('.ambient-music');
@@ -187,6 +187,7 @@
 <a-entity geometry="primitive: plane" scale="0.8 0.8 0.8" position="0 2.231 -1.204" material="src: #task11" id="imagesphere"></a-entity>
 </a-entity>
 
+<a-entity geometry="primitive: plane" scale="2.2724 1.03351 2.2724" position="0.17422 0.0167 -1.51564" material="src: ./assets/images/STS Odyssey.jpg; color: #ffffff; emissive: #000000" id="logo" rotation="-90 0 0"></a-entity>
          <!-- NAVMESh -->
          <!-- <a-entity id="navmesh" gltf-model="./assets/models/navmesh.gltf"
           nav-mesh visible="false"></a-entity> -->
@@ -202,8 +203,12 @@
         <a-sky  id="#skydome" src="#sky"></a-sky>
 
         <!-- PORTAL -->
-        <a-entity scale="0.7 0.7 0.7" rotation="0 -112.961 0" position="1.610 0.587 -1.539" id="Portal-Lobby" circles-portal="title_text: Back to Lobby; link_url: /w/STS_Lobby"><a-entity class="portal interactive" material="src: /global/assets/textures/equirectangular/WhiteBlue.jpg; shader: flat" geometry="primitive: sphere; radius: 0.5; segmentsWidth: 10; segmentsHeight: 10" circles-interactive-object="type: outline; neutral_scale: 1.1; hover_scale: 1.15; click_scale: 1.15" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5"><a-entity class="object_highlight" geometry="primitive: sphere; radius: 0.5; segmentsWidth: 10; segmentsHeight: 10" material="color: rgb(255,255,255); shader: flat; side: back" scale="1.1 1.1 1.1" shadow="cast: false; receive: false" visible=""></a-entity></a-entity><a-entity class="title" position="0 1 0" rotation="0 180 0" text="value: Back to Lobby; align: center; width: 5"></a-entity></a-entity>
- 
+        <a-entity id="spaceshipPortal"
+        position="1.586 0.510 -1.884" 
+        rotation="0 -90 0" 
+        scale="0.5 0.5 0.5"
+        circles-portal="img_src:./assets/images/black stars.jpg; title_text:Back to Lobby; link_url:/w/STS_Lobby">
+</a-entity>
       </a-scene>
 
     <!-- Circles' end scripts [REQUIRED] -->
