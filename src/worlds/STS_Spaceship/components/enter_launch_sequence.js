@@ -82,6 +82,8 @@ AFRAME.registerComponent('enter_launch_sequence',
                         if (checkSequence(userSequence, CONTEXT_AF.data.sequence) === true)
                         {
                             CONTEXT_AF.data.isMatch = true;
+
+                            document.querySelector('#dataRequest').setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
                         }
                         else
                         {

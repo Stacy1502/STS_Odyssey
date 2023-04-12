@@ -296,10 +296,10 @@
                 material="color:#000000">
       </a-entity>
 
-      <!-- Portal to lobby -->
-      <a-entity id="lobbyPortal" visible="false"
+      <!-- Portal to discovery dome -->
+      <a-entity id="discoveryPortal" visible="false"
                 position="0 1.5 -6" rotation="0 -90 0"
-                circles-portal="img_src:./assets/textures/black stars.jpg; title_text:Return to Lobby; link_url:/w/STS_Lobby"
+                circles-portal="img_src:./assets/textures/black stars.jpg; title_text:To Discovery Dome; link_url:/w/STS-InfoRoom"
                 shadow>
       </a-entity>
 
@@ -877,7 +877,7 @@
           </a-entity>
         </a-entity>
 
-        <a-entity sun_alignment></a-entity>
+        <a-entity id="task9Component" sun_alignment></a-entity>
 
       </a-entity>
 
@@ -917,17 +917,15 @@
           button.addEventListener('click', function() 
           {
               // Only running if task 8 is complete (checking spot_the_difference component)
-              if (document.querySelector('#task8Component').getAttribute('spot_the_difference')['isSelected'] === true)
+              if (document.querySelector('#task9Component').getAttribute('sun_alignment')['isPrevComplete'] === true)
               {
                 // Only running if task is not complete
-                // Users can only click on an image every second
+                // Users can only click every second
                 if (canClick === true && isAligned === false)
                 {
                   // Getting alignment indicator
                     var alignment = document.querySelector('#alignmentContainer').children[0];
                     var alignmentRotation = document.querySelector('#alignmentContainer').getAttribute('rotation')['y'];
-
-                    console.log(alignmentRotation);
 
                     // Getting dialContainer
                     var dial = document.querySelector('#dialContainer');
@@ -1077,7 +1075,7 @@
                   }
 
                   // Display portal to lobby
-                  document.querySelector('#lobbyPortal').setAttribute('visible', true);
+                  document.querySelector('#discoveryPortal').setAttribute('visible', true);
                 }
               }
             }
@@ -1115,7 +1113,7 @@
                   }
 
                   // Display portal to lobby
-                  document.querySelector('#lobbyPortal').setAttribute('visible', true);
+                  document.querySelector('#discoveryPortal').setAttribute('visible', true);
 
                 }, 5000);
               }
@@ -1133,6 +1131,7 @@
 
                   // Turning off all tasks
                   document.querySelector('#task8Component').setAttribute('spot_the_difference', {isPrevComplete: false});
+                  document.querySelector('#task9Component').setAttribute('sun_alignment', {isPrevComplete: false});
                   document.querySelector('#task11Component').setAttribute('align_waves', {isPrevComplete: false});
                   document.querySelector('#aligned').setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
                   document.querySelector('#blueAlign').setAttribute('circles-button', {button_color: '#cbfdc4', button_color_hover: '#cbfdc4'});
@@ -1151,7 +1150,7 @@
                   }
 
                   // Display portal to lobby
-                  document.querySelector('#lobbyPortal').setAttribute('visible', true);
+                  document.querySelector('#discoveryPortal').setAttribute('visible', true);
                 }
               }
             }
@@ -1236,6 +1235,8 @@
           {
               if (document.querySelector('#task8Component').getAttribute('spot_the_difference')['isSelected'] === true)
               {
+                document.querySelector('#task9Component').setAttribute('sun_alignment', {isPrevComplete: true});
+
                 // Updating GUI to display current task
                 document.querySelector('#guiOverlay').setAttribute('material', {src:'#task9GUI'});
 

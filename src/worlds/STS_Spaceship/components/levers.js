@@ -160,6 +160,18 @@ var greenBars = function(positionBar, velocityBar, altitudeBar)
     altitudeBar.setAttribute('material', {color: '#00FF00'});
 }
 
+// Turns buttons back to gray
+var buttonsOff = function(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight)
+{
+    topLeft.setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+    middleLeft.setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+    bottomLeft.setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+
+    topRight.setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+    middleRight.setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+    bottomRight.setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+}
+
 // Component ---------------------------------------------------------------------------------------------------------------
 
 AFRAME.registerComponent('levers', 
@@ -207,6 +219,25 @@ AFRAME.registerComponent('levers',
         var bottomLeft = document.querySelector('#bottomLeft');
         var bottomRight = document.querySelector('#bottomRight');
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the buttons their appropriate colours
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                topLeft.setAttribute('circles-button', {button_color: '#be0404', button_color_hover: '#930101'});
+                middleLeft.setAttribute('circles-button', {button_color: '#be0404', button_color_hover: '#930101'});
+                bottomLeft.setAttribute('circles-button', {button_color: '#be0404', button_color_hover: '#930101'});
+
+                topRight.setAttribute('circles-button', {button_color: '#04be29', button_color_hover: '#01931e'});
+                middleRight.setAttribute('circles-button', {button_color: '#04be29', button_color_hover: '#01931e'});
+                bottomRight.setAttribute('circles-button', {button_color: '#04be29', button_color_hover: '#01931e'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Creating a visual bar of the ideal position, velocity, and altitude amount and displaying it to the user
         createIdealBar(positionIdeal, positionScreen);
         createIdealBar(velocityIdeal, velocityScreen);
@@ -229,6 +260,7 @@ AFRAME.registerComponent('levers',
                     CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
+                    buttonsOff(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight);
                 }
             }
         });
@@ -249,6 +281,7 @@ AFRAME.registerComponent('levers',
                     CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
+                    buttonsOff(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight);
                 }
             }
         });
@@ -269,6 +302,7 @@ AFRAME.registerComponent('levers',
                     CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
+                    buttonsOff(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight);
                 }
             }
         });
@@ -288,6 +322,7 @@ AFRAME.registerComponent('levers',
                     CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
+                    buttonsOff(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight);
                 }
             }
         });
@@ -309,6 +344,7 @@ AFRAME.registerComponent('levers',
                     CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
+                    buttonsOff(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight);
                 }
             }
         });
@@ -329,6 +365,7 @@ AFRAME.registerComponent('levers',
                     CONTEXT_AF.data.isGood = true;
 
                     greenBars(positionBar, velocityBar, altitudeBar);
+                    buttonsOff(topLeft, topRight, middleLeft, middleRight, bottomLeft, bottomRight);
                 }
             }
         });

@@ -104,6 +104,19 @@ AFRAME.registerComponent('fuel_button',
         // Getting fuel tank
         var fuelTank = document.querySelector('#fuelTank');
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the buttons pink
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                element.setAttribute('circles-button', {button_color: '#04be29', button_color_hover: '#01931e'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Listening for button press
         element.addEventListener('mousedown', function()
         {
