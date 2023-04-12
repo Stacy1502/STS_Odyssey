@@ -553,7 +553,7 @@
               document.querySelector('#guiOverlay').setAttribute('material', {src:'#task1GUI'});
 
               // Starting timer
-              document.querySelector('#timerObject').setAttribute('timer', {start:true, time:300});
+              document.querySelector('#timerObject').setAttribute('timer', {start:true, time:120});
             }
 
           });
@@ -1042,7 +1042,7 @@
                   taskManager.emit('task6Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
 
                   // Creating new timer
-                  document.querySelector('#timerObject').setAttribute('timer', {start:true, time:300});
+                  document.querySelector('#timerObject').setAttribute('timer', {start:true, time:120});
 
                 }, 12000);
               }

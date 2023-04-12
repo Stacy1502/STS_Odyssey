@@ -71,7 +71,7 @@ AFRAME.registerComponent('system_ready',
                     // Turning player 1 screen back to red
                     screen1.setAttribute('material', {color: '#FF0000'});
 
-                }, 1000);
+                }, 500);
             }
         });
 
@@ -95,7 +95,7 @@ AFRAME.registerComponent('system_ready',
                     // Turning player 2 screen back to red
                     screen2.setAttribute('material', {color: '#FF0000'});
 
-                }, 1000);
+                }, 500);
             }
         });
 
