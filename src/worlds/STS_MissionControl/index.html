@@ -93,9 +93,6 @@
 
       <a-assets>
         <!-- OUR ASSETS --------------------------------------------------------------------------------------------------------->
-        
-        <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
-        <img id='skyMap' src='assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
         <a-asset-item id="terminal_model" src="assets/models/terminal/terminal-TEXTURES.glb" response-type="arraybuffer"></a-asset-item>    
         <a-asset-item id="chair_model" src="assets/models/chair/officeChair-TEXTURES.glb" response-type="arraybuffer"></a-asset-item>
 
@@ -121,14 +118,31 @@
         <img id="missionSuccessGUI" src="assets/textures/missionComplete.png">
         <img id="missionFailGUI" src="assets/textures/missionFail.png">
 
-        <img id="correct1" src="assets/textures/correct1.png">
+        <!-- SRC: https://stock.adobe.com/ca/images/satelite-dish/47256741?prev_url=detail -->
+        <img id="correct1" src="assets/textures/correct1.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/satellite-disc-an-blue-sky/41616967?prev_url=detail -->
         <img id="correct2" src="assets/textures/correct2.jpeg">
-        <img id="correct3" src="assets/textures/correct3.jpg">
-        <img id="correct4" src="assets/textures/correct4.jpg">
-        <img id="correct5" src="assets/textures/correct5.jpg">
-        <img id="correct6" src="assets/textures/correct6.jpg">
-        <img id="correct7" src="assets/textures/correct7.jpg">
-        <img id="correct8" src="assets/textures/correct8.jpg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/satellite-dish-in-the-ground-signal-review-station/575004178?prev_url=detail -->
+        <img id="correct3" src="assets/textures/correct3.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/teleport-satellite-communications/89329798?prev_url=detail -->
+        <img id="correct4" src="assets/textures/correct4.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/satellite-dishes-in-desert-clear-blue-sky-generative-ai/580110809?prev_url=detail -->
+        <img id="correct5" src="assets/textures/correct5.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/satellite-dish/556013828?prev_url=detail -->
+        <img id="correct6" src="assets/textures/correct6.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/the-radio-telescopes-on-the-dawn-grassland-with-starry-sky-in-the-background-generative-ai/580112245?prev_url=detail -->
+        <img id="correct7" src="assets/textures/correct7.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/radio-telescope-at-sunset-created-with-generative-ai/583912832?prev_url=detail -->
+        <img id="correct8" src="assets/textures/correct8.jpeg">
+
+        <!-- SRC: https://stock.adobe.com/ca/images/satellite-dish-antennas/317729675?prev_url=detail -->
         <img id="wrong" src="assets/textures/wrong.jpg">
 
         <img id="blueWave" src="assets/textures/blueWave.png">
@@ -242,16 +256,12 @@
           rotation="90 0 0">
       </a-entity>
 
+      <a-entity id="navmesh" gltf-model="./assets/models/navmesh.glb" nav-mesh visible="false"></a-entity>
+
       <!-- Sky and lights -->
       <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
                 light="type:directional; intensity:4; color:#d5e4f5; castShadow:false;"></a-entity>
       <a-entity light="type:hemisphere; color:#FFFFFF; groundColor:#BCE2F4; intensity:3.0"></a-entity>
-
-      <a-entity id='skyBox'
-                rotation='0 200 0'
-                geometry='primitive:sphere; radius:50; segments-height:24; segments-width:24;'
-                material='shader:flat; src:#skyMap; side:back;'>
-      </a-entity>
 
       <!-- TVs -->
 
@@ -289,8 +299,9 @@
       <!-- Portal to lobby -->
       <a-entity id="lobbyPortal" visible="false"
                 position="0 1.5 -6" rotation="0 -90 0"
-                circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:Return to Lobby; link_url:/w/STS_Lobby"
-                shadow></a-entity>
+                circles-portal="img_src:./assets/textures/black stars.jpg; title_text:Return to Lobby; link_url:/w/STS_Lobby"
+                shadow>
+      </a-entity>
 
       <!-- Teleportation pad for TVs -->
       <a-entity class="TVteleport" circles-checkpoint circles-spawnpoint position="0 0.04 -4"></a-entity>

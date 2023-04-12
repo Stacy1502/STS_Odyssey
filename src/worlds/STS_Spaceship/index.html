@@ -98,17 +98,17 @@
         <!-- ambient music/sound -->
         <a-entity circles-sound="type:music; src:./assets/K. Leimer - Very Tired.mp3; autoplay:true; loop:true;"></a-entity>
 
-          <!-- IMAGES -->
-          <img id="ui" src="./assets/images/ui.png" crossorigin="anonymous">
-          <img id="sky" src="./assets/images/black stars.jpg">
-          <img id="floor" src="./assets/images/floor.jpg">
-          <img id="panel3" src=" ./assets/images/panel 3.png">
-          <img id="panel1" src=" ./assets/images/panel 1.png">
-          <img id="panel2" src=" ./assets/images/middle.png">
-          <img id="panel4" src=" ./assets/images/dash.png">
-          <img id="backwall" src="./assets/images/backwall.jpg">
-          <img id="backwall" src="./assets/images/backwall.jpg">
-          <img id="wall" src="./assets/images/wall1.jpg">
+        <!-- IMAGES -->
+        <img id="ui" src="./assets/images/ui.png" crossorigin="anonymous">
+        <img id="sky" src="./assets/images/black stars.jpg">
+        <img id="floor" src="./assets/images/floor.jpg">
+        <img id="panel3" src=" ./assets/images/panel 3.png">
+        <img id="panel1" src=" ./assets/images/panel 1.png">
+        <img id="panel2" src=" ./assets/images/middle.png">
+        <img id="panel4" src=" ./assets/images/dash.png">
+        <img id="backwall" src="./assets/images/backwall.jpg">
+        <img id="backwall" src="./assets/images/backwall.jpg">
+        <img id="wall" src="./assets/images/wall1.jpg">
          
           <!-- 3D MODELS -->
           <a-asset-item id="Cockpit" response-type="arraybuffer" src="./assets/models/cockpit/version3.gltf"></a-asset-item>   
@@ -238,8 +238,7 @@
          <a-entity circles-checkpoint position="-0.547 0 -1.076" material="color: #005bf4;"></a-entity>
 
          <!-- NAVMESh -->
-         <a-entity id="navmesh" gltf-model="./assets/models/navmesh.gltf"
-          nav-mesh visible="false"></a-entity>
+         <a-entity id="navmesh" gltf-model="./assets/models/navmesh.gltf" nav-mesh visible="false"></a-entity>
 
        <!-- BACKGROUND -->
 
@@ -261,9 +260,12 @@
         <a-entity geometry="" position="3.20903 1.48037 2.19148" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
         <a-entity geometry="" position="-3.04088 1.48037 2.26084" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
    
-        <!-- PORTAL -->
-        <a-entity scale="0.7 0.7 0.7" position="1.957 0.908 3.234" id="Portal-Lobby" circles-portal="title_text: Back to Lobby; link_url: #"><a-entity class="portal interactive" material="src: /global/assets/textures/equirectangular/WhiteBlue.jpg; shader: flat" geometry="primitive: sphere; radius: 0.5; segmentsWidth: 10; segmentsHeight: 10" circles-interactive-object="type: outline; neutral_scale: 1.1; hover_scale: 1.15; click_scale: 1.15" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5"><a-entity class="object_highlight" geometry="primitive: sphere; radius: 0.5; segmentsWidth: 10; segmentsHeight: 10" material="color: rgb(255,255,255); shader: flat; side: back" scale="1.1 1.1 1.1" shadow="cast: false; receive: false" visible=""></a-entity></a-entity><a-entity class="title" position="0 1 0" rotation="0 180 0" text="value: Back to Lobby; align: center; width: 5"></a-entity></a-entity>
- 
+        <!-- Portal to lobby -->
+        <a-entity id="lobbyPortal" visible="true"
+                  scale="0.7 0.7 0.7" position="1.957 0.908 3.234" rotation="0 120 0"
+                  circles-portal="img_src:./assets/textures/black stars.jpg; title_text:Return to Lobby; link_url:/w/STS_Lobby"
+                  shadow>
+            </a-entity>
 
       <!-- Player 3 button -->
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
