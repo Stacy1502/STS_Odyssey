@@ -110,8 +110,8 @@
         <img id="wall" src="./assets/images/wall1.jpg">
         <img id="panel5" src="./assets/images/front_console_texture.jpg">
          
-        <!-- 3D MODELS -->
-        <a-asset-item id="Cockpit" response-type="arraybuffer" src="./assets/models/cockpit/version3.gltf"></a-asset-item>   
+          <!-- 3D MODELS -->
+          <a-asset-item id="Cockpit" response-type="arraybuffer" src="./assets/models/cockpit/version3.gltf"></a-asset-item>   
 
         <img id="task0GUI" src="assets/textures/task0GUI.png">
         <img id="task1GUI" src="assets/textures/task1GUI.png">
@@ -215,99 +215,94 @@
           <!-- LIGHT -->
          <a-entity id="ambient" light="color: #eadac2; intensity: 0.420; type: ambient"></a-entity>
 
-      <!-- MAIN ROOM -->
-      <a-entity id="cockpit" gltf-model="#Cockpit" position="0 0.04057 0" rotation=""></a-entity>
-  
-      <!-- CHECKPOINTS -->
-      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
-                material="color:#ffa200"
-                circles-checkpoint="useDefaultModel:false" 
-                position="0.280 0.05158 3.28089"
-                circles-interactive-object="type:outline">
-      </a-entity>
-      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
-                material="color:#ffa200"
-                circles-checkpoint="useDefaultModel:false" 
-                position="1.48974 0.052 0.99886"
-                circles-interactive-object="type:outline">
-      </a-entity>
-      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
-                material="color:#ffa200"
-                circles-checkpoint="useDefaultModel:false" 
-                position="-0.90069 0.05158 0.93402"
-                circles-interactive-object="type:outline">
-      </a-entity>
-      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
-                material="color:#ffa200"
-                circles-checkpoint="useDefaultModel:false" 
-                position="1.242 0 -1.065"
-                circles-interactive-object="type:outline">
-      </a-entity>
-      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
-                material="color:#ffa200"
-                circles-checkpoint="useDefaultModel:false" 
-                position="-0.547 0 -1.076"
-                circles-interactive-object="type:outline">
-      </a-entity>
-
-         <a-entity circles-checkpoint position="0.280 0.05158 3.28089"></a-entity>
-         <a-entity circles-checkpoint="" position="1.48974 0.052 0.99886" class="checkpoint interactive" checkpoint="" material="color: rgb(57, 187, 130); emissive: rgb(7,137,80); roughness: 0.8" geometry="primitive: cylinder; radius: 0.5; height: 0.04" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5" circles-interactive-object="type: outline"><a-entity class="object_highlight" geometry="primitive: cylinder; radius: 0.5; height: 0.04" checkpoint="" material="color: rgb(255,255,255); shader: flat; side: back" scale="" shadow="cast: false; receive: false" visible="false"></a-entity></a-entity>
-         <a-entity circles-checkpoint="" position="-0.90069 0.05158 0.93402" class="checkpoint interactive" checkpoint="" material="color: rgb(57, 187, 130); emissive: rgb(7,137,80); roughness: 0.8" geometry="primitive: cylinder; radius: 0.5; height: 0.04" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5" circles-interactive-object="type: outline"><a-entity class="object_highlight" geometry="primitive: cylinder; radius: 0.5; height: 0.04" checkpoint="" material="color: rgb(255,255,255); shader: flat; side: back" scale="1.08 1.08 1.08" shadow="cast: false; receive: false" visible="false"></a-entity></a-entity>
-
-         <a-entity circles-checkpoint position="1.242 0 -1.065" material="color: #005bf4;"></a-entity>
-         <a-entity circles-checkpoint position="-0.547 0 -1.076" material="color: #005bf4;"></a-entity>
+        <!-- MAIN ROOM -->
+         <a-entity id="cockpit" gltf-model="#Cockpit" position="0 0.04057 0" rotation=""></a-entity>
+     
+         <!-- CHECKPOINTS -->
+        <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                  material="color:#ffa200"
+                  circles-checkpoint="useDefaultModel:false" 
+                  position="0.280 0.05158 3.28089"
+                  circles-interactive-object="type:outline">
+            </a-entity>
+            <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                  material="color:#ffa200"
+                  circles-checkpoint="useDefaultModel:false" 
+                  position="1.48974 0.052 0.99886"
+                  circles-interactive-object="type:outline">
+            </a-entity>
+            <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                  material="color:#ffa200"
+                  circles-checkpoint="useDefaultModel:false" 
+                  position="-0.90069 0.05158 0.93402"
+                  circles-interactive-object="type:outline">
+            </a-entity>
+            <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                  material="color:#ffa200"
+                  circles-checkpoint="useDefaultModel:false" 
+                  position="1.242 0 -1.065"
+                  circles-interactive-object="type:outline">
+            </a-entity>
+            <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                  material="color:#ffa200"
+                  circles-checkpoint="useDefaultModel:false" 
+                  position="-0.547 0 -1.076"
+                  circles-interactive-object="type:outline">
+            </a-entity>
 
          <!-- NAVMESh -->
          <a-entity id="navmesh" gltf-model="./assets/models/navmesh.gltf" nav-mesh visible="false"></a-entity>
 
-      <!-- BACKGROUND -->
-      <a-entity light="color: #9eb1ff; intensity: 3.4; penumbra: 0.7; type: point" id="point" position="0 2.282 0"></a-entity>
-      <a-entity light="color: #f09b56; intensity: 0.9; type: hemisphere" id="light"></a-entity>
-      <a-entity geometry="primitive: plane" rotation="-90 0 0" material="src:#floor;" id="ground" scale="7.18939 8.86967 8.109" position="0 0  0.578"></a-entity>
-      <a-sky animation="property: object3D.rotation.x; to: -360; loop: true; easing: linear; dur: 96000" id="#skydome" src="#sky"></a-sky>
+       <!-- BACKGROUND -->
+
+        <a-entity light="color: #9eb1ff; intensity: 3.4; penumbra: 0.7; type: point" id="point" position="0 2.282 0"></a-entity>
+        <a-entity light="color: #f09b56; intensity: 0.9; type: hemisphere" id="light"></a-entity>
+        <a-entity geometry="primitive: plane" rotation="-90 0 0" material="src:#floor;" id="ground" scale="7.18939 8.86967 8.109" position="0 0  0.578"></a-entity>
+        <a-sky animation="property: object3D.rotation.x; to: -360; loop: true; easing: linear; dur: 96000" id="#skydome" src="#sky"></a-sky>
 
         <!-- photo consoles -->
         <a-entity geometry="" position="0.21595 2.64001 -0.51494" scale="1.97742 0.07465 2.6487" rotation="" material="src: #panel1; color: #616161;" id="panel1-2"></a-entity>
         <a-entity geometry="" position="0.191 2.33052 -2.58551" scale="2.2227 0.07812 1.27871" rotation="-28.62611736032619 0 0" material="src: #panel3; color: #616161;" id="panel1"></a-entity>
         <a-entity geometry="" position="0.28228 0.428 -1.382" scale="0.62407 0.462 2.09625" rotation="9.38218389526723 0 0" material="src: #panel2; color: #616161;" id="panel1-3"></a-entity>
 
-      <a-entity geometry="" position="0.318 1.48037 4.553" scale="7.07093 0.118 3.46484" rotation="90 90 90" material="src: #backwall;" id="panel1-4"></a-entity>
+        <a-entity geometry="" position="0.318 1.48037 4.553" scale="7.07093 0.118 3.46484" rotation="90 90 90" material="src: #backwall;" id="panel1-4"></a-entity>
 
-      <a-entity geometry="" position="-2.011 0.70655 -0.21468" scale="4.21103 0.01654 0.901" rotation="21.598217045251513 90.00021045914971 0" material="src: #panel4; color: #616161;" id="panel1-3"></a-entity>
-      <a-entity geometry="" position="2.58599 0.707 -0.215" scale="4.211 0.017 0.901" rotation="-21 90 180" material="src: #panel4; color: #616161" id="panel1-5"></a-entity>
-  
-      <a-entity geometry="" position="3.20903 1.48037 2.19148" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
-      <a-entity geometry="" position="-3.04088 1.48037 2.26084" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
-
-      <!-- Portal to discovery dome -->
+        <a-entity geometry="" position="-2.011 0.70655 -0.21468" scale="4.21103 0.01654 0.901" rotation="21.598217045251513 90.00021045914971 0" material="src: #panel4; color: #616161;" id="panel1-3"></a-entity>
+        <a-entity geometry="" position="2.58599 0.707 -0.215" scale="4.211 0.017 0.901" rotation="-21 90 180" material="src: #panel4; color: #616161" id="panel1-5"></a-entity>
+   
+        <a-entity geometry="" position="3.20903 1.48037 2.19148" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
+        <a-entity geometry="" position="-3.04088 1.48037 2.26084" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
+   
+        <!-- Portal to discovery dome -->
       <a-entity id="discoveryPortal" visible="false"
                 position="0 1.5 -6" rotation="0 -90 0"
                 circles-portal="img_src:./assets/textures/black stars.jpg; title_text:To Discovery Dome; link_url:/w/STS-InfoRoom"
                 shadow>
-      </a-entity>
+          </a-entity>
 
-      <!-- Player 3 button -->
-      <a-entity id="player 3 button folder" scale="0.4 0.4 0.4" rotation="0 0 0" position="0.119 0.552 -2.614">
-      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+          <!-- Player 3 button -->
+          <a-entity id="player 3 button folder" scale="0.4 0.4 0.4" rotation="0 0 0" position="0.276 0.552 -2.614">
+          <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
                 position="-3.5 0.25 0" 
                 material="color:#424243">
-      </a-entity>
-      <a-entity id="player3Ready"
+          </a-entity>
+          <a-entity id="player3Ready"
                 circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #424243" 
                 position="-3.5 0.5 0">
-      </a-entity>
-    </a-entity>
-      <!-- Player 4 button -->
-      <a-entity id="player 4 button folder" scale="0.4 0.4 0.4" position="0.318 0.516 -2.440">
-      <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
+          </a-entity>
+        </a-entity>
+
+          <!-- Player 4 button -->
+          <a-entity id="player 4 button folder" scale="0.4 0.4 0.4" position="0.276 0.552 -2.614">
+          <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
                 position="3.5 0.25 0" 
                 material="color:#424243">
-      </a-entity>
-      <a-entity id="player4Ready"
-                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
-                position="3 0.5 0">
-      </a-entity>
-    </a-entity>
+          </a-entity>
+          <a-entity id="player4Ready"
+                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #424243" 
+                position="3.5 0.5 0">
+          </a-entity>
+          </a-entity>
 
       <a-entity players_ready id="startingGameManager" visible="true">
 
@@ -455,7 +450,7 @@
       <a-entity id="task2Component"
                 geometry="depth:2; height:2; width:0.15" 
                 position="-8 2 0" 
-                material="color:#000000"
+                material="color:#2b2c31"
                 weight_bar>
       </a-entity>
       <!-- end screen folder :0 -->
@@ -467,15 +462,15 @@
 
       <!-- Up -->
       <a-entity id="weightUp"
-                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #000000" 
-                position="-8 3.995 -1.7"
+                circles-button="button_color: #2b2c31; diameter: 0.75; button_color_hover: #2b2c31; pedastal_color: #2b2c31" 
+                position="-8 3.839 -1.7"
                 rotation="0 0 -90">
       </a-entity>
 
       <!-- Down -->
       <a-entity id="weightDown"
-                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #000000" 
-                position="-8 3.003 -1.7"
+                circles-button="button_color: #2b2c31; diameter: 0.75; button_color_hover: #2b2c31; pedastal_color: #2b2c31" 
+                position="-8 2.940 -1.7"
                 rotation="0 0 -90">
       </a-entity>
     </a-entity>
@@ -485,26 +480,26 @@
       <!-- Player 1 button -->
       <a-entity id="Player 1 Button Folder" scale="0.400 0.400 0.400" position="0.725 0.383 0.880">
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="4.080 0.25 -5" 
+                position="3 0.25 -5" 
                 material="color:#141419">
       </a-entity>
       <a-entity id="player1Button"
                 circles-button="button_color: #141419; diameter: 0.75; button_color_hover: #141419; pedastal_color: #141419" 
-                position="4.080 0.5 -5">
+                position="3 0.5 -5">
       </a-entity>
     </a-entity>
       <!-- Player 2 button -->
       <a-entity id="Player 2 Button Folder" scale="0.400 0.400 0.400" position="-0.125 0.358 0.915">
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="-4.080 0.25 -5" 
+                position="-3 0.25 -5" 
                 material="color:#141419">
       </a-entity>
       <a-entity id="player2Button"
                 circles-button="button_color: #141419; diameter: 0.75; button_color_hover: #141419; pedastal_color: #141419" 
-                position="-4.080 0.5 -5">
+                position="-3 0.5 -5">
       </a-entity>
     </a-entity>
-      <a-entity id="Screen Folder ready" scale="0.400 0.400 0.400" rotation="90.000" position="0.218 -0.441 -2.886">
+      <a-entity id="Screen Folder ready" scale="0.400 0.400 0.400" rotation="90.000" position="0.218 -0.317 -2.886">
       <!-- Screen -->
       <a-entity id="task3Component"
                 system_ready
@@ -717,7 +712,7 @@
                       align:center; color:#000000; lineHeight:0.05;" 
                     rotation="0 -90 0" 
                     scale="3 3 3" 
-                    position="7.78 1.745 1.9">
+                    position="7.8 1.745 1.9">
           </a-entity>
         </a-entity>
       </a-entity>
@@ -903,43 +898,42 @@
         <a-entity geometry="depth: 0.18; height: 2.5; width: 4" position="4.5 3 -7" material="color:#ffffff; src: #panel5" scale="1.939 0.998 1" id="front-panel">
         </a-entity>
       
-      <a-entity position="1.090 1.007 -1.785" scale="0.75 0.75 0.75" rotation="-5 0 0">
-        <!-- Lever display on screen -->
-        <!-- Position -->
-        <a-entity id="positionScreen"
-                  geometry="primitive:plane; height:0.25; width:3" 
-                  position="4.5 3.5 -6.85"
-                  material="color: #FFFFFF">
-        </a-entity>
-        <a-entity text="value:Position; 
-                        align:left; color:#FFFFFF; lineHeight:60"
-                  rotation="0 0 0" 
-                  scale="3 3 3" 
-                  position="4.47 3.7 -6.85">
-        </a-entity>
-        <a-entity id="positionBar"
-                  geometry="primitive:plane; height:0.25; width:0" 
-                  material="color: #FFDD00" 
-                  position="3 3.5 -6.845">
-        </a-entity>
+      <!-- Lever display on screen -->
+      <!-- Position -->
+      <a-entity id="positionScreen"
+                geometry="primitive:plane; height:0.25; width:3" 
+                position="4.5 3.5 -6.85"
+                material="color: #FFFFFF">
+      </a-entity>
+      <a-entity text="value:Position; 
+                      align:left; color:#FFFFFF; lineHeight:60"
+                rotation="0 0 0" 
+                scale="3 3 3" 
+                position="4.47 3.7 -6.85">
+      </a-entity>
+      <a-entity id="positionBar"
+                geometry="primitive:plane; height:0.25; width:0" 
+                material="color: #FFDD00" 
+                position="3 3.5 -6.845">
+      </a-entity>
 
-        <!-- Velocity -->
-        <a-entity id="velocityScreen"
-                  geometry="primitive:plane; height:0.25; width:3" 
-                  material="color: #FFFFFF" 
-                  position="4.5 2.95 -6.85">
-        </a-entity>
-        <a-entity text="value:Velocity; 
-                        align:left; color:#FFFFFF; lineHeight:60"
-                  rotation="0 0 0" 
-                  scale="3 3 3" 
-                  position="4.47 3.15 -6.85">
-        </a-entity>
-        <a-entity id="velocityBar"
-                  geometry="primitive:plane; height:0.25; width:0" 
-                  material="color: #FFDD00" 
-                  position="3 2.95 -6.845">
-        </a-entity>
+      <!-- Velocity -->
+      <a-entity id="velocityScreen"
+                geometry="primitive:plane; height:0.25; width:3" 
+                material="color: #FFFFFF" 
+                position="4.5 2.95 -6.85">
+      </a-entity>
+      <a-entity text="value:Velocity; 
+                      align:left; color:#FFFFFF; lineHeight:60"
+                rotation="0 0 0" 
+                scale="3 3 3" 
+                position="4.47 3.15 -6.85">
+      </a-entity>
+      <a-entity id="velocityBar"
+                geometry="primitive:plane; height:0.25; width:0" 
+                material="color: #FFDD00" 
+                position="3 2.95 -6.845">
+      </a-entity>
 
       <!-- Altitude -->
       <a-entity id="altitudeScreen"
@@ -987,12 +981,12 @@
 
       <!-- Bottom -->
       <a-entity id="bottomLeft"
-                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #930101; pedastal_color: #333239" 
                 position="-0.2 0.4 -2.05"
                 scale="0.75 0.75 0.75">
       </a-entity>
       <a-entity id="bottomRight"
-                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #333239" 
                 position="0.2 0.4 -2.05"
                 scale="0.75 0.75 0.75">
       </a-entity>
@@ -1009,38 +1003,43 @@
     </a-entity>
       <!-- Task 9: Aligning the display towards the sun-->
 <a-entity id="Task 9: dial" scale="0.490 0.490 0.490" position="2.733 0.158 -1.428">
-      <!-- Screen -->
+
+      <a-entity scale="0.750 0.750 0.750" position="-1.268 0.166 0.760">
+
+        <!-- Screen -->
       <a-entity geometry="primitive: circle; radius: 0.7" 
                 rotation="-90 0 0" 
                 material="" 
                 position="-5 0.751 3">
       </a-entity>
 
-        <!-- Button -->
-        <a-entity id="spin"
-                  circles-button="button_color: #FFFFFF; diameter: 0.75; button_color_hover: #FFFFFF; pedastal_color: #FFFFFF" 
-                  position="-5 0.7 3"
-                  scale="0.5 0.5 0.5">
-        </a-entity>
+      <!-- Button -->
+      <a-entity id="spin"
+                circles-button="button_color: #FFFFFF; diameter: 0.75; button_color_hover: #FFFFFF; pedastal_color: #FFFFFF" 
+                position="-5 0.7 3"
+                scale="0.5 0.5 0.5">
+      </a-entity>
 
-        <a-entity id="alignmentContainer" position="-5 0.752 3" visible="false">
-          <a-entity geometry="primitive: triangle; vertexA: 0 0.25 0; vertexB: -0.1 -0.25 0; vertexC: 0.1 -0.25 0" 
-                    rotation="-90 -90 0" 
-                    material="color: #fbff00" 
-                    position="-0.25 0 0">
-          </a-entity>
+      <a-entity id="alignmentContainer" position="-5 0.752 3" visible="false">
+        <a-entity geometry="primitive: triangle; vertexA: 0 0.25 0; vertexB: -0.1 -0.25 0; vertexC: 0.1 -0.25 0" 
+                  rotation="-90 -90 0" 
+                  material="color: #fbff00" 
+                  position="-0.25 0 0">
         </a-entity>
+      </a-entity>
 
       <!-- Dial -->
       <a-entity id="dialContainer" position="-5 0.762 3">
         <a-entity id="task9Component"
                   geometry="primitive: plane; height: 0.025; width: 0.5" 
                   rotation="-90 0 0" 
-                  material="color: #000000" 
+                  material="color: #141419" 
                   position="-0.25 0 0"
                   turn_dial>
         </a-entity>
       </a-entity>
+
+    </a-entity>
 
       <!-- Base -->
       <a-entity geometry="primitive: box; width: 1.5; height: 0.75; depth: 1.5" 
@@ -1050,7 +1049,7 @@
                 scale="1 1.454 1">
                 
       </a-entity>
-
+    </a-entity>
       <script>
         let task9Socket = io();
 
@@ -1093,12 +1092,6 @@
 </a-entity>
       <!-- Task 10: Break off the external fuel tank from the ship -->
       <a-entity id="Task 10: button" scale="0.500 0.500 0.500" position="0.284 0.873 -0.659">
-      <a-entity text="value: Break off\nexternal fuel\ntank; 
-                      align: center; color: #FFFFFF; lineHeight: 60" 
-                rotation="0.01 0 0" 
-                scale="2 2 2" 
-                position="0 0.8 -4.6">
-      </a-entity>
       <a-entity geometry="depth:0.75; width:0.75" 
                 position="0 0.5 -5" 
                 material="color:#424243">
@@ -1109,6 +1102,7 @@
                 position="0 1 -5">
       </a-entity>
     </a-entity>
+
       <!-- Controlling execution of tasks -->
       <script>
         let taskManager = io();
