@@ -200,7 +200,7 @@ AFRAME.registerComponent('circles-add-camera-equipment', {
 
           let timerText = document.createElement('a-entity');
           timerText.setAttribute('id', 'timer');
-          timerText.setAttribute('text', {value: '05:00', align:'center', color:'FFFFFF', lineHeight:60, baseline:'bottom'});
+          timerText.setAttribute('text', {value: '02:00', align:'center', color:'FFFFFF', lineHeight:60, baseline:'bottom'});
           timerText.setAttribute('position', {x: 0, y:0.059, z:-0.09});
           timerText.setAttribute('scale', {x:0.1, y:0.08, z:0.1});
           avatarCam.appendChild(timerText);
