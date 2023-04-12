@@ -224,8 +224,12 @@
 
       <!-- Starting game -->
         <!-- ambient music/sound -->
-        <a-entity circles-sound="type:music; src:./assets/sounds/K. Leimer - Very Tired.mp3; autoplay:true; loop:true;"></a-entity>
-         <!-- LIGHT -->
+        <a-entity circles-sound="type:music; src:./assets/sounds/Robots Outro.mp3; autoplay:true; loop:true; volume:0.5;"></a-entity>
+         
+
+         <a-entity id="Scale test" scale="0.9 0.9 0.9">
+
+          <!-- LIGHT -->
          <a-entity id="ambient" light="color: #eadac2; intensity: 0.420; type: ambient"></a-entity>
 
         <!-- MAIN ROOM -->
@@ -421,7 +425,7 @@
                 geometry="primitive:plane; height:1.5; width:1.5" 
                 rotation="0 90 0" 
                 position="-7.9 2 0" 
-                material="src: #panel5">
+                material="src: #FFFFFF">
       </a-entity>
 
       <!-- Weight Bar -->
@@ -1027,7 +1031,7 @@
                 scale="1 1.454 1">
                 
       </a-entity>
-
+    </a-entity>
       <script>
         let task9Socket = io();
 
