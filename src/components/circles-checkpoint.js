@@ -36,10 +36,5 @@ AFRAME.registerComponent('circles-checkpoint', {
       CONTEXT_AF.el.setAttribute('geometry', {primitive:'cylinder', radius:0.5, height:0.04});
       CONTEXT_AF.el.setAttribute('circles-interactive-object', {type:'outline'});
     }
-    else {
-      CONTEXT_AF.el.removeAttribute('material');
-      CONTEXT_AF.el.removeAttribute('geometry');
-      CONTEXT_AF.el.setAttribute('circles-interactive-object', {type:'none'});
-    }
   }
 });

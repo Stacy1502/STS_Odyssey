@@ -37,6 +37,20 @@ AFRAME.registerComponent('system_ready',
         var player1Timer;
         var player2Timer;
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the buttons pink
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                player1.setAttribute('circles-button', {button_color: '#fb9dcf', button_color_hover: '#ff75bf'});
+                player2.setAttribute('circles-button', {button_color: '#fb9dcf', button_color_hover: '#ff75bf'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Player 1
         player1.addEventListener('click', function() 
         {
@@ -91,6 +105,9 @@ AFRAME.registerComponent('system_ready',
             if (player1Ready === true && player2Ready === true)
             {
                 CONTEXT_AF.data.ready = true;
+
+                player1.setAttribute('circles-button', {button_color: '#141419', button_color_hover: '#141419'});
+                player2.setAttribute('circles-button', {button_color: '#141419', button_color_hover: '#141419'});
     
                 // Clearning timers so screens stay green
                 clearTimeout(player1Timer);

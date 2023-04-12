@@ -7,6 +7,12 @@
 
 AFRAME.registerComponent('sun_alignment', 
 {
+    schema: 
+    {
+        // If the previous task is complete
+        isPrevComplete : {type: 'boolean', default:false},
+    },
+
     init : function() 
     {
         const CONTEXT_AF = this;

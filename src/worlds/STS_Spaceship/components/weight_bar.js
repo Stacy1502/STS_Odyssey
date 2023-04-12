@@ -173,6 +173,20 @@ AFRAME.registerComponent('weight_bar',
         // Getting bottom button
         var bottom = document.querySelector('#weightDown');
 
+        // Checking if the previous task is complete and it is this task's turn to run
+        // When it is, turn the buttons their appropriate colours
+        var taskActive = setInterval(function() 
+        {
+            if (CONTEXT_AF.data.isPrevComplete === true)
+            {
+                top.setAttribute('circles-button', {button_color: '#04be29', button_color_hover: '#01931e'});
+                bottom.setAttribute('circles-button', {button_color: '#be0404', button_color_hover: '#930101'});
+
+                clearInterval(taskActive);
+            }
+
+        }, 30);
+
         // Creating a visual bar of the ideal position, velocity, and altitude amount and displaying it to the user
         placeIdealBar(idealAmount, screen);
 
@@ -190,6 +204,9 @@ AFRAME.registerComponent('weight_bar',
                 if(checkWeight(idealAmount, weightBar, screen) === true)
                 {
                     CONTEXT_AF.data.isGood = true;
+
+                    top.setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
+                    bottom.setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
                 }
             }
         });
@@ -207,6 +224,9 @@ AFRAME.registerComponent('weight_bar',
                 if(checkWeight(idealAmount, weightBar, screen) === true)
                 {
                     CONTEXT_AF.data.isGood = true;
+
+                    top.setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
+                    bottom.setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
                 }
             }
         });

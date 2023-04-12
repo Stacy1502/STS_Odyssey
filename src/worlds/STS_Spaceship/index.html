@@ -109,8 +109,8 @@
         <img id="backwall" src="./assets/images/backwall.jpg">
         <img id="wall" src="./assets/images/wall1.jpg">
          
-          <!-- 3D MODELS -->
-          <a-asset-item id="Cockpit" response-type="arraybuffer" src="./assets/models/cockpit/version3.gltf"></a-asset-item>   
+        <!-- 3D MODELS -->
+        <a-asset-item id="Cockpit" response-type="arraybuffer" src="./assets/models/cockpit/version3.gltf"></a-asset-item>   
 
         <img id="task0GUI" src="assets/textures/task0GUI.png">
         <img id="task1GUI" src="assets/textures/task1GUI.png">
@@ -203,24 +203,6 @@
                 circles-visiblename="__VISIBLENAME__"
                 circles-usertype="__USERTYPE__">
       </a-entity>
-<!-- 
-      Ground
-      <a-entity geometry="primitive: plane; width: 20; height: 20" 
-                material="color: #000000" 
-                position="" 
-                rotation="-90 0 0">
-      </a-entity>
-
-      Sky and lights
-      <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
-                light="type:directional; intensity:4; color:#d5e4f5; castShadow:false;"></a-entity>
-      <a-entity light="type:hemisphere; color:#FFFFFF; groundColor:#BCE2F4; intensity:3.0"></a-entity>
-
-      <a-entity id='skyBox'
-                rotation='0 200 0'
-                geometry='primitive:sphere; radius:50; segments-height:24; segments-width:24;'
-                material='shader:flat; src:#skyMap; side:back;'>
-      </a-entity> -->
 
       <!-- Starting game -->
         <!-- ambient music/sound -->
@@ -232,10 +214,40 @@
           <!-- LIGHT -->
          <a-entity id="ambient" light="color: #eadac2; intensity: 0.420; type: ambient"></a-entity>
 
-        <!-- MAIN ROOM -->
-         <a-entity id="cockpit" gltf-model="#Cockpit" position="0 0.04057 0" rotation=""></a-entity>
-     
-         <!-- CHECKPOINTS -->
+      <!-- MAIN ROOM -->
+      <a-entity id="cockpit" gltf-model="#Cockpit" position="0 0.04057 0" rotation=""></a-entity>
+  
+      <!-- CHECKPOINTS -->
+      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                material="color:#ffa200"
+                circles-checkpoint="useDefaultModel:false" 
+                position="0.280 0.05158 3.28089"
+                circles-interactive-object="type:outline">
+      </a-entity>
+      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                material="color:#ffa200"
+                circles-checkpoint="useDefaultModel:false" 
+                position="1.48974 0.052 0.99886"
+                circles-interactive-object="type:outline">
+      </a-entity>
+      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                material="color:#ffa200"
+                circles-checkpoint="useDefaultModel:false" 
+                position="-0.90069 0.05158 0.93402"
+                circles-interactive-object="type:outline">
+      </a-entity>
+      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                material="color:#ffa200"
+                circles-checkpoint="useDefaultModel:false" 
+                position="1.242 0 -1.065"
+                circles-interactive-object="type:outline">
+      </a-entity>
+      <a-entity geometry="primitive:cylinder; radius:0.5; height: 0.04"
+                material="color:#ffa200"
+                circles-checkpoint="useDefaultModel:false" 
+                position="-0.547 0 -1.076"
+                circles-interactive-object="type:outline">
+      </a-entity>
 
          <a-entity circles-checkpoint position="0.280 0.05158 3.28089"></a-entity>
          <a-entity circles-checkpoint="" position="1.48974 0.052 0.99886" class="checkpoint interactive" checkpoint="" material="color: rgb(57, 187, 130); emissive: rgb(7,137,80); roughness: 0.8" geometry="primitive: cylinder; radius: 0.5; height: 0.04" scale="" circles-material-extend-fresnel="fresnelOpacity: 0" sound="volume: 0.5" circles-interactive-object="type: outline"><a-entity class="object_highlight" geometry="primitive: cylinder; radius: 0.5; height: 0.04" checkpoint="" material="color: rgb(255,255,255); shader: flat; side: back" scale="" shadow="cast: false; receive: false" visible="false"></a-entity></a-entity>
@@ -247,49 +259,48 @@
          <!-- NAVMESh -->
          <a-entity id="navmesh" gltf-model="./assets/models/navmesh.gltf" nav-mesh visible="false"></a-entity>
 
-       <!-- BACKGROUND -->
-
-        <a-entity light="color: #9eb1ff; intensity: 3.4; penumbra: 0.7; type: point" id="point" position="0 2.282 0"></a-entity>
-        <a-entity light="color: #f09b56; intensity: 0.9; type: hemisphere" id="light"></a-entity>
-        <a-entity geometry="primitive: plane" rotation="-90 0 0" material="src:#floor;" id="ground" scale="7.18939 8.86967 8.109" position="0 0  0.578"></a-entity>
-        <a-sky animation="property: object3D.rotation.x; to: -360; loop: true; easing: linear; dur: 96000" id="#skydome" src="#sky"></a-sky>
+      <!-- BACKGROUND -->
+      <a-entity light="color: #9eb1ff; intensity: 3.4; penumbra: 0.7; type: point" id="point" position="0 2.282 0"></a-entity>
+      <a-entity light="color: #f09b56; intensity: 0.9; type: hemisphere" id="light"></a-entity>
+      <a-entity geometry="primitive: plane" rotation="-90 0 0" material="src:#floor;" id="ground" scale="7.18939 8.86967 8.109" position="0 0  0.578"></a-entity>
+      <a-sky animation="property: object3D.rotation.x; to: -360; loop: true; easing: linear; dur: 96000" id="#skydome" src="#sky"></a-sky>
 
         <!-- photo consoles -->
         <a-entity geometry="" position="0.21595 2.64001 -0.51494" scale="1.97742 0.07465 2.6487" rotation="" material="src: #panel1; color: #616161;" id="panel1-2"></a-entity>
         <a-entity geometry="" position="0.191 2.33052 -2.58551" scale="2.2227 0.07812 1.27871" rotation="-28.62611736032619 0 0" material="src: #panel3; color: #616161;" id="panel1"></a-entity>
         <a-entity geometry="" position="0.28228 0.428 -1.382" scale="0.62407 0.462 2.09625" rotation="9.38218389526723 0 0" material="src: #panel2; color: #616161;" id="panel1-3"></a-entity>
 
-        <a-entity geometry="" position="0.318 1.48037 4.553" scale="7.07093 0.118 3.46484" rotation="90 90 90" material="src: #backwall;" id="panel1-4"></a-entity>
+      <a-entity geometry="" position="0.318 1.48037 4.553" scale="7.07093 0.118 3.46484" rotation="90 90 90" material="src: #backwall;" id="panel1-4"></a-entity>
 
-        <a-entity geometry="" position="-2.011 0.70655 -0.21468" scale="4.21103 0.01654 0.901" rotation="21.598217045251513 90.00021045914971 0" material="src: #panel4; color: #616161;" id="panel1-3"></a-entity>
-        <a-entity geometry="" position="2.58599 0.707 -0.215" scale="4.211 0.017 0.901" rotation="-21 90 180" material="src: #panel4; color: #616161" id="panel1-5"></a-entity>
-   
-        <a-entity geometry="" position="3.20903 1.48037 2.19148" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
-        <a-entity geometry="" position="-3.04088 1.48037 2.26084" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
-   
-        <!-- Portal to lobby -->
-        <a-entity id="lobbyPortal" visible="true"
-                  scale="0.7 0.7 0.7" position="1.957 0.908 3.234" rotation="0 120 0"
-                  circles-portal="img_src:./assets/textures/black stars.jpg; title_text:To the Discovery Dome; link_url:/w/STS-InfoRoom"
-                  shadow>
-            </a-entity>
+      <a-entity geometry="" position="-2.011 0.70655 -0.21468" scale="4.21103 0.01654 0.901" rotation="21.598217045251513 90.00021045914971 0" material="src: #panel4; color: #616161;" id="panel1-3"></a-entity>
+      <a-entity geometry="" position="2.58599 0.707 -0.215" scale="4.211 0.017 0.901" rotation="-21 90 180" material="src: #panel4; color: #616161" id="panel1-5"></a-entity>
+  
+      <a-entity geometry="" position="3.20903 1.48037 2.19148" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
+      <a-entity geometry="" position="-3.04088 1.48037 2.26084" scale="7.07093 0.118 3.46484" rotation="90 0 90" material="src: #wall;  color: #969696" id="panel1-7"></a-entity>
+
+      <!-- Portal to discovery dome -->
+      <a-entity id="discoveryPortal" visible="false"
+                position="0 1.5 -6" rotation="0 -90 0"
+                circles-portal="img_src:./assets/textures/black stars.jpg; title_text:To Discovery Dome; link_url:/w/STS-InfoRoom"
+                shadow>
+      </a-entity>
 
       <!-- Player 3 button -->
       <a-entity id="player 3 button folder" scale="0.4 0.4 0.4" rotation="0 0 0" position="0.119 0.552 -2.614">
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="-3 0.25 0" 
-                material="color:#000000">
+                position="-3.5 0.25 0" 
+                material="color:#424243">
       </a-entity>
       <a-entity id="player3Ready"
-                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
-                position="-3 0.5 0">
+                circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #424243" 
+                position="-3.5 0.5 0">
       </a-entity>
     </a-entity>
       <!-- Player 4 button -->
       <a-entity id="player 4 button folder" scale="0.4 0.4 0.4" position="0.318 0.516 -2.440">
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="3 0.25 0" 
-                material="color:#000000">
+                position="3.5 0.25 0" 
+                material="color:#424243">
       </a-entity>
       <a-entity id="player4Ready"
                 circles-button="button_color: #fb9d9d; diameter: 0.75; button_color_hover: #ff7575; pedastal_color: #000000" 
@@ -408,6 +419,9 @@
             {
               startingManager.setAttribute('visible', false);
 
+              document.querySelector('#player3Ready').setAttribute('circles-button', {button_color: '#424243', button_color_hover: '#424243'});
+              document.querySelector('#player4Ready').setAttribute('circles-button', {button_color: '#424243', button_color_hover: '#424243'});
+
               // Updating GUI to display current task
               document.querySelector('#guiOverlay').setAttribute('material', {src:'#task1GUI'});
             }
@@ -470,23 +484,23 @@
       <!-- Player 1 button -->
       <a-entity id="Player 1 Button Folder" scale="0.400 0.400 0.400" position="0.725 0.383 0.880">
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="3 0.25 -5" 
-                material="color:#000000">
+                position="4.080 0.25 -5" 
+                material="color:#141419">
       </a-entity>
       <a-entity id="player1Button"
-                circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #000000" 
-                position="3 0.5 -5">
+                circles-button="button_color: #141419; diameter: 0.75; button_color_hover: #141419; pedastal_color: #141419" 
+                position="4.080 0.5 -5">
       </a-entity>
     </a-entity>
       <!-- Player 2 button -->
       <a-entity id="Player 2 Button Folder" scale="0.400 0.400 0.400" position="-0.125 0.358 0.915">
       <a-entity geometry="depth:0.75; width:0.75; height:0.5" 
-                position="-3 0.25 -5" 
-                material="color:#000000">
+                position="-4.080 0.25 -5" 
+                material="color:#141419">
       </a-entity>
       <a-entity id="player2Button"
-                circles-button="button_color: #fb9dcf; diameter: 0.75; button_color_hover: #ff75bf; pedastal_color: #000000" 
-                position="-3 0.5 -5">
+                circles-button="button_color: #141419; diameter: 0.75; button_color_hover: #141419; pedastal_color: #141419" 
+                position="-4.080 0.5 -5">
       </a-entity>
     </a-entity>
       <a-entity id="Screen Folder ready" scale="0.400 0.400 0.400" rotation="90.000" position="0.218 -0.441 -2.886">
@@ -495,7 +509,7 @@
                 system_ready
                 geometry="depth:0.25; width:2" 
                 rotation="-30 0 0" 
-                material="color:#000000"
+                material="color:#2a2a2c"
                 position="0 1.5 -7">
       </a-entity>
       <a-entity id="player1Ready"
@@ -519,10 +533,10 @@
       <a-entity id="Button Folder" rotation ="0 0 22.824" position ="1.467 -3.428 1.888">
       <a-entity geometry="depth:0.75; width:0.75; height:1" 
                 position="7 0.5 -1" 
-                material="color:#000000">
+                material="color:#2b2c31">
       </a-entity>
       <a-entity id="dataRequest"
-                circles-button="button_color: #9db9fb; diameter: 0.75; button_color_hover: #75a3ff; pedastal_color: #000000" 
+                circles-button="button_color: #2b2c31; diameter: 0.75; button_color_hover: #2b2c31; pedastal_color: #2b2c31" 
                 position="7 1 -1">
       </a-entity>
 
@@ -532,7 +546,7 @@
       <!-- Base -->
       <a-entity geometry="depth:3; height:2; width:0.15" 
                 position="8 2 1" 
-                material="color:#000000">
+                material="color:#2b2c31">
       </a-entity>
       <a-entity geometry="primitive:plane; height:1.5; width:2.5" 
                 rotation="0 -90 0" 
@@ -543,7 +557,7 @@
                       align:center; color:#000000; lineHeight:0.05;" 
                 rotation="0 -90 0" 
                 scale="4 4 4" 
-                position="7.8 2.3 1">
+                position="7.903 2.3 1">
       </a-entity>
     
       <!-- Instructions -->
@@ -552,11 +566,11 @@
                       align:center; color:#000000; lineHeight:60" 
                 rotation="0 -90 0" 
                 scale="3 3 3" 
-                position="7.8 1.76 1">
+                position="7.902 1.76 1">
       </a-entity>
 
       <!-- Number pad -->
-      <a-entity id="numberPad" visible="false">
+      <a-entity id="numberPad" position="0.09 0 0" visible="false">
         <!-- The child elements have to be in order from 0 to 9 (with the backspace last) or the user clicks on the number pad won't work correctly -->
         <a-entity id="pad">
           <!-- 0 -->
@@ -637,7 +651,7 @@
                     material="color:#75a3ff">
           </a-entity>
         </a-entity>
-        <a-entity id="numbers">
+        <a-entity id="numbers" position="0.02 0 0">
           <a-entity text="value:0;
                           align:center; color:#000000; lineHeight:0.05;" 
                     rotation="0 -90 0" 
@@ -702,14 +716,14 @@
                       align:center; color:#000000; lineHeight:0.05;" 
                     rotation="0 -90 0" 
                     scale="3 3 3" 
-                    position="7.8 1.745 1.9">
+                    position="7.78 1.745 1.9">
           </a-entity>
         </a-entity>
       </a-entity>
 
       <!-- Text for code -->
       <!-- The order of the children matter and need to be from left to right or the display of the sequence will not display correctly -->
-      <a-entity id="code" enter_launch_sequence>
+      <a-entity id="code" position="0.103 0 0" enter_launch_sequence>
         <a-entity text="value:;
                       align:center; color:#000000; lineHeight:0.05;" 
                 rotation="0 -90 0" 
@@ -762,20 +776,21 @@
                   taskManager.emit('task3Complete', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
                   clearInterval(task3Check);
 
+                  document.querySelector('#code').setAttribute('enter_launch_sequence', {isPrevComplete: true});
+
                   // Updating GUI to display current task
                   document.querySelector('#guiOverlay').setAttribute('material', {src:'#task4GUI'});
-                }
 
+                  document.querySelector('#dataRequest').setAttribute('circles-button', {button_color: '#9db9fb', button_color_hover: '#75a3ff'});
+                }
             }, 1000);
 
             // Listening for the data request button click and emit it when it is
             document.querySelector('#dataRequest').addEventListener('click', function()
             {
               // Only running if task 3 is complete (checking spot_the_difference component)
-              if (document.querySelector('#task3Component').getAttribute('system_ready')['ready'] === true)
+              if (document.querySelector('#code').getAttribute('enter_launch_sequence')['isPrevComplete'] === true)
               {
-                document.querySelector('#code').setAttribute('enter_launch_sequence', {isPrevComplete: true});
-
                 task4Socket.emit('dataRequest', {room:CIRCLES.getCirclesGroupName(), world:CIRCLES.getCirclesWorldName()});
 
                 // Hiding the data request instructions
@@ -802,7 +817,7 @@
       <a-entity geometry="depth:2; height:2.5; width:0.15" 
                 position="0 2 7" 
                 rotation="0 90 0"
-                material="color:#000000">
+                material="color:#2b2c31">
       </a-entity>
 
       <!-- Fuel tank background -->
@@ -836,7 +851,7 @@
       <!-- Button -->
       <a-entity id="fuelButton"
                 fuel_button
-                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #000000" 
+                circles-button="button_color: #2b2c31; diameter: 0.75; button_color_hover: #2b2c31; pedastal_color: #2b2c31" 
                 position="-1.6 2 7"
                 rotation="-90 0 0">
       </a-entity>
@@ -873,6 +888,8 @@
                 y: 1.3 + (data.idealAmount / 2),
                 z: fuelBar.getAttribute('position')['z']
               });
+
+              document.querySelector('#fuelButton').setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
             });
         });
       </script>
@@ -885,42 +902,43 @@
         <a-entity geometry="depth: 0.18; height: 2.5; width: 4" position="4.5 3 -7" material="color:#ffffff; src: #panel5" scale="1.939 0.998 1" id="front-panel">
         </a-entity>
       
-      <!-- Lever display on screen -->
-      <!-- Position -->
-      <a-entity id="positionScreen"
-                geometry="primitive:plane; height:0.25; width:3" 
-                position="4.5 3.5 -6.85"
-                material="color: #FFFFFF">
-      </a-entity>
-      <a-entity text="value:Position; 
-                      align:left; color:#FFFFFF; lineHeight:60"
-                rotation="0 0 0" 
-                scale="3 3 3" 
-                position="4.47 3.7 -6.85">
-      </a-entity>
-      <a-entity id="positionBar"
-                geometry="primitive:plane; height:0.25; width:0" 
-                material="color: #FFDD00" 
-                position="3 3.5 -6.845">
-      </a-entity>
+      <a-entity position="1.090 1.007 -1.785" scale="0.75 0.75 0.75" rotation="-5 0 0">
+        <!-- Lever display on screen -->
+        <!-- Position -->
+        <a-entity id="positionScreen"
+                  geometry="primitive:plane; height:0.25; width:3" 
+                  position="4.5 3.5 -6.85"
+                  material="color: #FFFFFF">
+        </a-entity>
+        <a-entity text="value:Position; 
+                        align:left; color:#FFFFFF; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="3 3 3" 
+                  position="4.47 3.7 -6.85">
+        </a-entity>
+        <a-entity id="positionBar"
+                  geometry="primitive:plane; height:0.25; width:0" 
+                  material="color: #FFDD00" 
+                  position="3 3.5 -6.845">
+        </a-entity>
 
-      <!-- Velocity -->
-      <a-entity id="velocityScreen"
-                geometry="primitive:plane; height:0.25; width:3" 
-                material="color: #FFFFFF" 
-                position="4.5 2.95 -6.85">
-      </a-entity>
-      <a-entity text="value:Velocity; 
-                      align:left; color:#FFFFFF; lineHeight:60"
-                rotation="0 0 0" 
-                scale="3 3 3" 
-                position="4.47 3.15 -6.85">
-      </a-entity>
-      <a-entity id="velocityBar"
-                geometry="primitive:plane; height:0.25; width:0" 
-                material="color: #FFDD00" 
-                position="3 2.95 -6.845">
-      </a-entity>
+        <!-- Velocity -->
+        <a-entity id="velocityScreen"
+                  geometry="primitive:plane; height:0.25; width:3" 
+                  material="color: #FFFFFF" 
+                  position="4.5 2.95 -6.85">
+        </a-entity>
+        <a-entity text="value:Velocity; 
+                        align:left; color:#FFFFFF; lineHeight:60"
+                  rotation="0 0 0" 
+                  scale="3 3 3" 
+                  position="4.47 3.15 -6.85">
+        </a-entity>
+        <a-entity id="velocityBar"
+                  geometry="primitive:plane; height:0.25; width:0" 
+                  material="color: #FFDD00" 
+                  position="3 2.95 -6.845">
+        </a-entity>
 
       <!-- Altitude -->
       <a-entity id="altitudeScreen"
@@ -944,36 +962,36 @@
       <a-entity id="Levers/buttons folder" rotation="10.000 0 0" position="0.473 0.429 -0.373" scale="0.8 0.8 0.8">
       <!-- Top -->
       <a-entity id="topLeft"
-                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #bababa" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
                 position="-0.2 0.4 -2.9"
                 scale="0.75 0.75 0.75">
       </a-entity>
       <a-entity id="topRight"
-                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #bababa" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
                 position="0.2 0.4 -2.9"
                 scale="0.75 0.75 0.75">
       </a-entity>
 
       <!-- Middle -->
       <a-entity id="middleLeft"
-                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #bababa" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
                 position="-0.2 0.4 -2.475"
                 scale="0.75 0.75 0.75">
       </a-entity>
       <a-entity id="middleRight"
-                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #bababa" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
                 position="0.2 0.4 -2.475"
                 scale="0.75 0.75 0.75">
       </a-entity>
 
       <!-- Bottom -->
       <a-entity id="bottomLeft"
-                circles-button="button_color: #be0404; diameter: 0.75; button_color_hover: #930101; pedastal_color: #bababa" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
                 position="-0.2 0.4 -2.05"
                 scale="0.75 0.75 0.75">
       </a-entity>
       <a-entity id="bottomRight"
-                circles-button="button_color: #04be29; diameter: 0.75; button_color_hover: #01931e; pedastal_color: #bababa" 
+                circles-button="button_color: #333239; diameter: 0.75; button_color_hover: #333239; pedastal_color: #333239" 
                 position="0.2 0.4 -2.05"
                 scale="0.75 0.75 0.75">
       </a-entity>
@@ -982,7 +1000,7 @@
       <a-entity id="task7Component"
                 geometry="depth: 1.5; height: 0.5" 
                 position="0 0.25 -2.5" 
-                material="color: #bababa"
+                material="color: #333239"
                 levers>
       </a-entity>
     </a-entity>
@@ -997,20 +1015,20 @@
                 position="-5 0.751 3">
       </a-entity>
 
-      <!-- Button -->
-      <a-entity id="spin"
-                circles-button="button_color: #fbff00; diameter: 0.75; button_color_hover: #bdb600; pedastal_color: #FFFFFF" 
-                position="-5 0.7 3"
-                scale="0.5 0.5 0.5">
-      </a-entity>
-
-      <a-entity id="alignmentContainer" position="-5 0.752 3" visible="false">
-        <a-entity geometry="primitive: triangle; vertexA: 0 0.25 0; vertexB: -0.1 -0.25 0; vertexC: 0.1 -0.25 0" 
-                  rotation="-90 -90 0" 
-                  material="color: #fbff00" 
-                  position="-0.25 0 0">
+        <!-- Button -->
+        <a-entity id="spin"
+                  circles-button="button_color: #FFFFFF; diameter: 0.75; button_color_hover: #FFFFFF; pedastal_color: #FFFFFF" 
+                  position="-5 0.7 3"
+                  scale="0.5 0.5 0.5">
         </a-entity>
-      </a-entity>
+
+        <a-entity id="alignmentContainer" position="-5 0.752 3" visible="false">
+          <a-entity geometry="primitive: triangle; vertexA: 0 0.25 0; vertexB: -0.1 -0.25 0; vertexC: 0.1 -0.25 0" 
+                    rotation="-90 -90 0" 
+                    material="color: #fbff00" 
+                    position="-0.25 0 0">
+          </a-entity>
+        </a-entity>
 
       <!-- Dial -->
       <a-entity id="dialContainer" position="-5 0.762 3">
@@ -1031,7 +1049,7 @@
                 scale="1 1.454 1">
                 
       </a-entity>
-    </a-entity>
+
       <script>
         let task9Socket = io();
 
@@ -1045,7 +1063,7 @@
             }, 5);
 
             // Listening for when the dial is aligned
-            // When it is, show the alignment and highlght it and the button green
+            // When it is, show the alignment and highlght it
             task9Socket.on('aligned', (data) =>
             {
               // Getting alignment indicator
@@ -1061,9 +1079,9 @@
               // Displaying alignment
               alignmentContainer.setAttribute('visible', true);
 
-              // Changing buttons and alignment colour to green to indicate the task is complete
+              // Changing buttons and alignment colour to indicate the task is complete
               alignment.setAttribute('material', {color: '#00FF00'});
-              button.setAttribute('circles-button', {button_color: '#00FF00', button_color_hover: '#00FF00'});
+              button.setAttribute('circles-button', {button_color: '#FFFFFF', button_color_hover: '#FFFFFF'});
 
               // Changing component turn_dial attribute to show that the task is complete
               document.querySelector('#dialContainer').children[0].setAttribute('turn_dial', {isAligned: true});
@@ -1082,11 +1100,11 @@
       </a-entity>
       <a-entity geometry="depth:0.75; width:0.75" 
                 position="0 0.5 -5" 
-                material="color:#000000">
+                material="color:#424243">
       </a-entity>
       <a-entity id="task10Component"
                 break_tank
-                circles-button="button_color: #9dfba8; diameter: 0.75; button_color_hover: #9aff75; pedastal_color: #000000" 
+                circles-button="button_color: #424243; diameter: 0.75; button_color_hover: #424243; pedastal_color: #424243" 
                 position="0 1 -5">
       </a-entity>
     </a-entity>
@@ -1118,11 +1136,15 @@
             document.querySelector('#task3Component').setAttribute('system_ready', {isPrevComplete: false});
             document.querySelector('#code').setAttribute('enter_launch_sequence', {isPrevComplete: false});
             document.querySelector('#fuelButton').setAttribute('fuel_button', {isPrevComplete: false});
-            ///////// CHANGE BUTTONS COLOURS BACK
-            ///////// TURN TASKS SCREENS OFF
-
-            // Display portal to lobby
+            document.querySelector('#weightUp').setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
+            document.querySelector('#weightDown').setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
+            document.querySelector('#player1Button').setAttribute('circles-button', {button_color: '#141419', button_color_hover: '#141419'});
+            document.querySelector('#player2Button').setAttribute('circles-button', {button_color: '#141419', button_color_hover: '#141419'});
+            document.querySelector('#dataRequest').setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
+            document.querySelector('#fuelButton').setAttribute('circles-button', {button_color: '#2b2c31', button_color_hover: '#2b2c31'});
             
+            // Display portal to lobby
+            document.querySelector('#discoveryPortal').setAttribute('visible', true);
           });
 
           // Listening for if the postlaunch tasks were a success and updating GUI accordingly
@@ -1132,14 +1154,11 @@
 
             // Opening lobby portal in 5 seconds
             setTimeout(function () 
-                {
-                  // Hiding all tasks
-                  
-
-                  // Display portal to lobby
-                  
-
-                }, 5000);
+            {
+              // Display portal to lobby
+              document.querySelector('#discoveryPortal').setAttribute('visible', true);
+              
+            }, 5000);
           });
 
           // Listening for if the postlaunch tasks were failed and updating GUI accordingly
@@ -1151,10 +1170,17 @@
             document.querySelector('#task7Component').setAttribute('levers', {isPrevComplete: false});
             document.querySelector('#task9Component').setAttribute('turn_dial', {isPrevComplete: false});
             document.querySelector('#task10Component').setAttribute('break_tank', {isPrevComplete: false});
-            ///////// CHANGE BUTTONS COLOURS BACK
-            ///////// TURN TASKS SCREENS OFF
+            document.querySelector('#topLeft').setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+            document.querySelector('#middleLeft').setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+            document.querySelector('#bottomLeft').setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+            document.querySelector('#topRight').setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+            document.querySelector('#middleRight').setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+            document.querySelector('#bottomRight').setAttribute('circles-button', {button_color: '#333239', button_color_hover: '#333239'});
+            document.querySelector('#spin').setAttribute('circles-button', {button_color: '#FFFFFF', button_color_hover: '#FFFFFF'});
+            document.querySelector('#task10Component').setAttribute('circles-button', {button_color: '#424243', button_color_hover: '#424243'});
 
             // Display portal to lobby
+            document.querySelector('#discoveryPortal').setAttribute('visible', true);
             
           });
 
